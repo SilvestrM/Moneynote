@@ -1,0 +1,96 @@
+body {
+    font-family: 'Barlow Condensed', sans-serif !important;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.basic-table {
+    background-color: green;
+}
+
+.content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% auto;
+    position: relative;
+    grid-gap: 1rem;
+    padding: 1rem;
+    height: 100vh - $nav-height;
+    .left {
+        display: flex;
+        flex-direction: column;              //border: 1px solid $border;
+    }
+    .right {
+    }
+    .msection {
+        margin-bottom: 2rem;
+    }
+    .header {
+        background: $primary;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h4 {      
+            color: $primary-invert;
+            margin: 0;
+        }
+    }
+    
+}
+
+
+
+.table {
+    height: 100%;
+    &.scrollable {
+        border-collapse: collapse;
+        thead, tfoot {
+            //display: block;
+            //width: 100%;        
+            width: 100%;
+            display: table;
+            table-layout: fixed;
+            //scrollbar
+            
+        }
+        tbody {
+            display: block;
+            flex-direction: column;
+            overflow:auto;
+            max-height: 75vh;
+            width:100%;
+            
+            tr {
+                width: 100%;
+                display: table; 
+                table-layout: fixed ;           
+            }
+            @include scrollbar 
+        }
+        //complements the width difference with the scrollbar
+        //last th should be used empty
+        th:last-child {
+           padding: 0; 
+        }
+        }
+    &.not-bordered {
+        border-bottom: none;
+        tr {
+            border: none;
+        }
+    }
+    th:last-child, td:last-child {
+        text-align: right;
+    }
+    &::-webkit-scrollbar {
+        display: initial;
+    }
+}
+
+.button {
+    border-radius: 0;
+    &+.button:not(:first-child) {
+        border-left: none;
+    }
+}

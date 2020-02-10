@@ -1,0 +1,53 @@
+$primary: #67A2BC;
+$primary-invert: #FFFfFf;
+
+//numeric
+$nav-height: 5vh;
+
+//animation
+$trans-fast: .3s;
+
+@mixin scrollbar {
+    &::-webkit-scrollbar {
+        display: block;
+        width: 0.5rem;
+        height: 8px;
+        background-color: $border;
+        } 
+    &::-webkit-scrollbar-thumb {
+        background: $dark; 
+    }
+}
+
+@mixin table-dimensions($one,$two,$three,$four,$five,$six,$seven,$eight,$nine,$ten) {
+    &:nth-child(1) {
+        width:$one;
+    }
+    &:nth-child(2) {
+        width:$two;
+    }
+    &:nth-child(3) {
+        width:$three;
+    }
+    &:nth-child(4) {
+        width:$four;
+    }
+    &:nth-child(5) {
+        width:$five;
+    }
+    &:nth-child(6) {
+        width:$six;
+    }
+    &:nth-child(7) {
+        width:$seven;
+    }
+    &:nth-child(8) {
+        width:$eight;
+    }
+    &:nth-child(9) {
+        width:$nine;
+    }
+    &:nth-child(10) {
+        width:$ten;
+    }
+}

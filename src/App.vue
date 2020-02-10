@@ -1,28 +1,65 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <div>
+        <router-link to="/">Overview</router-link>
+      </div>
+      <div>
+        <router-link to="/transactions">Transactions</router-link>
+      </div>
+      <div>
+        <router-link to="/transactions">Accounts</router-link>
+      </div>
+      <div>
+        <router-link to="/transactions">Analysis</router-link>
+      </div>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+<script>
+import screen from "electron";
+export default {
+  beforeCreate: function() {
+    this.$ipc.send("appLoaded");
+  },
+  mounted: function() {
+    /*this.$ipc.on("back", (e, result) => {
+      console.log(result);
+    });*/
+  }
+};
+</script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 #nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+  font-family: "Barlow", sans-serif;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 2rem;
+  height: $nav-height;
+  background: linear-gradient(135deg, $primary 0%, $primary 50%, #30c7bf 100%);
+  div {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    a {
+      color: $primary-invert;
+      font-weight: 800;
+      font-size: 1.1em;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      transition: $trans-fast;
+      &:hover {
+        background: #528196;
+        transition: $trans-fast;
+      }
     }
   }
 }
