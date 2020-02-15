@@ -6,9 +6,9 @@
           <div class="header">
             <h4>Transactions</h4>
           </div>
-          <div class="control-panel">
+          <div class="control-panel level">
             <button class="button" @click="addShow = true; showModal()">Add</button>
-            <button @click="remove" class="button">Remove</button>
+            <button @click="deleteDialog" class="button is-danger">Remove</button>
           </div>
           <b-table
             :class="['scrollable', 'transactions']"
@@ -20,13 +20,15 @@
             :order="'is-centered'"
             :pagination-simple="true"
             :pagination-position="'bottom'"
+            :selected.sync="selectedRow"
             narrowed
             hoverable
             checkable
+            :checked-rows.sync="checkedRows"
             :checkbox-position="'left'"
           >
             <template slot-scope="props">
-              <b-table-column field="date" label="Date" numeric>{{ formatDate(props.row.date) }}</b-table-column>
+              <b-table-column field="date" label="Date">{{ props.row.date}}</b-table-column>
 
               <b-table-column field="text" label="Text">{{ props.row.text }}</b-table-column>
 
@@ -71,7 +73,7 @@
         </div>
       </div>
       <div class="right">
-        <Detail />
+        <Detail :rowData="selectedRow" />
       </div>
     </div>
     <div class="modal" :class="{'is-active':addShow, 'is-clipping':addShow}">
@@ -90,6 +92,8 @@ export default {
     return {
       addShow: false,
       currentPage: 1,
+      checkedRows: [],
+      selectedRow: null,
       rightSection: "",
       pageRows: 12,
       rows: []
@@ -107,17 +111,34 @@ export default {
     find() {
       this.$ipc.send("findQuery", "transactions");
       this.$ipc.on("findBackt", (e, result) => {
+        result.forEach(each => {
+          each.date = this.formatDate(each.date);
+        });
         this.rows = result;
       });
     },
     remove() {
-      confirm("Press a button!");
+      this.$ipc.send("removeQuery", "transactions", this.checkedRows);
+      this.find();
+    },
+    deleteDialog() {
+      this.$buefy.dialog.confirm({
+        title: "Deleting Transaction",
+        message:
+          "Are you sure you want to <b>delete</b> this transaction? This action cannot be undone.",
+        confirmText: "Delete Transaction",
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: () => {
+          this.remove();
+          this.$buefy.toast.open("Transaction deleted!");
+        }
+      });
     }
   },
   mounted: function() {
     this.find();
     this.pageRows = Math.round((this.$refs.content.clientHeight - 200) / 36);
-    console.log(this.pageRows);
   },
   components: {
     Detail: () => import("../components/TransactionDetail.vue"),

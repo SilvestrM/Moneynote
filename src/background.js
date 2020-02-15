@@ -162,3 +162,13 @@ ipcMain.on("addQuery", (e, type, data) => {
       break;
   }
 })
+
+ipcMain.on("removeQuery", (e, type, data) => {
+  switch (type) {
+    case "transactions":
+      data.forEach(i => {
+        transactions.remove({ _id: i._id })
+      })
+      break;
+  }
+})
