@@ -7,12 +7,29 @@
             <h4>Transactions</h4>
           </div>
           <div class="control-panel level">
-            <button class="button" @click="addShow = true; showModal()">Add</button>
-            <button @click="deleteDialog" class="button is-danger">Remove</button>
+            <div class="level-left">
+              <b-dropdown aria-role="list">
+                <button class="button is-primary" slot="trigger">
+                  <span>Add</span>
+                  <b-icon icon="chevron-down"></b-icon>
+                </button>
+
+                <b-dropdown-item @click="addShow = true">Add Transaction</b-dropdown-item>
+                <b-dropdown-item @click="addCategoryShow = true">Add Category</b-dropdown-item>
+              </b-dropdown>
+            </div>
+            <button @click="deleteDialog" :disabled="!selectedRow" class="button is-danger">
+              <span class="icon is-medium">
+                <i class="mdi mdi-delete"></i>
+              </span>
+              <span>Remove</span>
+            </button>
           </div>
           <b-table
             :class="['scrollable', 'transactions']"
             :data="rows"
+            default-sort="date"
+            :default-sort-direction="'asc'"
             :paginated="true"
             :per-page="pageRows"
             :pagination-size="'is-small'"
@@ -23,66 +40,44 @@
             :selected.sync="selectedRow"
             narrowed
             hoverable
-            checkable
             :checked-rows.sync="checkedRows"
             :checkbox-position="'left'"
           >
             <template slot-scope="props">
-              <b-table-column field="date" label="Date">{{ props.row.date}}</b-table-column>
+              <b-table-column field="date" label="Date" sortable>{{ formatDate(props.row.date)}}</b-table-column>
 
-              <b-table-column field="text" label="Text">{{ props.row.text }}</b-table-column>
+              <b-table-column field="text" label="Text" @click="!searchable">{{ props.row.text }}</b-table-column>
 
               <b-table-column field="value" label="Value" numeric>
                 <span :class="{'has-text-danger': !props.row.type}">{{props.row.value }}</span>
               </b-table-column>
-
-              <b-table-column field="account" label="Account">{{props.row.account}}</b-table-column>
+              <b-table-column field="category" label="Category">
+                <span
+                  class="tag has-text-white"
+                  :style="{backgroundColor:`hsl(${props.row.category.color},60%,60%)`}"
+                >{{props.row.category.name}}</span>
+              </b-table-column>
             </template>
           </b-table>
-          <!-- <table class="table is-hoverable is-narrow scrollable transactions">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Text</th>
-                <th>Category</th>
-                <th>Account</th>
-                <th style="text-align:right">Amount</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="transaction in rows" :key="transaction.date">
-                <td>{{transaction.date | formatDate}}</td>
-                <td>{{transaction.text}}</td>
-                <td>Groceries</td>
-                <td>{{transaction.account}}</td>
-                <td :class="{'has-text-danger': !transaction.type}">{{transaction.value}}</td>
-                <td></td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tfoot>
-          </table>-->
         </div>
       </div>
       <div class="right">
-        <Detail :rowData="selectedRow" />
+        <Detail :formatDate="formatDate" :rowData="selectedRow" />
       </div>
     </div>
-    <div class="modal" :class="{'is-active':addShow, 'is-clipping':addShow}">
+    <!-- <div class="modal" :class="{'is-active':addShow, 'is-clipping':addShow}">
       <div class="modal-background"></div>
       <div class="modal-content">
         <Add @hide="addShow = false; find()" />
       </div>
-      <button class="modal-close is-large" @click="addShow=false" aria-label="close"></button>
-    </div>
+    <button class="modal-close is-large" @click="addShow=false" aria-label="close"></button>-->
+    <!-- </div> -->
+    <b-modal :active.sync="addShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
+      <Add @hide="addShow = false; find()" />
+    </b-modal>
+    <b-modal :active.sync="addCategoryShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
+      <AddCategory @hide="addCategoryShow = false" />
+    </b-modal>
   </div>
 </template>
 <script>
@@ -91,6 +86,7 @@ export default {
   data() {
     return {
       addShow: false,
+      addCategoryShow: false,
       currentPage: 1,
       checkedRows: [],
       selectedRow: null,
@@ -111,14 +107,11 @@ export default {
     find() {
       this.$ipc.send("findQuery", "transactions");
       this.$ipc.on("findBackt", (e, result) => {
-        result.forEach(each => {
-          each.date = this.formatDate(each.date);
-        });
         this.rows = result;
       });
     },
     remove() {
-      this.$ipc.send("removeQuery", "transactions", this.checkedRows);
+      this.$ipc.send("removeQuery", "transactions", this.selectedRow);
       this.find();
     },
     deleteDialog() {
@@ -140,9 +133,11 @@ export default {
     this.find();
     this.pageRows = Math.round((this.$refs.content.clientHeight - 200) / 36);
   },
+  updated: function() {},
   components: {
     Detail: () => import("../components/TransactionDetail.vue"),
-    Add: () => import("../components/AddTransaction.vue")
+    Add: () => import("../components/AddTransaction.vue"),
+    AddCategory: () => import("../components/AddCategory.vue")
   }
 };
 </script>

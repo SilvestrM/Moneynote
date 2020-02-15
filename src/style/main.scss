@@ -13,7 +13,7 @@ body {
     margin: 0 !important;
     width: 100%;
     display: grid;
-    grid-template-columns: 50% auto;
+    grid-template-columns: 60% auto;
     position: relative;
     grid-gap: 1rem;
     padding: 1rem;
@@ -27,6 +27,10 @@ body {
     }
     .msection {
         margin-bottom: 2rem;
+        & > span {
+            padding: 0 1rem;
+            text-align: center;
+        }
     }
     .header {
         background: $primary;
@@ -91,9 +95,18 @@ body {
     }
 }
 
+.control-panel {
+    margin: .5rem 0;
+    
+    
+}
 .button {
-    border-radius: 0;
-    &+.button:not(:first-child) {
-        border-left: none;
+     border-radius: 0;
     }
+.items-container {
+    padding: 1rem;
+}
+
+.dropdown-content {
+    border-radius: 0;
 }

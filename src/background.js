@@ -160,15 +160,16 @@ ipcMain.on("addQuery", (e, type, data) => {
     case "transactions":
       transactions.insert(data, (err) => { });
       break;
+    case "category":
+      categories.insert(data, (err) => { });
+      break;
   }
 })
 
 ipcMain.on("removeQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
-      data.forEach(i => {
-        transactions.remove({ _id: i._id })
-      })
+      transactions.remove({ _id: data._id })
       break;
   }
 })

@@ -1,44 +1,66 @@
 <template>
-  <div class="box container">
-    <form class="form-content" @submit.prevent="addTransaction">
-      <div class="columns">
-        <b-field class="column is-one-third" label="Date">
-          <b-datepicker
-            placeholder="Click to select..."
-            icon="calendar-today"
-            v-model="transaction.date"
-          ></b-datepicker>
-        </b-field>
+  <form class="form-content" @submit.prevent="addTransaction">
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <div class="title modal-card-title">Add Transaction</div>
+      </header>
+      <section class="modal-card-body">
+        <div class="columns is-multiline">
+          <b-field grouped group-multiline>
+            <b-field class="column is-half" label="Date">
+              <b-datepicker
+                placeholder="Click to select..."
+                icon="calendar-today"
+                v-model="transaction.date"
+                required
+                validation-message="You need to select a valid date"
+                expanded
+              ></b-datepicker>
+            </b-field>
+            <b-field class="column is-narrow" label="Category">
+              <b-select required placeholder="Select a category" v-model="transaction.category">
+                <option
+                  v-for="category in categories"
+                  :key="category.name"
+                  :value="category"
+                >{{category.name}}</option>
+              </b-select>
+            </b-field>
+            <b-field class="column is-narrow" label="Type">
+              <b-checkbox v-model="transaction.type">Is Income</b-checkbox>
+            </b-field>
+            <b-field class="column is-one-quarter" label="Value" expanded>
+              <b-numberinput
+                :step="'.1'"
+                controls-position="compact"
+                maxlength="30"
+                v-model="transaction.value"
+              ></b-numberinput>
+            </b-field>
 
-        <b-field class="column is-one-quarter" label="Value">
-          <b-numberinput
-            :step="'.1'"
-            controls-position="compact"
-            maxlength="30"
-            v-model="transaction.value"
-          ></b-numberinput>
+            <b-field class="column is-one-third" label="Location" expanded>
+              <b-input type="text" maxlength="30" v-model="transaction.location"></b-input>
+            </b-field>
+          </b-field>
+        </div>
+        <b-field label="Text">
+          <b-input type="text" maxlength="100" v-model="transaction.text"></b-input>
         </b-field>
-
-        <b-field class="column is-narrow" label="Category">
-          <b-select placeholder="Select a category" v-model="transaction.category">
-            <option
-              v-for="category in categories"
-              :key="category.name"
-              :value="category.name"
-            >{{category.name}}</option>
-          </b-select>
+        <b-field label="Items">
+          <b-taginput
+            attached
+            maxlength="20"
+            placeholder="Add an item"
+            v-model="transaction.items"
+            maxtags="30"
+          ></b-taginput>
         </b-field>
-
-        <b-field class="column is-narrow" label="Type">
-          <b-checkbox v-model="transaction.type">Is Income</b-checkbox>
-        </b-field>
-      </div>
-      <b-field label="Text">
-        <b-input type="text" maxlength="30" v-model="transaction.text"></b-input>
-      </b-field>
-      <button class="button" type="submit">Add transaction</button>
-    </form>
-  </div>
+      </section>
+      <section class="modal-card-foot">
+        <button class="button is-primary is-pulled-right" type="submit">Add transaction</button>
+      </section>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -50,9 +72,11 @@ export default {
         date: [],
         text: "",
         category: "",
+        items: [],
+        location: "",
         value: 0,
         type: false,
-        account: 1
+        account: "default"
       },
       categories: []
     };
@@ -61,6 +85,7 @@ export default {
     find() {
       this.$ipc.send("findQuery", "category");
       this.$ipc.on("findBackc", (e, result) => {
+        this.categories = [];
         this.categories = result;
       });
     },
@@ -68,12 +93,15 @@ export default {
       return moment(date);
     },
     addTransaction() {
-      if (this.type == false) {
+      if (this.transaction.type === false) {
         this.transaction.value = -this.transaction.value;
       }
       /*this.transaction.date = moment(String(this.transaction.date)).format(
         "Do MMM YYYY"
       );*/
+      if (this.transaction.location === "") {
+        this.transaction.location === "N/A";
+      }
       this.$ipc.send("addQuery", "transactions", this.transaction);
       this.$emit("hide");
       this.$delete;

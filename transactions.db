@@ -1,53 +1,19 @@
-{"account":1,"category":"category.name","date":"2020-02-05T23:00:00.000Z","text":"Ahoj to je transakce","type":true,"value":5000,"_id":"2WdO5DXr8WUbgp5N"}
-{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"fgsdff","type":false,"value":5000,"_id":"4PaDuk26eRwjbGI8"}
-{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":262626,"_id":"5peG02Biii8fRVbT"}
-{"account":1,"category":"","date":"2020-02-03T23:00:00.000Z","text":"kkk","type":false,"value":-500,"_id":"7fPqJzhRqOw4O3Pf"}
-{"account":1,"category":"category.name","date":"2020-02-04T23:00:00.000Z","text":"chci barunku","type":true,"value":500,"_id":"8GacwYGadJIeQfEY"}
-{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":2500,"_id":"D4lkPaVd4B6aDQuQ"}
-{"account":1,"category":"category.name","date":"2020-02-05T23:00:00.000Z","text":"Penize","type":true,"value":500,"_id":"FPkjt23T5KglZoc2"}
-{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penize","type":false,"value":2500,"_id":"GPn9YnzkqsVkx1ws"}
-{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"ahoj","type":true,"value":5000,"_id":"JtP9Ou8S1V58m1fW"}
-{"account":1,"category":"category.name","date":"2020-02-04T23:00:00.000Z","text":"chci barunku","type":true,"value":500,"_id":"JyjzEKhniBfR9rle"}
-{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"oop","type":true,"value":-500,"_id":"YH4Ef8WygIBCp1BG"}
-{"account":1,"category":"category.name","date":"2020-02-25T23:00:00.000Z","text":"fsfsf","type":true,"value":-50000,"_id":"aKshRROIo7S9qwH3"}
-{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":2500.1,"_id":"aZ0Ugfore1BJqHoL"}
-{"account":1,"category":"category.name","date":"2020-02-05T23:00:00.000Z","text":"ahoj","type":true,"value":-5000,"_id":"gqIW6iODGn1LDNIc"}
-{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":262626,"_id":"jwuXf9ipET6XjM9a"}
-{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"ahoj","type":true,"value":50,"_id":"pTaLAMF1t56k0555"}
-{"account":1,"category":"category.name","date":"2020-02-11T23:00:00.000Z","text":"ahoj","type":false,"value":-5000,"_id":"pavP0nq65zRZVZAu"}
-{"account":1,"category":"","date":[],"text":"","type":true,"value":1.4,"_id":"t7PlP6GSgu55K5EG"}
-{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"ahoj","type":true,"value":-50,"_id":"tYDXNeVkQYoKMWTl"}
-{"account":1,"category":"category.name","date":"2020-02-04T23:00:00.000Z","text":"chci barunku","type":true,"value":500,"_id":"vSv39sryVdYL0KPP"}
-{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":262626,"_id":"xbRvIFOIsau11Av3"}
-{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":262626,"_id":"xo0MMNtVdbNKUfkZ"}
-{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"ahoj","type":false,"value":-1000,"_id":"yjnkzev4UhC2iAND"}
-{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"cau","type":true,"value":500,"_id":"iWl6sycTXjhWRiP9"}
-{"account":1,"category":"category.name","date":"2020-02-04T23:00:00.000Z","text":"xvv","type":true,"value":500,"_id":"T5KOAhJslSEGMCjh"}
-{"$$deleted":true,"_id":"2WdO5DXr8WUbgp5N"}
-{"$$deleted":true,"_id":"4PaDuk26eRwjbGI8"}
-{"$$deleted":true,"_id":"5peG02Biii8fRVbT"}
-{"$$deleted":true,"_id":"7fPqJzhRqOw4O3Pf"}
-{"$$deleted":true,"_id":"8GacwYGadJIeQfEY"}
-{"$$deleted":true,"_id":"D4lkPaVd4B6aDQuQ"}
-{"$$deleted":true,"_id":"FPkjt23T5KglZoc2"}
-{"$$deleted":true,"_id":"GPn9YnzkqsVkx1ws"}
-{"$$deleted":true,"_id":"JtP9Ou8S1V58m1fW"}
-{"$$deleted":true,"_id":"JyjzEKhniBfR9rle"}
-{"$$deleted":true,"_id":"T5KOAhJslSEGMCjh"}
-{"$$deleted":true,"_id":"YH4Ef8WygIBCp1BG"}
-{"$$deleted":true,"_id":"aKshRROIo7S9qwH3"}
-{"$$deleted":true,"_id":"aZ0Ugfore1BJqHoL"}
-{"$$deleted":true,"_id":"gqIW6iODGn1LDNIc"}
-{"$$deleted":true,"_id":"iWl6sycTXjhWRiP9"}
-{"$$deleted":true,"_id":"jwuXf9ipET6XjM9a"}
-{"$$deleted":true,"_id":"pTaLAMF1t56k0555"}
-{"$$deleted":true,"_id":"pavP0nq65zRZVZAu"}
-{"$$deleted":true,"_id":"t7PlP6GSgu55K5EG"}
-{"$$deleted":true,"_id":"tYDXNeVkQYoKMWTl"}
-{"$$deleted":true,"_id":"vSv39sryVdYL0KPP"}
-{"$$deleted":true,"_id":"xbRvIFOIsau11Av3"}
-{"$$deleted":true,"_id":"xo0MMNtVdbNKUfkZ"}
-{"$$deleted":true,"_id":"yjnkzev4UhC2iAND"}
-{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"Ahojku","type":true,"value":500,"_id":"ivrJvM9xqYFxN2Jf"}
-{"account":1,"category":"category.name","date":"2020-02-04T23:00:00.000Z","text":"hi","type":false,"value":1500,"_id":"gtiU6a3qvEexGfGF"}
-{"$$deleted":true,"_id":"gtiU6a3qvEexGfGF"}
+{"account":"default","category":"Electro","date":"2020-02-10T23:00:00.000Z","items":["Lol","Pol","damn","kekek","lolo","ulo"],"location":"","text":"cauko","type":false,"value":-500,"_id":"9p9iwNocHutQBWn8"}
+{"account":"default","category":"Girlfriend","date":"2020-02-02T23:00:00.000Z","items":[],"location":"","text":"Energy","type":false,"value":-1560,"_id":"KbOoeNsHe2KrCzcc"}
+{"account":"default","category":"Girlfriend","date":"2020-02-10T23:00:00.000Z","items":[],"location":"","text":"lel","type":false,"value":-250,"_id":"Kc2rKDGJzZeZeZHz"}
+{"account":"default","category":"Food","date":"2020-02-10T23:00:00.000Z","items":["Kocicka","Pejsek","Jasminka"],"location":"doma","text":"Zvirata","type":false,"value":-123,"_id":"MONi2kODiKoDrJg5"}
+{"account":"default","category":"Electro","date":"2020-02-10T23:00:00.000Z","items":[],"location":"HK","text":"Ahoj","type":false,"value":-250,"_id":"Ss3yg7nGfUpDcDdG"}
+{"account":"default","category":"Food","date":"2020-02-11T23:00:00.000Z","items":["lolo","keke"],"location":"","text":"cau","type":false,"value":-500,"_id":"WNHgdOui91pBh8HN"}
+{"account":"default","category":"Food","date":"2020-02-18T23:00:00.000Z","items":["Chleba","houska","salam","maslo","babicka","rajce","piti","vodka","brambory","salat","celer"],"location":"Billa","text":"Nakup","type":false,"value":-250,"_id":"lD6FmOBYtuDhqh5p"}
+{"account":"default","category":"Girlfriend","date":"2020-02-04T23:00:00.000Z","items":[],"location":"hradec","text":"Cau","type":false,"value":-250,"_id":"uXNAtVMSpEH1D21z"}
+{"account":"default","category":"Electro","date":"2020-02-03T23:00:00.000Z","items":[],"location":"","text":"Popol","type":false,"value":-1337,"_id":"xM2M8scpV8jQzOC6"}
+{"account":"default","category":"Food","date":"2020-02-18T23:00:00.000Z","items":["jasminka is asi preg"],"location":"","text":"jojo","type":false,"value":-2500,"_id":"MSkZZCLXE84UbrFj"}
+{"account":"default","category":{"_id":"iRFJV7LL13hphESo","color":228.11100210495306,"name":"Cars"},"date":"2020-02-10T23:00:00.000Z","items":[],"location":"","text":"Interesting","type":false,"value":-2500,"_id":"EWpot5srysE9KpKv"}
+{"$$deleted":true,"_id":"Kc2rKDGJzZeZeZHz"}
+{"$$deleted":true,"_id":"MONi2kODiKoDrJg5"}
+{"$$deleted":true,"_id":"9p9iwNocHutQBWn8"}
+{"account":"default","category":{"_id":"8IA8pmh4IfuaqjDV","color":40.37062012066764,"name":"Food"},"date":"2020-02-12T23:00:00.000Z","items":["pizza","feferony","pyzamo"],"location":"","text":"Prostre nakupe v lidlu","type":false,"value":-368,"_id":"uVw2Nzcssz62FuEl"}
+{"$$deleted":true,"_id":"xM2M8scpV8jQzOC6"}
+{"$$deleted":true,"_id":"uXNAtVMSpEH1D21z"}
+{"account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-11T23:00:00.000Z","items":[],"location":"UHK","text":"Odepsani predmetu","type":false,"value":-250,"_id":"gzgbaYHeNu9xVum8"}
+{"account":"default","category":{"_id":"Uvjia8eSTJlszS88","color":298,"name":"Hummus"},"date":"2020-02-11T23:00:00.000Z","items":["foodie"],"location":"","text":"hmmm hmmm","type":false,"value":-563,"_id":"ASkVaE92YpJs4Hmt"}
