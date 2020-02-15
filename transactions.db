@@ -1,5 +1,25 @@
-{"account":"2","date":"2020-02-19T23:00:00.000Z","text":"barunka is the best","type":true,"value":250,"_id":"1yNJki8ekaMhu6AP"}
-{"account":1,"date":"2020-02-03T23:00:00.000Z","text":"ahoj","type":false,"value":0.7,"_id":"HFyrDZt1GkBbwTzk"}
-{"account":1,"date":"2020-02-10T23:00:00.000Z","text":"gdgggdg","type":false,"value":0.3,"_id":"LUlGD91Dqrbgm86a"}
-{"account":"2","date":"2020-02-19T23:00:00.000Z","text":"barunka is the best","type":true,"value":250,"_id":"k6VvYrO7ySksDVNf"}
-{"account":1,"date":"2020-02-10T23:00:00.000Z","text":"gdgg","type":false,"value":0.3,"_id":"t8kFHBkNLOzp5Npz"}
+{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"ahoj","type":true,"value":-5000,"_id":"0Q3iH33tZ4TzqrvN"}
+{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"fgsdff","type":false,"value":5000,"_id":"4PaDuk26eRwjbGI8"}
+{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":262626,"_id":"5peG02Biii8fRVbT"}
+{"account":1,"category":"","date":"2020-02-03T23:00:00.000Z","text":"kkk","type":false,"value":-500,"_id":"7fPqJzhRqOw4O3Pf"}
+{"account":1,"category":"category.name","date":"2020-02-04T23:00:00.000Z","text":"chci barunku","type":true,"value":500,"_id":"8GacwYGadJIeQfEY"}
+{"account":1,"category":"category.name","date":"2020-02-09T23:00:00.000Z","text":"Penize","type":false,"value":500,"_id":"BjWsjsAJa4KGYPX6"}
+{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":2500,"_id":"D4lkPaVd4B6aDQuQ"}
+{"account":1,"category":"category.name","date":"2020-02-05T23:00:00.000Z","text":"Penize","type":true,"value":500,"_id":"FPkjt23T5KglZoc2"}
+{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penize","type":false,"value":2500,"_id":"GPn9YnzkqsVkx1ws"}
+{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"ahoj","type":true,"value":5000,"_id":"JtP9Ou8S1V58m1fW"}
+{"account":1,"category":"category.name","date":"2020-02-04T23:00:00.000Z","text":"chci barunku","type":true,"value":500,"_id":"JyjzEKhniBfR9rle"}
+{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"oop","type":true,"value":-500,"_id":"YH4Ef8WygIBCp1BG"}
+{"account":1,"category":"category.name","date":"2020-02-25T23:00:00.000Z","text":"fsfsf","type":true,"value":-50000,"_id":"aKshRROIo7S9qwH3"}
+{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":2500.1,"_id":"aZ0Ugfore1BJqHoL"}
+{"account":1,"category":"category.name","date":[],"text":"","type":false,"value":0.1,"_id":"ftaxkqjZKyh0tB8V"}
+{"account":1,"category":"category.name","date":"2020-02-05T23:00:00.000Z","text":"ahoj","type":true,"value":-5000,"_id":"gqIW6iODGn1LDNIc"}
+{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":262626,"_id":"jwuXf9ipET6XjM9a"}
+{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"ahoj","type":true,"value":50,"_id":"pTaLAMF1t56k0555"}
+{"account":1,"category":"category.name","date":"2020-02-11T23:00:00.000Z","text":"ahoj","type":false,"value":-5000,"_id":"pavP0nq65zRZVZAu"}
+{"account":1,"category":"","date":[],"text":"","type":true,"value":1.4,"_id":"t7PlP6GSgu55K5EG"}
+{"account":1,"category":"category.name","date":"2020-02-03T23:00:00.000Z","text":"ahoj","type":true,"value":-50,"_id":"tYDXNeVkQYoKMWTl"}
+{"account":1,"category":"category.name","date":"2020-02-04T23:00:00.000Z","text":"chci barunku","type":true,"value":500,"_id":"vSv39sryVdYL0KPP"}
+{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":262626,"_id":"xbRvIFOIsau11Av3"}
+{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"Penizefff","type":false,"value":262626,"_id":"xo0MMNtVdbNKUfkZ"}
+{"account":1,"category":"category.name","date":"2020-02-12T23:00:00.000Z","text":"ahoj","type":false,"value":-1000,"_id":"yjnkzev4UhC2iAND"}

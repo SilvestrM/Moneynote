@@ -25,7 +25,18 @@ let doc = {
   year: 1966
 };
 
+const cate = [{
+  name: "Food"
+}, {
+  name: "Electro"
+}]
+
 const transactions = new Datastore({ filename: 'transactions.db', autoload: true })
+const categories = new Datastore({ filename: 'categories.db', autoload: true })
+
+/*categories.insert(cate, err => {
+
+})*/
 
 db.insert(doc, (err) => {   // Callback is optional
   // newDoc is the newly inserted document, including its _id
@@ -47,7 +58,7 @@ function createWindow() {
   const height = primaryScreen.size.height - (primaryScreen.size.height * 0.20);
 
   win = new BrowserWindow({
-    width: width, height: height, webPreferences: {
+    width: width, height: height, useContentSize: true, webPreferences: {
       nodeIntegration: true
     }
   })
@@ -94,7 +105,6 @@ app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
 
     ipcMain.on("appLoaded", () => {
-      let thing;
       db.find({ name: "Sylvi Mikeskovic" }, (err, docs) => {
         win.webContents.send("back", docs)
       })
@@ -134,8 +144,14 @@ ipcMain.on("findQuery", (e, type) => {
   switch (type) {
     case "transactions":
       transactions.find({}, (err, docs) => {
-        win.webContents.send("findBack", docs)
+        win.webContents.send("findBackt", docs)
       })
+      break;
+    case "category":
+      categories.find({}, (err, docs) => {
+        win.webContents.send("findBackc", docs)
+      })
+      break;
   }
 })
 

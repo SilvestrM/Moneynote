@@ -14,6 +14,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@mdi/font": "^4.9.95",
     "buefy": "^0.8.10",
     "bulma": "^0.7.5",
     "chai-as-promised": "^7.1.1",

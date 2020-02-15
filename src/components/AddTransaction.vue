@@ -26,10 +26,13 @@
         <b-checkbox v-model="transaction.type">Is Income</b-checkbox>
       </b-field>
 
-      <b-field label="Account">
-        <b-select placeholder="Select an account" v-model="transaction.account">
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
+      <b-field label="Category">
+        <b-select placeholder="Select a category" v-model="transaction.category">
+          <option
+            v-for="category in categories"
+            :key="category.name"
+            value="category.name"
+          >{{category.name}}</option>
         </b-select>
       </b-field>
       <button class="button" type="submit">Add transaction</button>
@@ -38,21 +41,42 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
-      transaction: { date: "", text: "", value: 0, type: false, account: 1 }
+      transaction: {
+        date: [],
+        text: "",
+        category: "",
+        value: 0,
+        type: false,
+        account: 1
+      },
+      categories: []
     };
   },
   methods: {
+    find() {
+      this.$ipc.send("findQuery", "category");
+      this.$ipc.on("findBackc", (e, result) => {
+        this.categories = result;
+      });
+    },
     addTransaction() {
-      if (!this.type) {
-        this.value = -this.value;
+      if (this.type == false) {
+        this.transaction.value = -this.transaction.value;
       }
+      /*this.transaction.date = moment(String(this.transaction.date)).format(
+        "Do MMM YYYY"
+      );*/
       this.$ipc.send("addQuery", "transactions", this.transaction);
       this.$emit("hide");
-      this.$destroy;
+      this.$delete;
     }
+  },
+  mounted: function() {
+    this.find();
   }
 };
 </script>

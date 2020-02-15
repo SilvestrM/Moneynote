@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content">
+    <div ref="content" class="content">
       <div class="left">
         <div class="msection">
           <div class="header">
@@ -10,7 +10,34 @@
             <button class="button" @click="addShow = true; showModal()">Add</button>
             <button @click="remove" class="button">Remove</button>
           </div>
-          <table class="table is-hoverable is-narrow scrollable transactions">
+          <b-table
+            :class="['scrollable', 'transactions']"
+            :data="rows"
+            :paginated="true"
+            :per-page="pageRows"
+            :pagination-size="'is-small'"
+            :current-page.sync="currentPage"
+            :order="'is-centered'"
+            :pagination-simple="true"
+            :pagination-position="'bottom'"
+            narrowed
+            hoverable
+            checkable
+            :checkbox-position="'left'"
+          >
+            <template slot-scope="props">
+              <b-table-column field="date" label="Date" numeric>{{ formatDate(props.row.date) }}</b-table-column>
+
+              <b-table-column field="text" label="Text">{{ props.row.text }}</b-table-column>
+
+              <b-table-column field="value" label="Value" numeric>
+                <span :class="{'has-text-danger': !props.row.type}">{{props.row.value }}</span>
+              </b-table-column>
+
+              <b-table-column field="account" label="Account">{{props.row.account}}</b-table-column>
+            </template>
+          </b-table>
+          <!-- <table class="table is-hoverable is-narrow scrollable transactions">
             <thead>
               <tr>
                 <th>Date</th>
@@ -40,7 +67,7 @@
                 <td></td>
               </tr>
             </tfoot>
-          </table>
+          </table>-->
         </div>
       </div>
       <div class="right">
@@ -57,20 +84,30 @@
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
       addShow: false,
+      currentPage: 1,
       rightSection: "",
-      rows: Array
+      pageRows: 12,
+      rows: []
     };
   },
+  /*computed: {
+    pageRows: function() {
+      return Math.round(this.$refs.content.clientHeight / 24);
+    }
+  },*/
   methods: {
+    formatDate(date) {
+      return moment(String(date)).format("Do MMM YYYY");
+    },
     find() {
       this.$ipc.send("findQuery", "transactions");
-      this.$ipc.on("findBack", (e, result) => {
+      this.$ipc.on("findBackt", (e, result) => {
         this.rows = result;
-        console.log(this.rows);
       });
     },
     remove() {
@@ -79,6 +116,8 @@ export default {
   },
   mounted: function() {
     this.find();
+    this.pageRows = Math.round((this.$refs.content.clientHeight - 200) / 36);
+    console.log(this.pageRows);
   },
   components: {
     Detail: () => import("../components/TransactionDetail.vue"),
