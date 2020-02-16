@@ -1,19 +1,21 @@
-{"account":"default","category":"Electro","date":"2020-02-10T23:00:00.000Z","items":["Lol","Pol","damn","kekek","lolo","ulo"],"location":"","text":"cauko","type":false,"value":-500,"_id":"9p9iwNocHutQBWn8"}
-{"account":"default","category":"Girlfriend","date":"2020-02-02T23:00:00.000Z","items":[],"location":"","text":"Energy","type":false,"value":-1560,"_id":"KbOoeNsHe2KrCzcc"}
-{"account":"default","category":"Girlfriend","date":"2020-02-10T23:00:00.000Z","items":[],"location":"","text":"lel","type":false,"value":-250,"_id":"Kc2rKDGJzZeZeZHz"}
-{"account":"default","category":"Food","date":"2020-02-10T23:00:00.000Z","items":["Kocicka","Pejsek","Jasminka"],"location":"doma","text":"Zvirata","type":false,"value":-123,"_id":"MONi2kODiKoDrJg5"}
-{"account":"default","category":"Electro","date":"2020-02-10T23:00:00.000Z","items":[],"location":"HK","text":"Ahoj","type":false,"value":-250,"_id":"Ss3yg7nGfUpDcDdG"}
-{"account":"default","category":"Food","date":"2020-02-11T23:00:00.000Z","items":["lolo","keke"],"location":"","text":"cau","type":false,"value":-500,"_id":"WNHgdOui91pBh8HN"}
-{"account":"default","category":"Food","date":"2020-02-18T23:00:00.000Z","items":["Chleba","houska","salam","maslo","babicka","rajce","piti","vodka","brambory","salat","celer"],"location":"Billa","text":"Nakup","type":false,"value":-250,"_id":"lD6FmOBYtuDhqh5p"}
-{"account":"default","category":"Girlfriend","date":"2020-02-04T23:00:00.000Z","items":[],"location":"hradec","text":"Cau","type":false,"value":-250,"_id":"uXNAtVMSpEH1D21z"}
-{"account":"default","category":"Electro","date":"2020-02-03T23:00:00.000Z","items":[],"location":"","text":"Popol","type":false,"value":-1337,"_id":"xM2M8scpV8jQzOC6"}
-{"account":"default","category":"Food","date":"2020-02-18T23:00:00.000Z","items":["jasminka is asi preg"],"location":"","text":"jojo","type":false,"value":-2500,"_id":"MSkZZCLXE84UbrFj"}
+{"account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-03T23:00:00.000Z","items":[],"location":"","text":"More data","type":false,"value":-250,"_id":"26z5WQrvn35571PH"}
+{"_id":"6RMbD0hH3sjDkWMf","account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-19T23:00:00.000Z","items":["Peepo","PeepoSlepo","Newpeepo"],"location":"doma","text":"PeepoLav","type":false,"value":26500}
+{"_id":"ASkVaE92YpJs4Hmt","account":"default","category":{"_id":"Uvjia8eSTJlszS88","color":298,"name":"Hummus"},"date":"2020-02-11T23:00:00.000Z","items":["foodie"],"location":"","text":"something meaningful","type":false,"value":-563}
+{"account":"default","category":{"_id":"a7UqcNMIo2Z0POnJ","color":17,"name":"Kapesne"},"date":"2020-02-11T23:00:00.000Z","items":[],"location":"","text":"cau","type":false,"value":-3600,"_id":"DzTFVlYZri0saEbB"}
 {"account":"default","category":{"_id":"iRFJV7LL13hphESo","color":228.11100210495306,"name":"Cars"},"date":"2020-02-10T23:00:00.000Z","items":[],"location":"","text":"Interesting","type":false,"value":-2500,"_id":"EWpot5srysE9KpKv"}
-{"$$deleted":true,"_id":"Kc2rKDGJzZeZeZHz"}
-{"$$deleted":true,"_id":"MONi2kODiKoDrJg5"}
-{"$$deleted":true,"_id":"9p9iwNocHutQBWn8"}
-{"account":"default","category":{"_id":"8IA8pmh4IfuaqjDV","color":40.37062012066764,"name":"Food"},"date":"2020-02-12T23:00:00.000Z","items":["pizza","feferony","pyzamo"],"location":"","text":"Prostre nakupe v lidlu","type":false,"value":-368,"_id":"uVw2Nzcssz62FuEl"}
-{"$$deleted":true,"_id":"xM2M8scpV8jQzOC6"}
-{"$$deleted":true,"_id":"uXNAtVMSpEH1D21z"}
-{"account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-11T23:00:00.000Z","items":[],"location":"UHK","text":"Odepsani predmetu","type":false,"value":-250,"_id":"gzgbaYHeNu9xVum8"}
-{"account":"default","category":{"_id":"Uvjia8eSTJlszS88","color":298,"name":"Hummus"},"date":"2020-02-11T23:00:00.000Z","items":["foodie"],"location":"","text":"hmmm hmmm","type":false,"value":-563,"_id":"ASkVaE92YpJs4Hmt"}
+{"_id":"HD5o6TGELlYBW40I","account":"default","category":{"_id":"a7UqcNMIo2Z0POnJ","color":17,"name":"Kapesne"},"date":"2020-02-10T23:00:00.000Z","items":[],"location":"","text":"AOPK kapesne","type":true,"value":8500}
+{"account":"default","category":{"_id":"8IA8pmh4IfuaqjDV","color":40.37062012066764,"name":"Food"},"date":"2020-02-10T23:00:00.000Z","items":[],"location":"","text":"more transactions","type":false,"value":-3600,"_id":"HqZjXCCznPjpqD4u"}
+{"account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-03T23:00:00.000Z","items":[],"location":"","text":"Zajimava opona","type":false,"value":0,"_id":"MFfxmMSYX5bb63PM"}
+{"account":"default","category":{"_id":"Uvjia8eSTJlszS88","color":298,"name":"Hummus"},"date":"2020-02-18T23:00:00.000Z","items":[],"location":"","text":"novej pc","type":false,"value":-2500,"_id":"N5OsBFlwFYjuFEch"}
+{"_id":"P7ByJqpmj1ttqy9R","account":"default","category":{"_id":"iRFJV7LL13hphESo","color":228.11100210495306,"name":"Cars"},"date":"2020-11-01","items":["Pizza quatro formagg"],"location":"hradec","text":"Pizza","type":false,"value":-1800}
+{"_id":"WfVQnFU2OflUPOs1","account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-12T23:00:00.000Z","items":["books"],"location":"","text":"Harvard","type":false,"value":369}
+{"account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-04T23:00:00.000Z","items":[],"location":"","text":"Test","type":false,"value":-2500,"_id":"XSfAe4feLVyYViAA"}
+{"account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-03T23:00:00.000Z","items":[],"location":"","text":"baterie","type":false,"value":-3600,"_id":"YP1Ocmzbt9rgUcWD"}
+{"account":"default","category":{"_id":"C84fRWijRY1Yz0nh","color":96,"name":"Peepa"},"date":"2020-02-20T23:00:00.000Z","items":[],"location":"","text":"Peeponew","type":true,"value":2300,"_id":"ahRebwSkVEWNynvR"}
+{"account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-11T23:00:00.000Z","items":[],"location":"","text":"cauko","type":false,"value":-150,"_id":"bz8kffSxLyLK7N60"}
+{"_id":"gzgbaYHeNu9xVum8","account":"default","category":{"_id":"BgQHX3kjp6xK2wxN","color":77.15707633227771,"name":"Education"},"date":"2020-02-11T23:00:00.000Z","items":[],"location":"UHK","text":"Odepsani predmetu","type":false,"value":-3500}
+{"account":"default","category":{"_id":"iRFJV7LL13hphESo","color":228.11100210495306,"name":"Cars"},"date":"2020-02-08T23:00:00.000Z","items":[],"location":"","text":"Idkk ja ji ale chci...","type":false,"value":0,"_id":"jTpQJQXuqGKoYHT8"}
+{"account":"default","category":{"_id":"a7UqcNMIo2Z0POnJ","color":17,"name":"Kapesne"},"date":"2020-02-07T23:00:00.000Z","items":[],"location":"","text":"Lololo","type":true,"value":369,"_id":"jrqqXBR8xfnqzGRK"}
+{"account":"default","category":{"_id":"a7UqcNMIo2Z0POnJ","color":17,"name":"Kapesne"},"date":"2020-02-03T23:00:00.000Z","items":[],"location":"","text":"Praceeee","type":true,"value":2500,"_id":"k87cc6lMJ8JW8kTC"}
+{"_id":"uVw2Nzcssz62FuEl","account":"default","category":{"_id":"8IA8pmh4IfuaqjDV","color":40.37062012066764,"name":"Food"},"date":"2020-02-04","items":["pizza","topping","oregano","pejsek","olovo","voda","mineralka","dzus"],"location":"","text":"Proste nakup v lidlu","type":false,"value":-368}
+{"account":"default","category":{"_id":"iRFJV7LL13hphESo","color":228.11100210495306,"name":"Cars"},"date":"2020-01-06T23:00:00.000Z","items":["teslaa"],"location":"","text":"tesla truck","type":false,"value":-250,"_id":"48B3lu651cf4F68U"}

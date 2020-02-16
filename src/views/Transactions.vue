@@ -8,7 +8,7 @@
           </div>
           <div class="control-panel level">
             <div class="level-left">
-              <b-dropdown aria-role="list">
+              <b-dropdown aria-role="list" class="level-item">
                 <button class="button is-primary" slot="trigger">
                   <span>Add</span>
                   <b-icon icon="chevron-down"></b-icon>
@@ -17,6 +17,28 @@
                 <b-dropdown-item @click="addShow = true">Add Transaction</b-dropdown-item>
                 <b-dropdown-item @click="addCategoryShow = true">Add Category</b-dropdown-item>
               </b-dropdown>
+
+              <b-switch class="level-item" @input="find" v-model="filterDate">Filter by month</b-switch>
+              <b-select
+                class="level-item"
+                @input="find"
+                placeholder="Select a month"
+                :disabled="!filterDate"
+                v-model="month"
+              >
+                <option :value="0">January</option>
+                <option :value="1">February</option>
+                <option :value="2">March</option>
+                <option :value="3">April</option>
+                <option :value="4">May</option>
+                <option :value="5">June</option>
+                <option :value="6">July</option>
+                <option :value="7">August</option>
+                <option :value="8">September</option>
+                <option :value="9">October</option>
+                <option :value="10">November</option>
+                <option :value="11">December</option>
+              </b-select>
             </div>
             <button @click="deleteDialog" :disabled="!selectedRow" class="button is-danger">
               <span class="icon is-medium">
@@ -62,7 +84,11 @@
         </div>
       </div>
       <div class="right">
-        <Detail :formatDate="formatDate" :rowData="selectedRow" />
+        <Detail
+          :formatDate="formatDate"
+          :rowData="selectedRow"
+          @saveEdit="find(); selectedRow = null"
+        />
       </div>
     </div>
     <!-- <div class="modal" :class="{'is-active':addShow, 'is-clipping':addShow}">
@@ -85,6 +111,8 @@ import moment from "moment";
 export default {
   data() {
     return {
+      month: 1,
+      filterDate: false,
       addShow: false,
       addCategoryShow: false,
       currentPage: 1,
@@ -107,12 +135,24 @@ export default {
     find() {
       this.$ipc.send("findQuery", "transactions");
       this.$ipc.on("findBackt", (e, result) => {
-        this.rows = result;
+        this.rows = this.filterDate ? this.filterMonth(result) : result;
       });
     },
     remove() {
       this.$ipc.send("removeQuery", "transactions", this.selectedRow);
       this.find();
+    },
+    filterMonth(data) {
+      let filtered = [];
+      data.forEach(res => {
+        let d = new Date(res.date);
+        console.log("month", this.month);
+        if (d.getMonth() === this.month) {
+          filtered.push(res);
+        }
+      });
+      console.log(filtered);
+      return filtered;
     },
     deleteDialog() {
       this.$buefy.dialog.confirm({
@@ -141,30 +181,8 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.transactions {
-  td,
-  th {
-    /*&:nth-child(1) {
-            width:15%;
-        }
-        &:nth-child(2) {
-            width:40%;
-        }
-        &:nth-child(3) {
-            width:25%;
-        }
-        &:nth-child(4) {
-            width:15%;
-        }
-        &:nth-child(5) {
-            width:15%;
-        }
-        &:nth-child(6) {
-            width:0.5rem;
-            padding: 0;
-        }*/
-    @include table-dimensions(15%, 40%, 25%, 15%, 15%, 0.5rem, 0, 0, 0, 0);
-  }
+<style lang="scss" scoped>
+.content {
+  grid-template-columns: 60% auto;
 }
 </style>

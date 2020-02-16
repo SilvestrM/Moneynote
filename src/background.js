@@ -148,7 +148,7 @@ ipcMain.on("findQuery", (e, type) => {
       })
       break;
     case "category":
-      categories.find({}, (err, docs) => {
+      categories.find({}).sort({ name: 1 }).exec((err, docs) => {
         win.webContents.send("findBackc", docs)
       })
       break;
@@ -170,6 +170,14 @@ ipcMain.on("removeQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
       transactions.remove({ _id: data._id })
+      break;
+  }
+})
+
+ipcMain.on("updateQuery", (e, type, data) => {
+  switch (type) {
+    case "transactions":
+      transactions.update({ _id: data._id }, data)
       break;
   }
 })

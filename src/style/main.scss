@@ -1,6 +1,7 @@
 body {
     font-family: 'Barlow Condensed', sans-serif !important;
-    //overflow-y: hidden;
+    max-height: 100vh;
+    overflow-y: hidden;
 }
 ::-webkit-scrollbar {
     display: none;
@@ -13,7 +14,7 @@ body {
     margin: 0 !important;
     width: 100%;
     display: grid;
-    grid-template-columns: 60% auto;
+    //grid-template-columns: 60% auto;
     position: relative;
     grid-gap: 1rem;
     padding: 1rem;
@@ -102,6 +103,10 @@ body {
 }
 .button {
      border-radius: 0;
+
+     & + .button:not(:last-child) {
+        border-right: none;
+     }
     }
 .items-container {
     padding: 1rem;
