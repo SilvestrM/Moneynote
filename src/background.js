@@ -11,43 +11,21 @@ import Datastore from 'nedb'
 
 //import Database from 'nedb';
 import { brotliDecompress } from 'zlib';
+import { CLIEngine } from 'eslint';
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
-
 //database decaration
-const db = new Datastore({ filename: 'data.db', autoload: true });
-let doc = {
-  name: "Sylvi Mikeskovic",
-  year: 1966
-};
+const db = new Datastore({ filename: `${__static}/data/data.db`, autoload: true });
 
-const cate = [{
-  name: "Food"
-}, {
-  name: "Electro"
-}]
+const transactions = new Datastore({ filename: `${__static}/data/transactions.db`, autoload: true })
+const categories = new Datastore({ filename: `${__static}/data/categories.db`, autoload: true })
 
-const transactions = new Datastore({ filename: 'transactions.db', autoload: true })
-const categories = new Datastore({ filename: 'categories.db', autoload: true })
+//db.loadDatabase()
 
-/*categories.insert(cate, err => {
-
-})*/
-
-db.insert(doc, (err) => {   // Callback is optional
-  // newDoc is the newly inserted document, including its _id
-  // newDoc has no key called notToBeSaved since its value was undefined
-});
-db.loadDatabase()
-/*db.find(({n :5}), (err, docs) => {
-  console.log(docs)
-  console.log(err)
-  console.log(docs[1].hello)
-})*/
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
 
@@ -105,9 +83,6 @@ app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
 
     ipcMain.on("appLoaded", () => {
-      db.find({ name: "Sylvi Mikeskovic" }, (err, docs) => {
-        win.webContents.send("back", docs)
-      })
     })
     // Install Vue Devtools
     // Devtools extensions are broken in Electron 6.0.0 and greater
@@ -158,10 +133,10 @@ ipcMain.on("findQuery", (e, type) => {
 ipcMain.on("addQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
-      transactions.insert(data, (err) => { });
+      transactions.insert(data, (err) => { console.log(err); });
       break;
     case "category":
-      categories.insert(data, (err) => { });
+      categories.insert(data, (err) => { console.log(err); });
       break;
   }
 })

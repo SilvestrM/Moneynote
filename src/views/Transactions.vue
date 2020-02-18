@@ -17,7 +17,6 @@
                 <b-dropdown-item @click="addShow = true">Add Transaction</b-dropdown-item>
                 <b-dropdown-item @click="addCategoryShow = true">Add Category</b-dropdown-item>
               </b-dropdown>
-
               <b-switch class="level-item" @input="find" v-model="filterDate">Filter by month</b-switch>
               <b-select
                 class="level-item"
@@ -40,12 +39,14 @@
                 <option :value="11">December</option>
               </b-select>
             </div>
-            <button @click="deleteDialog" :disabled="!selectedRow" class="button is-danger">
-              <span class="icon is-medium">
-                <i class="mdi mdi-delete"></i>
-              </span>
-              <span>Remove</span>
-            </button>
+            <div class="level-left">
+              <button @click="deleteDialog" :disabled="!selectedRow" class="button is-danger">
+                <span class="icon is-medium">
+                  <i class="mdi mdi-delete"></i>
+                </span>
+                <span>Remove</span>
+              </button>
+            </div>
           </div>
           <b-table
             :class="['scrollable', 'transactions']"
@@ -108,6 +109,8 @@
 </template>
 <script>
 import moment from "moment";
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -123,11 +126,11 @@ export default {
       rows: []
     };
   },
-  /*computed: {
-    pageRows: function() {
-      return Math.round(this.$refs.content.clientHeight / 24);
-    }
-  },*/
+  computed: {
+    ...mapState({
+      rows: "transactions"
+    })
+  },
   methods: {
     formatDate(date) {
       return moment(String(date)).format("Do MMM YYYY");

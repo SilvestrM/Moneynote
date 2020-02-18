@@ -20,14 +20,8 @@
 <script>
 import screen from "electron";
 export default {
-  beforeCreate: function() {
-    this.$ipc.send("appLoaded");
-  },
-  mounted: function() {
-    /*this.$ipc.on("back", (e, result) => {
-      console.log(result);
-    });*/
-  }
+  beforeCreate: function() {},
+  mounted: function() {}
 };
 </script>
 
