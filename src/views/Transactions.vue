@@ -20,7 +20,6 @@
               <b-switch class="level-item" @input="find" v-model="filterDate">Filter by month</b-switch>
               <b-select
                 class="level-item"
-                @input="find"
                 placeholder="Select a month"
                 :disabled="!filterDate"
                 v-model="month"
@@ -40,7 +39,11 @@
               </b-select>
             </div>
             <div class="level-left">
-              <button @click="deleteDialog" :disabled="!selectedRow" class="button is-danger">
+              <button
+                @click.prevent="deleteDialog"
+                :disabled="!selectedRow"
+                class="button is-danger"
+              >
                 <span class="icon is-medium">
                   <i class="mdi mdi-delete"></i>
                 </span>
@@ -103,13 +106,13 @@
       <Add @hide="addShow = false; find()" />
     </b-modal>
     <b-modal :active.sync="addCategoryShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
-      <AddCategory @hide="addCategoryShow = false" />
+      <AddCategory @hide="addCategoryShow = false; $buefy.toast.open('Transaction deleted!');" />
     </b-modal>
   </div>
 </template>
 <script>
 import moment from "moment";
-import { mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -122,39 +125,36 @@ export default {
       checkedRows: [],
       selectedRow: null,
       rightSection: "",
-      pageRows: 12,
-      rows: []
+      pageRows: 12
+      //rows: []
     };
   },
   computed: {
-    ...mapState({
-      rows: "transactions"
-    })
+    rows() {
+      const result = this.$store.getters.getAllTransactions;
+      return this.filterDate ? this.filterMonth(result) : result;
+    }
   },
   methods: {
+    ...mapActions(["getTransactions", "getCategories", "removeTransaction"]),
     formatDate(date) {
       return moment(String(date)).format("Do MMM YYYY");
     },
     find() {
-      this.$ipc.send("findQuery", "transactions");
-      this.$ipc.on("findBackt", (e, result) => {
-        this.rows = this.filterDate ? this.filterMonth(result) : result;
-      });
+      this.getTransactions();
+      this.getCategories();
     },
     remove() {
-      this.$ipc.send("removeQuery", "transactions", this.selectedRow);
-      this.find();
+      this.removeTransaction(this.selectedRow);
     },
     filterMonth(data) {
       let filtered = [];
       data.forEach(res => {
         let d = new Date(res.date);
-        console.log("month", this.month);
         if (d.getMonth() === this.month) {
           filtered.push(res);
         }
       });
-      console.log(filtered);
       return filtered;
     },
     deleteDialog() {
@@ -172,11 +172,11 @@ export default {
       });
     }
   },
-  mounted: function() {
+  created() {},
+  mounted() {
     this.find();
     this.pageRows = Math.round((this.$refs.content.clientHeight - 200) / 36);
   },
-  updated: function() {},
   components: {
     Detail: () => import("../components/TransactionDetail.vue"),
     Add: () => import("../components/AddTransaction.vue"),

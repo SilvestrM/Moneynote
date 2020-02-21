@@ -22,6 +22,8 @@ $nav-height: 5vh;
 //animation
 $trans-fast: .3s;
 
+$gradient-main: linear-gradient(135deg, $primary 0%, $primary 50%, #30c7bf 100%);
+
 @mixin scrollbar {
     &::-webkit-scrollbar {
         display: block;

@@ -1,5 +1,5 @@
 <template>
-  <form class="form-content" @submit.prevent="addTransaction">
+  <form class="form-content" @submit.prevent="add">
     <div class="modal-card">
       <header class="modal-card-head">
         <div class="title modal-card-title">Add Transaction</div>
@@ -21,7 +21,7 @@
               <b-select required placeholder="Select a category" v-model="transaction.category">
                 <option
                   v-for="category in categories"
-                  :key="category.name"
+                  :key="category._id"
                   :value="category"
                 >{{category.name}}</option>
               </b-select>
@@ -65,6 +65,7 @@
 
 <script>
 import moment from "moment";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -77,38 +78,38 @@ export default {
         value: 0,
         type: false,
         account: "default"
-      },
-      categories: []
+      }
+      //categories: []
     };
   },
+  computed: {
+    ...mapGetters({
+      categories: "getCategories"
+    })
+  },
   methods: {
-    find() {
-      this.$ipc.send("findQuery", "category");
-      this.$ipc.on("findBackc", (e, result) => {
-        this.categories = [];
-        this.categories = result;
-      });
-    },
+    ...mapActions(["addTransaction"]),
     parseDate(date) {
       return moment(date);
     },
-    addTransaction() {
-      if (this.transaction.type === false) {
+    add() {
+      /* if (this.transaction.type === false) {
         this.transaction.value = -this.transaction.value;
       }
-      /*this.transaction.date = moment(String(this.transaction.date)).format(
+      this.transaction.date = moment(String(this.transaction.date)).format(
         "Do MMM YYYY"
-      );*/
+      );
       if (this.transaction.location === "") {
         this.transaction.location === "N/A";
       }
-      this.$ipc.send("addQuery", "transactions", this.transaction);
+      this.$ipc.send("addQuery", "transactions", this.transaction); */
+      this.addTransaction(this.transaction);
       this.$emit("hide");
       this.$delete;
     }
   },
   mounted: function() {
-    this.find();
+    //this.find();
   }
 };
 </script>

@@ -103,18 +103,8 @@
         <div class="header">
           <h4>Items</h4>
         </div>
-        <!-- <div class="level is-marginless" v-show="editMode">
-          <div class="level-left"></div>
-          <div class="level-right">
-            <button @click="edit" class="button level-item is-borderless is-pulled-right">
-              <span class="icon">
-                <i class="mdi mdi-plus-thick"></i>
-              </span>
-            </button>
-          </div>
-        </div>-->
         <section class="items-container">
-          <div v-if="rowData.items.length > 0" class="tags">
+          <div v-if="rowData.items.length > 0 || editMode" class="tags">
             <b-taglist v-if="!editMode">
               <b-tag
                 type="is-primary"
@@ -123,15 +113,7 @@
                 :key="item"
               >{{item}}</b-tag>
             </b-taglist>
-            <!-- <b-taglist v-else>
-              <b-tag
-                class="is-medium"
-                closable
-                @close="transaction.items.splice( transaction.items.indexOf(item), 1 );"
-                v-for="item in rowData.items"
-                :key="item"
-              >{{item}}</b-tag>
-            </b-taglist>-->
+
             <b-taginput
               ellipsis
               v-else
@@ -156,6 +138,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   props: ["rowData", "formatDate", "find"],
   data() {
@@ -178,15 +161,16 @@ export default {
       };
     }
   },
-  updated: function() {
-    console.log(this.editMode);
+  watch: {
+    //deactivate edit mode after row change
+    rowData: function(newRow, oldRow) {
+      this.editMode = false;
+    }
   },
   methods: {
+    ...mapActions(["updateTransaction"]),
     edit() {
-      if (this.transaction.type === false) {
-        this.transaction.value = -this.transaction.value;
-      }
-      this.$ipc.send("updateQuery", "transactions", this.transaction);
+      this.updateTransaction(this.transaction);
       this.$emit("saveEdit");
       this.editMode = false;
     }

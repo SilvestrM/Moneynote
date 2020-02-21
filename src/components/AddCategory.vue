@@ -1,5 +1,5 @@
 <template>
-  <form class="form-content" @submit.prevent="addCategory">
+  <form class="form-content" @submit.prevent="add">
     <div class="modal-card">
       <header class="modal-card-head">
         <div class="title modal-card-title">Add Category</div>
@@ -27,6 +27,7 @@
 <script>
 import moment from "moment";
 import ColorPicker from "@radial-color-picker/vue-color-picker";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -42,9 +43,11 @@ export default {
     };
   },
   methods: {
-    addCategory() {
-      this.category.color = Math.round(this.category.color);
-      this.$ipc.send("addQuery", "category", this.category);
+    ...mapActions(["addCategory"]),
+    add() {
+      /* this.category.color = Math.round(this.category.color);
+      this.$ipc.send("addQuery", "category", this.category); */
+      this.addCategory(this.category);
       this.$emit("hide");
       this.$delete;
     }

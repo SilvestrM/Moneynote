@@ -10,6 +10,10 @@ body {
     background-color: green;
 }
 
+.is-gradient {
+    background: $gradient-main;
+}
+
 .content {
     margin: 0 !important;
     width: 100%;

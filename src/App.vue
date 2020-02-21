@@ -19,10 +19,7 @@
 </template>
 <script>
 import screen from "electron";
-export default {
-  beforeCreate: function() {},
-  mounted: function() {}
-};
+export default {};
 </script>
 
 <style lang="scss">
@@ -35,7 +32,7 @@ export default {
   width: 100%;
   padding: 0 2rem;
   height: $nav-height;
-  background: linear-gradient(135deg, $primary 0%, $primary 50%, #30c7bf 100%);
+  background: $gradient-main;
   div {
     display: flex;
     height: 100%;

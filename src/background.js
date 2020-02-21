@@ -18,11 +18,13 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
-//database decaration
-const db = new Datastore({ filename: `${__static}/data/data.db`, autoload: true });
+//database decaration;
 
-const transactions = new Datastore({ filename: `${__static}/data/transactions.db`, autoload: true })
-const categories = new Datastore({ filename: `${__static}/data/categories.db`, autoload: true })
+//const transactions = new Datastore({ filename: `${__static}/data/transactions.db`, autoload: true })
+//const categories = new Datastore({ filename: `${__static}/data/categories.db`, autoload: true })
+
+const transactions = new Datastore({ filename: `src/assets/data/transactions.db`, autoload: true })
+const categories = new Datastore({ filename: `src/assets/data/categories.db`, autoload: true })
 
 //db.loadDatabase()
 
@@ -119,7 +121,24 @@ ipcMain.on("findQuery", (e, type) => {
   switch (type) {
     case "transactions":
       transactions.find({}, (err, docs) => {
-        win.webContents.send("findBackt", docs)
+        e.sender.send("findQueryTs", docs)
+        //e.returnValue = docs;
+      })
+      break;
+    case "category":
+      categories.find({}).sort({ name: 1 }).exec((err, docs) => {
+        e.sender.send("findQueryCy", docs)
+      })
+      break;
+  }
+})
+
+
+/*ipcMain.handle("findQuery", async (e, type) => {
+  switch (type) {
+    case "transactions":
+      return transactions.find({}, (err, docs) => {
+        return docs
       })
       break;
     case "category":
@@ -128,15 +147,14 @@ ipcMain.on("findQuery", (e, type) => {
       })
       break;
   }
-})
-
+})*/
 ipcMain.on("addQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
-      transactions.insert(data, (err) => { console.log(err); });
+      transactions.insert(data, (err) => { win.webContents.send("error", err); console.log(err); });
       break;
     case "category":
-      categories.insert(data, (err) => { console.log(err); });
+      categories.insert(data, (err) => { e.sender.send("error", err); console.log(err); });
       break;
   }
 })
@@ -144,7 +162,7 @@ ipcMain.on("addQuery", (e, type, data) => {
 ipcMain.on("removeQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
-      transactions.remove({ _id: data._id })
+      transactions.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(err); })
       break;
   }
 })
@@ -152,7 +170,7 @@ ipcMain.on("removeQuery", (e, type, data) => {
 ipcMain.on("updateQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
-      transactions.update({ _id: data._id }, data)
+      transactions.update({ _id: data._id }, data, (err) => { e.sender.send("error", err); console.log(err); })
       break;
   }
 })
