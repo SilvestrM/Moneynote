@@ -122,7 +122,6 @@ ipcMain.on("findQuery", (e, type) => {
     case "transactions":
       transactions.find({}, (err, docs) => {
         e.sender.send("findQueryTs", docs)
-        //e.returnValue = docs;
       })
       break;
     case "category":

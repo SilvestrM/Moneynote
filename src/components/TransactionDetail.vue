@@ -163,6 +163,7 @@ export default {
   },
   watch: {
     //deactivate edit mode after row change
+    //eslint-disable-next-line
     rowData: function(newRow, oldRow) {
       this.editMode = false;
     }

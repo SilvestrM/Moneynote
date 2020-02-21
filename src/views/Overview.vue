@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="app-content">
     <section class="hero is-gradient is-primary is-large">
       <div class="hero-body">
         <div class="container">

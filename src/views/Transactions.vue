@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="content" class="content">
+    <div ref="content" class="app-content">
       <div class="left">
         <div class="msection">
           <div class="header">
@@ -185,7 +185,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.content {
+.app-content {
   grid-template-columns: 60% auto;
 }
 </style>

@@ -18,6 +18,22 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/Transactions.vue')
+    },
+    {
+      path: '/controls',
+      name: 'controls',
+      component: () => import('./views/Controls.vue'),
+      children: [{
+        path: 'accounts',
+        name: 'accounts',
+        component: () => import('./views/Accounts.vue'),
+      },
+      {
+        path: 'categories',
+        name: 'categories',
+        component: () => import('./views/Categories.vue'),
+      }
+      ]
     }
   ]
 })

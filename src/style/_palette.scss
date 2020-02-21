@@ -1,5 +1,6 @@
 $primary: #67A2BC;
 $primary-invert: #FFFfFf;
+$link: $primary;
 
 $colors: (
     "white": ($white, $black),
@@ -15,6 +16,8 @@ $colors: (
 );
 
 $family-primary: 'Barlow Condensed', sans-serif;
+
+$radius-small: 0;
 
 //numeric
 $nav-height: 5vh;

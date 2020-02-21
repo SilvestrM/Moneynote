@@ -1,25 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <div>
-        <router-link to="/">Overview</router-link>
-      </div>
-      <div>
-        <router-link to="/transactions">Transactions</router-link>
-      </div>
-      <div>
-        <router-link to="/transactions">Accounts</router-link>
-      </div>
-      <div>
-        <router-link to="/transactions">Analysis</router-link>
-      </div>
-    </div>
-    <router-view />
+    <Navigation />
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 <script>
 import screen from "electron";
-export default {};
+import Navigation from "./components/Navigation";
+export default {
+  components: {
+    Navigation
+  },
+  created() {
+    //this.$store.actions.getTransactions;
+    //this.$store.actions.getCategories;
+  }
+};
 </script>
 
 <style lang="scss">
@@ -30,13 +28,18 @@ export default {};
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0 2rem;
+  padding: 0;
   height: $nav-height;
   background: $gradient-main;
-  div {
+  margin: 0;
+  .level-left {
+    justify-content: flex-start;
+  }
+  .nav-link {
     display: flex;
     height: 100%;
     align-items: center;
+    margin: 0;
     a {
       color: $primary-invert;
       font-weight: 800;
@@ -45,7 +48,7 @@ export default {};
       height: 100%;
       display: flex;
       align-items: center;
-      padding: 1rem;
+      padding: 0.5em 1.5em;
       transition: $trans-fast;
       &:hover {
         background: #528196;

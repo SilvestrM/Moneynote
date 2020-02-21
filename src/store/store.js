@@ -26,7 +26,8 @@ const transactions = {
       ipc.once('findQueryTs', (e, data) => {
         commit('setTransactions', data)
       })
-      if (ipc.once('error', err => err === null)) console.log("jo");
+      ipc.once('error', err => { if (err !== null) console.log(err) })
+
     },
     addTransaction({ commit }, transaction) {
       if (transaction.type === false) {
@@ -42,15 +43,16 @@ const transactions = {
       if (transaction.type === false) {
         transaction.value = -transaction.value;
       }
+      ipc.send("updateQuery", "transactions", transaction)
       commit('updateTransaction', transaction)
     },
     async removeTransaction({ commit }, transaction) {
-      /*await new Promise((resolve, reject) => {
+      await new Promise((resolve, reject) => {
         ipc.send("removeQuery", "transactions", transaction)
         if (ipc.once('error', err => err === null)) resolve();
-      }).then(commit('removeTransaction', transaction._id));*/
-      ipc.send("removeQuery", "transactions", transaction)
-      commit('removeTransaction', transaction._id)
+      }).then(commit('removeTransaction', transaction._id));
+      //*ipc.send("removeQuery", "transactions", transaction)
+      //*commit('removeTransaction', transaction._id)
     }
   },
   getters: {

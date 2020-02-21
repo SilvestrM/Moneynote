@@ -6,19 +6,21 @@ body {
 ::-webkit-scrollbar {
     display: none;
 }
-.basic-table {
-    background-color: green;
-}
-
 .is-gradient {
     background: $gradient-main;
 }
 
-.content {
+/*.menu-label {
+    background: $primary;
+    padding: 0.5rem;
+    color: $primary-invert;
+}*/
+
+.app-content {
     margin: 0 !important;
     width: 100%;
     display: grid;
-    //grid-template-columns: 60% auto;
+    grid-template-columns: 50% auto;
     position: relative;
     grid-gap: 1rem;
     padding: 1rem;
@@ -45,6 +47,7 @@ body {
         align-items: center;
         h4 {      
             color: $primary-invert;
+            //font-weight: bold;
             margin: 0;
         }
     }
