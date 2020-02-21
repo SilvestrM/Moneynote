@@ -8,7 +8,7 @@
         <router-link to="/transactions">Transactions</router-link>
       </div>
       <div class="nav-link level-item">
-        <router-link to="/controls/accounts">Controls</router-link>
+        <router-link to="/controls">Controls</router-link>
       </div>
       <div class="nav-link level-item">
         <router-link to="/transactions">{{$route.path}}</router-link>

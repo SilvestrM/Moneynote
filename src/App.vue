@@ -9,13 +9,17 @@
 <script>
 import screen from "electron";
 import Navigation from "./components/Navigation";
+import { mapActions } from "vuex";
 export default {
   components: {
     Navigation
   },
+  methods: {
+    ...mapActions(["getTransactions", "getCategories"])
+  },
   created() {
-    //this.$store.actions.getTransactions;
-    //this.$store.actions.getCategories;
+    this.getTransactions();
+    this.getCategories();
   }
 };
 </script>

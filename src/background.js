@@ -25,6 +25,7 @@ let win
 
 const transactions = new Datastore({ filename: `src/assets/data/transactions.db`, autoload: true })
 const categories = new Datastore({ filename: `src/assets/data/categories.db`, autoload: true })
+const accounts = new Datastore({ filename: `src/assets/data/accounts.db`, autoload: true })
 
 //db.loadDatabase()
 
@@ -129,24 +130,14 @@ ipcMain.on("findQuery", (e, type) => {
         e.sender.send("findQueryCy", docs)
       })
       break;
+    case "accounts":
+      accounts.find({}).sort({ name: 1 }).exec((err, docs) => {
+        e.sender.send("findQueryAc", docs)
+      })
+      break;
   }
 })
 
-
-/*ipcMain.handle("findQuery", async (e, type) => {
-  switch (type) {
-    case "transactions":
-      return transactions.find({}, (err, docs) => {
-        return docs
-      })
-      break;
-    case "category":
-      categories.find({}).sort({ name: 1 }).exec((err, docs) => {
-        win.webContents.send("findBackc", docs)
-      })
-      break;
-  }
-})*/
 ipcMain.on("addQuery", (e, type, data) => {
   switch (type) {
     case "transactions":

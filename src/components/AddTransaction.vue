@@ -109,6 +109,7 @@ export default {
     }
   },
   mounted: function() {
+    //this.date = Date.now;
     //this.find();
   }
 };

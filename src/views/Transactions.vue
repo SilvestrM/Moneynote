@@ -141,8 +141,8 @@ export default {
       return moment(String(date)).format("Do MMM YYYY");
     },
     find() {
-      this.getTransactions();
-      this.getCategories();
+      //this.getTransactions();
+      //this.getCategories();
     },
     remove() {
       this.removeTransaction(this.selectedRow);

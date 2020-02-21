@@ -14,6 +14,8 @@
 const storage = window.localStorage;
 export default {};
 </script>
-<style lang="sass" scoped>
-  
+<style lang="scss" scoped>
+.app-content {
+  grid-template-columns: auto;
+}
 </style>
