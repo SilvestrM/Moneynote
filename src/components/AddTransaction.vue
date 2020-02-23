@@ -83,9 +83,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      categories: "getCategories"
-    })
+    ...mapGetters(["getCategories"]),
+    categories() {
+      return this.getCategories;
+    }
   },
   methods: {
     ...mapActions(["addTransaction"]),

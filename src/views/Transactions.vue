@@ -106,7 +106,7 @@
       <Add @hide="addShow = false; find()" />
     </b-modal>
     <b-modal :active.sync="addCategoryShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
-      <AddCategory @hide="addCategoryShow = false; $buefy.toast.open('Transaction deleted!');" />
+      <AddCategory @hide="addCategoryShow = false; $buefy.toast.open('Category added!');" />
     </b-modal>
   </div>
 </template>
@@ -136,7 +136,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getTransactions", "getCategories", "removeTransaction"]),
+    ...mapActions(["getTransactions", "fetchCategories", "removeTransaction"]),
     formatDate(date) {
       return moment(String(date)).format("Do MMM YYYY");
     },

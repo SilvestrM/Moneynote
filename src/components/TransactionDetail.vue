@@ -37,7 +37,7 @@
             </button>
           </div>
         </div>
-        <table class="not-bordered is-fullwidth">
+        <table class="table not-bordered is-fullwidth">
           <tr>
             <td>Transaction date:</td>
             <td v-if="!editMode">{{formatDate(rowData.date)}}</td>

@@ -27,8 +27,6 @@ const transactions = new Datastore({ filename: `src/assets/data/transactions.db`
 const categories = new Datastore({ filename: `src/assets/data/categories.db`, autoload: true })
 const accounts = new Datastore({ filename: `src/assets/data/accounts.db`, autoload: true })
 
-//db.loadDatabase()
-
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
 
@@ -59,6 +57,10 @@ function createWindow() {
 
   win.on('closed', () => {
     win = null
+  })
+
+  win.on('renderError', (e, error) => {
+    console.log('window error', error);
   })
 }
 
@@ -103,6 +105,8 @@ app.on('ready', async () => {
   createWindow()
 })
 
+
+
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
@@ -117,6 +121,10 @@ if (isDevelopment) {
     })
   }
 }
+
+// Database queries
+
+// find
 
 ipcMain.on("findQuery", (e, type) => {
   switch (type) {
@@ -138,29 +146,52 @@ ipcMain.on("findQuery", (e, type) => {
   }
 })
 
+// add
+
 ipcMain.on("addQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
-      transactions.insert(data, (err) => { win.webContents.send("error", err); console.log(err); });
+      transactions.insert(data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); });
       break;
     case "category":
-      categories.insert(data, (err) => { e.sender.send("error", err); console.log(err); });
+      categories.insert(data, (err) => { win.webContents.send("error", err); console.log(`${type} error 1`, err); });
+      break;
+    case "account":
+      accounts.insert(data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); });
       break;
   }
 })
+
+// remove
 
 ipcMain.on("removeQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
-      transactions.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(err); })
+      transactions.remove({ _id: data._id }, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
       break;
+    case "category":
+      categories.remove({ _id: data._id }, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
+      transactions.update({ category: { _id: data._id } }, { $set: { _id: null, name: "Deleted Category!!" } }, { multi: true }, (err, num) => { win.webContents.send("error", err); console.log(`${type} error`, err, num); })
+      break;
+    case "account":
+      accounts.remove({ _id: data._id }, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
+      break;
+
   }
 })
+
+// update 
 
 ipcMain.on("updateQuery", (e, type, data) => {
   switch (type) {
     case "transactions":
-      transactions.update({ _id: data._id }, data, (err) => { e.sender.send("error", err); console.log(err); })
+      transactions.update({ _id: data._id }, data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
+      break;
+    case "category":
+      categories.update({ _id: data._id }, data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
+      break;
+    case "account":
+      accounts.update({ _id: data._id }, data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
       break;
   }
 })

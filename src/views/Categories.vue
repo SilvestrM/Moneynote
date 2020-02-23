@@ -3,26 +3,6 @@
     <div class="header">
       <h4>Categories</h4>
     </div>
-    <div class="level control-panel">
-      <div class="level-left">
-        <button class="button">
-          <span>Add</span>
-          <b-icon icon="plus"></b-icon>
-        </button>
-        <button class="button">
-          <span>Add</span>
-          <b-icon icon="plus"></b-icon>
-        </button>
-      </div>
-      <div class="level-right">
-        <button class="button is-danger">
-          <span class="icon is-medium">
-            <i class="mdi mdi-delete"></i>
-          </span>
-          <span>Remove</span>
-        </button>
-      </div>
-    </div>
     <div class="columns">
       <div class="column is-one-third">
         <b-table
@@ -50,20 +30,69 @@
           </template>
         </b-table>
       </div>
-      <div class="column is-two-thirds"></div>
+      <div class="column is-two-thirds">
+        <div class="level control-panel">
+          <div class="level-left">
+            <button @click="addCategoryShow = true" class="button">
+              <span>Add</span>
+              <b-icon icon="plus"></b-icon>
+            </button>
+          </div>
+          <div class="level-right">
+            <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button is-danger">
+              <span class="icon is-medium">
+                <i class="mdi mdi-delete"></i>
+              </span>
+              <span>Remove</span>
+            </button>
+          </div>
+        </div>
+        <CategoryDetail :rowData="selectedRow" @saveEdit="selectedRow = null" />
+      </div>
     </div>
+    <b-modal :active.sync="addCategoryShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
+      <AddCategory @hide="addCategoryShow = false; $buefy.toast.open('Category added!');" />
+    </b-modal>
   </section>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      selectedRow: null
+      selectedRow: null,
+      addCategoryShow: false
     };
   },
   computed: {
-    ...mapGetters({ categories: "getCategories" })
+    ...mapGetters(["getCategories"]),
+    categories() {
+      console.log(this.getCategories);
+      return this.getCategories;
+    }
+  },
+  methods: {
+    ...mapActions(["removeCategory"]),
+    remove() {
+      this.removeCategory(this.selectedRow);
+    },
+    deleteDialog() {
+      this.$buefy.dialog.confirm({
+        title: "Deleting Category",
+        message: `Are you sure you want to <b>delete</b> category <b>${this.selectedRow.name}</b>? This action cannot be undone.`,
+        confirmText: `Delete`,
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: () => {
+          this.remove();
+          this.$buefy.toast.open("Category deleted!");
+        }
+      });
+    }
+  },
+  components: {
+    AddCategory: () => import("../components/AddCategory.vue"),
+    CategoryDetail: () => import("../components/CategoryDetail.vue")
   }
 };
 </script>
