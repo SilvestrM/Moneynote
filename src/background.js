@@ -6,10 +6,8 @@ import {
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
 
-import Datastore from 'nedb'
+import './dataAccess'
 
-
-//import Database from 'nedb';
 import { brotliDecompress } from 'zlib';
 import { CLIEngine } from 'eslint';
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -23,9 +21,11 @@ let win
 //const transactions = new Datastore({ filename: `${__static}/data/transactions.db`, autoload: true })
 //const categories = new Datastore({ filename: `${__static}/data/categories.db`, autoload: true })
 
-const transactions = new Datastore({ filename: `src/assets/data/transactions.db`, autoload: true })
-const categories = new Datastore({ filename: `src/assets/data/categories.db`, autoload: true })
-const accounts = new Datastore({ filename: `src/assets/data/accounts.db`, autoload: true })
+/*const db = {};
+
+db.transactions = new Datastore({ filename: `src/assets/data/transactions.db`, autoload: true })
+db.categories = new Datastore({ filename: `src/assets/data/categories.db`, autoload: true })
+db.accounts = new Datastore({ filename: `src/assets/data/accounts.db`, autoload: true })*/
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
@@ -105,8 +105,6 @@ app.on('ready', async () => {
   createWindow()
 })
 
-
-
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
@@ -121,77 +119,3 @@ if (isDevelopment) {
     })
   }
 }
-
-// Database queries
-
-// find
-
-ipcMain.on("findQuery", (e, type) => {
-  switch (type) {
-    case "transactions":
-      transactions.find({}, (err, docs) => {
-        e.sender.send("findQueryTs", docs)
-      })
-      break;
-    case "category":
-      categories.find({}).sort({ name: 1 }).exec((err, docs) => {
-        e.sender.send("findQueryCy", docs)
-      })
-      break;
-    case "accounts":
-      accounts.find({}).sort({ name: 1 }).exec((err, docs) => {
-        e.sender.send("findQueryAc", docs)
-      })
-      break;
-  }
-})
-
-// add
-
-ipcMain.on("addQuery", (e, type, data) => {
-  switch (type) {
-    case "transactions":
-      transactions.insert(data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); });
-      break;
-    case "category":
-      categories.insert(data, (err) => { win.webContents.send("error", err); console.log(`${type} error 1`, err); });
-      break;
-    case "account":
-      accounts.insert(data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); });
-      break;
-  }
-})
-
-// remove
-
-ipcMain.on("removeQuery", (e, type, data) => {
-  switch (type) {
-    case "transactions":
-      transactions.remove({ _id: data._id }, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
-      break;
-    case "category":
-      categories.remove({ _id: data._id }, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
-      transactions.update({ category: { _id: data._id } }, { $set: { _id: null, name: "Deleted Category!!" } }, { multi: true }, (err, num) => { win.webContents.send("error", err); console.log(`${type} error`, err, num); })
-      break;
-    case "account":
-      accounts.remove({ _id: data._id }, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
-      break;
-
-  }
-})
-
-// update 
-
-ipcMain.on("updateQuery", (e, type, data) => {
-  switch (type) {
-    case "transactions":
-      transactions.update({ _id: data._id }, data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
-      break;
-    case "category":
-      categories.update({ _id: data._id }, data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
-      break;
-    case "account":
-      accounts.update({ _id: data._id }, data, (err) => { win.webContents.send("error", err); console.log(`${type} error`, err); })
-      break;
-  }
-})
