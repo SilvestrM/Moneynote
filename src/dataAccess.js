@@ -56,7 +56,7 @@ ipcMain.on("removeQuery", (e, type, data) => {
             break;
         case "category":
             db.categories.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
-            db.transactions.update({ category: { _id: data._id } }, { $set: { _id: null, name: "Deleted Category!!" } }, { multi: true }, (err, num) => { e.sender.send("error", err); console.log(`${type} error`, err, num); })
+            db.transactions.update({ category: { _id: data._id } }, { $set: { category: { _id: null, name: "Deleted Category!!" } } }, { multi: true }, (err, num) => { e.sender.send("error", err); console.log(`${type} error`, err, num); })
             break;
         case "account":
             db.accounts.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
