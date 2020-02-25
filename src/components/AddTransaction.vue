@@ -17,8 +17,13 @@
                 expanded
               ></b-datepicker>
             </b-field>
-            <b-field class="column is-narrow" label="Category">
-              <b-select required placeholder="Select a category" v-model="transaction.category">
+            <b-field class="column is-marginless is-one-third" label="Category" expanded>
+              <b-select
+                required
+                placeholder="Select a category"
+                expanded
+                v-model="transaction.category"
+              >
                 <option
                   v-for="category in categories"
                   :key="category._id"
@@ -26,18 +31,32 @@
                 >{{category.name}}</option>
               </b-select>
             </b-field>
-            <b-field class="column is-narrow" label="Type">
-              <b-checkbox v-model="transaction.type">Is Income</b-checkbox>
-            </b-field>
-            <b-field class="column is-one-quarter" label="Value" expanded>
+            <b-field class="column is-two-fifths" label="Value" expanded>
               <b-numberinput
                 :step="'.1'"
                 controls-position="compact"
-                maxlength="30"
+                expanded
+                maxlength="10"
                 v-model="transaction.value"
               ></b-numberinput>
             </b-field>
-
+            <b-field class="column is-narrow" label="Account" expanded>
+              <b-select
+                required
+                expanded
+                placeholder="Select an account"
+                v-model="transaction.account"
+              >
+                <option
+                  v-for="account in accounts"
+                  :key="account._id"
+                  :value="account._id"
+                >{{account.name}}</option>
+              </b-select>
+            </b-field>
+            <b-field class="column is-narrow is-marginless" label="Type">
+              <b-checkbox v-model="transaction.type">Is Income</b-checkbox>
+            </b-field>
             <b-field class="column is-one-third" label="Location" expanded>
               <b-input type="text" maxlength="30" v-model="transaction.location"></b-input>
             </b-field>
@@ -83,9 +102,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getCategories"]),
+    ...mapGetters(["getCategories", "getAccounts"]),
     categories() {
       return this.getCategories;
+    },
+    accounts() {
+      return this.getAccounts;
     }
   },
   methods: {

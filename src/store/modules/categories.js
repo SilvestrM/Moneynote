@@ -23,19 +23,35 @@ const categories = {
                     throw reason;
                 })
         },
-        addCategory({ commit }, category) {
+        async addCategory({ commit }, category) {
+            //rounding the color
             category.color = Math.round(category.color);
-            ipc.send("addQuery", "category", category);
-            commit('newCategory', category)
+            await ipc.callMain('addCategory', category)
+                .then(() => {
+                    commit('newCategory', category)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
-        updateCategory({ commit }, category) {
+        async updateCategory({ commit }, category) {
             category.color = Math.round(category.color);
-            ipc.send("updateQuery", "category", category)
-            commit('updateCategory', category)
+            await ipc.callMain('updateCategory', category)
+                .then(resolve => {
+                    commit('updateCategory', category)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
-        removeCategory({ commit }, category) {
-            ipc.send("removeQuery", "category", category)
-            commit('removeCategory', category._id)
+        async removeCategory({ commit }, category) {
+            await ipc.callMain('removeCategory', category)
+                .then(() => {
+                    commit('removeCategory', category._id)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         }
     },
     getters: {

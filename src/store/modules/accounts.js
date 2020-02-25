@@ -15,25 +15,57 @@ const accounts = {
     },
     actions: {
         async fetchAccounts({ commit }) {
-            const data = await ipc.callMain('fetchAccounts')
-            commit('setAccounts', data)
+            await ipc.callMain('fetchAccounts')
+                .then(resolve => {
+                    commit('setAccounts', resolve)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
-        addAccount({ commit }, account) {
-            ipc.send("addQuery", "account", account);
-            commit('setAccounts', account)
+        async addAccount({ commit }, account) {
+            await ipc.callMain('addAccount', account)
+                .then(() => {
+                    commit('newAccount', account)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
-        updateAccount({ commit }, account) {
-            ipc.send("updateQuery", "account", account)
-            commit('updateAccount', account)
+        async updateAccount({ commit }, account) {
+            await ipc.callMain('updateAccount', account)
+                .then(resolve => {
+                    commit('updateAccount', resolve)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
-        removeAccount({ commit }, account) {
-            ipc.send("removeQuery", "account", account)
-            commit('removeAccount', account._id)
+        updateBalance({ commit }, account) {
+            if (account !== undefined) commit('updateAccount', account)
+        },
+        async removeAccount({ commit }, account) {
+            await ipc.callMain('removeAccount', account)
+                .then(() => {
+                    commit('removeAccount', account._id)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         }
     },
     getters: {
         getAccounts(state) {
             return state.accounts
+        },
+        getAccount: (state) => (id) => {
+            const data = state.accounts.find(account => account._id === id) !== undefined ? state.accounts.find(account => account._id === id) : { name: "Undefined!" }
+            return data
+        },
+        getTotal: (state) => {
+            let total = 0.00
+            state.accounts.forEach(account => { total += account.balance });
+            return total
         }
     }
 }

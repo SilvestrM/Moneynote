@@ -20,7 +20,8 @@ $family-primary: 'Barlow Condensed', sans-serif;
 $radius-small: 0;
 
 //numeric
-$nav-height: 5vh;
+$nav-height: auto;
+$nav-max: 5vh;
 
 //animation
 $trans-fast: .3s;

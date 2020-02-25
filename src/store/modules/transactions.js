@@ -24,35 +24,54 @@ const transactions = {
                     throw reason;
                 })
         },
-        addTransaction({ commit }, transaction) {
-            if (transaction.type === false) {
+        async addTransaction({ commit }, transaction) {
+            // make transaction negative 
+            if (transaction.type === false && transaction.value >= 0) {
                 transaction.value = -transaction.value;
             }
+            // location check
             if (transaction.location === "") {
                 transaction.location === "N/A";
             }
-            ipc.send("addQuery", "transactions", transaction);
-            commit('newTransaction', transaction);
+
+            await ipc.callMain('addTransaction', transaction)
+                .then(() => {
+                    commit('newTransaction', transaction)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
-        updateTransaction({ commit }, transaction) {
-            if (transaction.type === false) {
+        async updateTransaction({ commit }, transaction) {
+            // make a expense a negative value
+            if (transaction.type === false && transaction.value >= 0) {
                 transaction.value = -transaction.value;
             }
-            ipc.send("updateQuery", "transactions", transaction)
-            commit('updateTransaction', transaction)
+            await ipc.callMain('updateTransaction', transaction)
+                .then(resolve => {
+                    commit('updateTransaction', resolve)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
         async removeTransaction({ commit }, transaction) {
-            await new Promise((resolve, reject) => {
-                ipc.send("removeQuery", "transactions", transaction)
-                if (ipc.once('error', err => err === null)) resolve();
-            }).then(commit('removeTransaction', transaction._id));
-            //*ipc.send("removeQuery", "transactions", transaction)
-            //*commit('removeTransaction', transaction._id)
+            await ipc.callMain('removeTransaction', transaction)
+                .then(() => {
+                    commit('removeTransaction', transaction._id)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         }
     },
     getters: {
         getAllTransactions(state) {
             return state.transactions
+        },
+        getTransaction: (state) => (id) => {
+            const data = state.transactions.find(transaction => transaction._id === id) !== undefined ? state.transactions.find(transaction => transaction._id === id) : { name: "Undefined!" }
+            return data
         }
     }
 }

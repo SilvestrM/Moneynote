@@ -88,11 +88,7 @@
         </div>
       </div>
       <div class="right">
-        <Detail
-          :formatDate="formatDate"
-          :rowData="selectedRow"
-          @saveEdit="find(); selectedRow = null"
-        />
+        <Detail :formatDate="formatDate" :selectedRow="selectedRow" @saveEdit="find();" />
       </div>
     </div>
     <!-- <div class="modal" :class="{'is-active':addShow, 'is-clipping':addShow}">
@@ -130,7 +126,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getCategory"]),
+    ...mapGetters(["getCategory", "getTransaction"]),
     rows() {
       const result = this.$store.getters.getAllTransactions;
       return this.filterDate ? this.filterMonth(result) : result;
@@ -147,6 +143,7 @@ export default {
     },
     remove() {
       this.removeTransaction(this.selectedRow);
+      this.selectedRow = null;
     },
     filterMonth(data) {
       let filtered = [];

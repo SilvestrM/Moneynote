@@ -24,8 +24,8 @@ body {
     position: relative;
     grid-gap: 1rem;
     padding: 1rem;
-    height: 100vh - $nav-height;
-    max-height: 100vh - $nav-height;
+    height: 95vh;
+    max-height: 95vh;
     .left {
         display: flex;
         flex-direction: column;              //border: 1px solid $border;

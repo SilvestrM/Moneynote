@@ -60,7 +60,7 @@
     <div v-else>
       <p
         class="notification has-text-grey has-text-centered is-centered"
-      >Select a transaction to view its details</p>
+      >Select a category to view its details</p>
     </div>
     <b-modal :active.sync="showColorModal" has-modal-card trap-focus aria-role="dialog" aria-modal>
       <ColorPick @colorChange="changeColor" />
@@ -70,9 +70,9 @@
 
 <script>
 import ColorPick from "../components/ColorPick";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
-  props: ["rowData", "formatDate", "find"],
+  props: ["selectedRow"],
   data() {
     return {
       editMode: false,
@@ -80,6 +80,12 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["getCategory"]),
+    rowData() {
+      return this.selectedRow !== null
+        ? this.getCategory(this.selectedRow._id)
+        : this.selectedRow;
+    },
     category() {
       return {
         _id: this.rowData._id,

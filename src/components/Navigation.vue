@@ -10,17 +10,20 @@
       <div class="nav-link level-item">
         <router-link to="/controls">Controls</router-link>
       </div>
-      <div class="nav-link level-item">
-        <router-link to="/transactions">{{$route.path}}</router-link>
-      </div>
     </div>
     <div class="level-right">
-      <div class="nav-link level-item">
-        <router-link to="/">Settings</router-link>
+      <div class="level-item nav-link">
+        <div class="level-item">
+          <span class="has-text-white-ter is-size-5 has-text-weight-light is-uppercase">Total:&ensp;</span>
+          <span class="has-text-white is-size-4 has-text-weight-semibold">{{ totalWorth}}</span>
+          <span class="has-text-white-ter is-size-5 has-text-weight-light">&nbsp;CZK</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["totalWorth"]
+};
 </script>

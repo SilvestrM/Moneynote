@@ -1,4 +1,3 @@
-import { ipcMain, contextBridge } from 'electron'
 import { ipcMain as ipc } from 'electron-better-ipc'
 import Datastore from 'nedb-promises'
 
@@ -9,6 +8,15 @@ db.categories = new Datastore({ filename: `src/assets/data/categories.db`, autol
 db.accounts = new Datastore({ filename: `src/assets/data/accounts.db`, autoload: true })
 
 // Database queries
+
+//methods
+async function updateBalance(account, diff) {
+    return await db.accounts.findOne({ _id: account })
+        .then(async (resolve) => {
+            const newBalance = parseFloat(resolve.balance) + diff
+            return await db.accounts.update({ _id: account }, { $set: { balance: newBalance } }, { returnUpdatedDocs: true });
+        })
+}
 
 // find
 
@@ -27,74 +35,58 @@ ipc.answerRenderer('fetchAccounts', async () => {
     })
 })
 
-
-/*ipcMain.on("findQuery", (e, type) => {
-    switch (type) {
-        case "transactions":
-            db.transactions.find({}, (err, docs) => {
-                e.sender.send("findQueryTs", docs)
-            })
-            break;
-        case "category":
-            db.categories.find({}).sort({ name: 1 }).exec((err, docs) => {
-                e.sender.send("findQueryCy", docs)
-            })
-            break;
-        case "accounts":
-            db.accounts.find({}).sort({ name: 1 }).exec((err, docs) => {
-                e.sender.send("findQueryAc", docs)
-            })
-            break;
-    }
-})*/
-
 // add
 
-ipcMain.on("addQuery", (e, type, data) => {
-    switch (type) {
-        case "transactions":
-            db.transactions.insert(data, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); });
-            break;
-        case "category":
-            db.categories.insert(data, (err) => { e.sender.send("error", err); console.log(`${type} error 1`, err); });
-            break;
-        case "account":
-            db.accounts.insert(data, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); });
-            break;
-    }
+ipc.answerRenderer('addTransaction', async (data, win) => {
+    await db.transactions.insert(data)
+        .then(async () => {
+            ipc.callRenderer(win, 'updateBalance', await updateBalance(data.account, data.value))
+        })
+})
+ipc.answerRenderer('addCategory', async (data) => {
+    await db.categories.insert(data);
+})
+ipc.answerRenderer('addAccount', async (data) => {
+    await db.accounts.insert(data);
+})
+
+
+// update 
+
+ipc.answerRenderer('updateTransaction', async (data, win) => {
+    const old = await db.transactions.findOne({ _id: data._id })
+    const difference = data.value - old.value
+
+    return await db.transactions.update({ _id: data._id }, data, { returnUpdatedDocs: true })
+        .then(async (resolve) => {
+            ipc.callRenderer(win, 'updateBalance', await updateBalance(resolve.account, difference))
+            return resolve
+        })
+        .catch(err => {
+            throw err
+        })
+})
+
+ipc.answerRenderer('updateCategory', async (data) => {
+    return await db.categories.update({ _id: data._id }, data, { returnUpdatedDocs: true });
+})
+
+ipc.answerRenderer('updateAccount', async (data) => {
+    return await db.accounts.update({ _id: data._id }, data, { returnUpdatedDocs: true });
 })
 
 // remove
 
-ipcMain.on("removeQuery", (e, type, data) => {
-    switch (type) {
-        case "transactions":
-            db.transactions.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
-            break;
-        case "category":
-            db.categories.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
-            break;
-        case "account":
-            db.accounts.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
-            break;
-
-    }
+ipc.answerRenderer('removeTransaction', async (data) => {
+    await db.transactions.remove({ _id: data._id });
 })
 
-// update 
+ipc.answerRenderer('removeCategory', async (data) => {
+    await db.categories.remove({ _id: data._id });
+})
 
-ipcMain.on("updateQuery", (e, type, data) => {
-    switch (type) {
-        case "transactions":
-            db.transactions.update({ _id: data._id }, data, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
-            break;
-        case "category":
-            db.categories.update({ _id: data._id }, data, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
-            break;
-        case "account":
-            db.accounts.update({ _id: data._id }, data, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
-            break;
-    }
+ipc.answerRenderer('removeAccount', async (data) => {
+    await db.accounts.remove({ _id: data._id });
 })
 
 export default {}

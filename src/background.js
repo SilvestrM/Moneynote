@@ -16,25 +16,14 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
-//database decaration;
-
-//const transactions = new Datastore({ filename: `${__static}/data/transactions.db`, autoload: true })
-//const categories = new Datastore({ filename: `${__static}/data/categories.db`, autoload: true })
-
-/*const db = {};
-
-db.transactions = new Datastore({ filename: `src/assets/data/transactions.db`, autoload: true })
-db.categories = new Datastore({ filename: `src/assets/data/categories.db`, autoload: true })
-db.accounts = new Datastore({ filename: `src/assets/data/accounts.db`, autoload: true })*/
-
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
 
 function createWindow() {
   // Create the browser window.
   const primaryScreen = screen.getPrimaryDisplay();
-  const width = primaryScreen.size.width - (primaryScreen.size.width * 0.20);
-  const height = primaryScreen.size.height - (primaryScreen.size.height * 0.20);
+  const width = primaryScreen.size.width - (primaryScreen.size.width * 0.25);
+  const height = primaryScreen.size.height - (primaryScreen.size.height * 0.25);
 
   win = new BrowserWindow({
     width: width, height: height, useContentSize: true, webPreferences: {

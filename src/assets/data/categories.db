@@ -1,4 +1,5 @@
-{"_id":"87AuA6I8YohHImdQ","color":108,"description":"Nova","name":"Kategoriee"}
-{"color":277,"description":"import { ipcRenderer as ipc } from 'electron'","name":"Uboat","_id":"UIvLEt8N9yrdaU6u"}
-{"_id":"vFPKucTll8aUJhl2","color":189,"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ","name":"Grils"}
-{"_id":"UIvLEt8N9yrdaU6u","color":277,"description":"import { ipcRenderer as ipc } from 'electron'","name":"Uboat"}
+{"color":241,"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ","name":"Transportation","_id":"DArcA1TfqExoTq78"}
+{"color":71,"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ","name":"Education","_id":"Of9gMSsSVVlVCa8h"}
+{"color":41,"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ","name":"Groceries","_id":"UHKowU8hsVdZJDxJ"}
+{"color":107,"description":"","name":"Family","_id":"czCSEOWaCPvDxGS5"}
+{"color":286,"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ","name":"Pets","_id":"zrUsTcn8crmNtjAD"}

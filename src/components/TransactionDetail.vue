@@ -65,13 +65,12 @@
           </tr>
           <tr>
             <td>Account:</td>
-            <td v-if="!editMode">{{rowData.account}}</td>
+            <td v-if="!editMode">{{getAccount(rowData.account).name}}</td>
             <td v-else>
               <b-input
                 size="is-small"
                 type="text"
-                v-model="transaction.account"
-                :value="rowData.account"
+                :value="getAccount(rowData.account).name"
                 disabled
               ></b-input>
             </td>
@@ -150,14 +149,24 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-  props: ["rowData", "formatDate", "find"],
+  props: ["selectedRow", "formatDate"],
   data() {
     return {
       editMode: false
     };
   },
   computed: {
-    ...mapGetters(["getCategory", "getCategories"]),
+    ...mapGetters([
+      "getCategory",
+      "getCategories",
+      "getTransaction",
+      "getAccount"
+    ]),
+    rowData() {
+      return this.selectedRow !== null
+        ? this.getTransaction(this.selectedRow._id)
+        : this.selectedRow;
+    },
     categories() {
       return this.getCategories;
     },
@@ -186,6 +195,7 @@ export default {
     ...mapActions(["updateTransaction"]),
     edit() {
       this.updateTransaction(this.transaction);
+      console.log(Number(this.transaction.value));
       this.$emit("saveEdit");
       this.editMode = false;
     }

@@ -2,7 +2,7 @@
   <div class="app-content">
     <section class="left">
       <b-menu>
-        <b-menu-list label="Menu">
+        <b-menu-list label="Options">
           <b-menu-item
             :active="$route.path === '/controls/accounts'"
             label="Accounts"
@@ -13,7 +13,7 @@
           <b-menu-item
             :active="$route.path === '/controls/categories'"
             label="Categories"
-            icon="account"
+            icon="content-copy"
             tag="router-link"
             to="/controls/categories"
           ></b-menu-item>

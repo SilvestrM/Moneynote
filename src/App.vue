@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navigation />
+    <Navigation :totalWorth="totalWorth" />
     <keep-alive>
       <router-view />
     </keep-alive>
@@ -9,18 +9,34 @@
 <script>
 import screen from "electron";
 import Navigation from "./components/Navigation";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import { ipcRenderer as ipc } from "electron-better-ipc";
 export default {
   components: {
     Navigation
   },
+  computed: {
+    ...mapGetters({
+      totalWorth: "getTotal"
+    })
+  },
   methods: {
-    ...mapActions(["getTransactions", "fetchCategories", "fetchAccounts"])
+    ...mapActions([
+      "getTransactions",
+      "fetchCategories",
+      "fetchAccounts",
+      "updateBalance"
+    ])
   },
   created() {
+    //database operations
     this.getTransactions();
     this.fetchCategories();
     this.fetchAccounts();
+
+    ipc.answerMain("updateBalance", async data => {
+      await this.updateBalance(data);
+    });
   }
 };
 </script>
@@ -29,12 +45,12 @@ export default {
 #app {
 }
 #nav {
-  font-family: "Barlow", sans-serif;
   display: flex;
   align-items: center;
   width: 100%;
   padding: 0;
   height: $nav-height;
+  max-height: $nav-max;
   background: $gradient-main;
   margin: 0;
   .level-left {
@@ -45,7 +61,11 @@ export default {
     height: 100%;
     align-items: center;
     margin: 0;
+    > * {
+      padding: 1vh 1.5em;
+    }
     a {
+      font-family: "Barlow", sans-serif;
       color: $primary-invert;
       font-weight: 800;
       font-size: 1.1em;
@@ -53,7 +73,6 @@ export default {
       height: 100%;
       display: flex;
       align-items: center;
-      padding: 0.5em 1.5em;
       transition: $trans-fast;
       &:hover {
         background: #528196;

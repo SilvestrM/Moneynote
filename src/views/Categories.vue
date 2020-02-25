@@ -6,7 +6,6 @@
     <div class="columns">
       <div class="column is-one-third is-aligned-left">
         <b-table
-          :class="['scrollable', 'transactions']"
           :data="categories"
           :order="'is-centered'"
           :selected.sync="selectedRow"
@@ -45,10 +44,7 @@
             </button>
           </div>
         </div>
-        <CategoryDetail
-          :rowData="selectedRow"
-          @saveEdit="selectedRow = getCategory(selectedRow._id)"
-        />
+        <CategoryDetail :selectedRow="selectedRow" />
       </div>
     </div>
     <b-modal :active.sync="addCategoryShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
@@ -68,7 +64,6 @@ export default {
   computed: {
     ...mapGetters(["getCategories", "getCategory"]),
     categories() {
-      console.log(this.getCategories);
       return this.getCategories;
     }
   },
@@ -76,6 +71,7 @@ export default {
     ...mapActions(["removeCategory"]),
     remove() {
       this.removeCategory(this.selectedRow);
+      this.selectedRow = null;
     },
     deleteDialog() {
       this.$buefy.dialog.confirm({
