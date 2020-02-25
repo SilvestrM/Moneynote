@@ -42,8 +42,6 @@ export default {
   methods: {
     ...mapActions(["addCategory"]),
     add() {
-      /* this.category.color = Math.round(this.category.color);
-      this.$ipc.send("addQuery", "category", this.category); */
       this.addCategory(this.category);
       this.$emit("hide");
       this.$delete;

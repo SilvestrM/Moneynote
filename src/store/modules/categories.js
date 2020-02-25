@@ -1,4 +1,4 @@
-import { ipcRenderer as ipc } from 'electron'
+import { ipcRenderer as ipc } from 'electron-better-ipc'
 const categories = {
     strict: true,
     state: {
@@ -14,12 +14,14 @@ const categories = {
         removeCategory: (state, id) => (state.categories = state.categories.filter(category => category._id !== id))
     },
     actions: {
-        fetchCategories({ commit }) {
-            ipc.send('findQuery', 'category')
-            ipc.once('findQueryCy', (e, data) => {
-                commit('setCategories', data)
-            })
-
+        async fetchCategories({ commit }) {
+            await ipc.callMain('fetchCategories')
+                .then(resolve => {
+                    commit('setCategories', resolve)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
         addCategory({ commit }, category) {
             category.color = Math.round(category.color);
@@ -39,8 +41,11 @@ const categories = {
     getters: {
         getCategories(state) {
             return state.categories
+        },
+        getCategory: (state) => (id) => {
+            const data = state.categories.find(category => category._id === id) !== undefined ? state.categories.find(category => category._id === id) : { name: "Undefined!", color: "348" }
+            return data
         }
     }
 }
-
 export default categories

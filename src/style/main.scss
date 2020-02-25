@@ -42,6 +42,7 @@ body {
     .header {
         background: $primary;
         padding: 0.5rem;
+        margin-bottom: $block-spacing / 2;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -55,6 +56,9 @@ body {
 }
 
 
+.mrt {
+    margin-top: $hr-margin !important;
+}
 
 .table {
     height: 100%;
@@ -104,9 +108,7 @@ body {
 }
 
 .control-panel {
-    margin: .5rem 0;
-    
-    
+    margin: .5rem 0;   
 }
 .button {
      border-radius: 0;

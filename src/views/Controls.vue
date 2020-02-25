@@ -4,21 +4,19 @@
       <b-menu>
         <b-menu-list label="Menu">
           <b-menu-item
-            :active="true"
+            :active="$route.path === '/controls/accounts'"
             label="Accounts"
             icon="cash-multiple"
             tag="router-link"
             to="/controls/accounts"
           ></b-menu-item>
           <b-menu-item
+            :active="$route.path === '/controls/categories'"
             label="Categories"
             icon="account"
             tag="router-link"
             to="/controls/categories"
           ></b-menu-item>
-        </b-menu-list>
-        <b-menu-list label="Actions">
-          <b-menu-item label="Logout"></b-menu-item>
         </b-menu-list>
       </b-menu>
     </section>

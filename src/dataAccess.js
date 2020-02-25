@@ -1,5 +1,6 @@
-import { ipcMain } from 'electron'
-import Datastore from 'nedb'
+import { ipcMain, contextBridge } from 'electron'
+import { ipcMain as ipc } from 'electron-better-ipc'
+import Datastore from 'nedb-promises'
 
 const db = {};
 
@@ -11,7 +12,23 @@ db.accounts = new Datastore({ filename: `src/assets/data/accounts.db`, autoload:
 
 // find
 
-ipcMain.on("findQuery", (e, type) => {
+ipc.answerRenderer('fetchTransactions', async () => {
+    return await db.transactions.find({}, (err) => {
+    })
+})
+
+ipc.answerRenderer('fetchCategories', async () => {
+    return await db.categories.find({}, (err) => {
+    })
+})
+
+ipc.answerRenderer('fetchAccounts', async () => {
+    return await db.accounts.find({}, (err) => {
+    })
+})
+
+
+/*ipcMain.on("findQuery", (e, type) => {
     switch (type) {
         case "transactions":
             db.transactions.find({}, (err, docs) => {
@@ -29,7 +46,7 @@ ipcMain.on("findQuery", (e, type) => {
             })
             break;
     }
-})
+})*/
 
 // add
 
@@ -56,7 +73,6 @@ ipcMain.on("removeQuery", (e, type, data) => {
             break;
         case "category":
             db.categories.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })
-            db.transactions.update({ category: { _id: data._id } }, { $set: { category: { _id: null, name: "Deleted Category!!" } } }, { multi: true }, (err, num) => { e.sender.send("error", err); console.log(`${type} error`, err, num); })
             break;
         case "account":
             db.accounts.remove({ _id: data._id }, (err) => { e.sender.send("error", err); console.log(`${type} error`, err); })

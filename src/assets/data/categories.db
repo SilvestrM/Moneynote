@@ -1,6 +1,4 @@
 {"_id":"87AuA6I8YohHImdQ","color":108,"description":"Nova","name":"Kategoriee"}
-{"color":131,"description":"categories: ","name":"Ahoj","_id":"Mrd6rHmBcY609SGk"}
 {"color":277,"description":"import { ipcRenderer as ipc } from 'electron'","name":"Uboat","_id":"UIvLEt8N9yrdaU6u"}
-{"color":291,"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ","name":"Kocicky","_id":"lidM19s85hrBaipW"}
-{"color":317,"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ","name":"Grils","_id":"vFPKucTll8aUJhl2"}
-{"$$deleted":true,"_id":"Mrd6rHmBcY609SGk"}
+{"_id":"vFPKucTll8aUJhl2","color":189,"description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ","name":"Grils"}
+{"_id":"UIvLEt8N9yrdaU6u","color":277,"description":"import { ipcRenderer as ipc } from 'electron'","name":"Uboat"}

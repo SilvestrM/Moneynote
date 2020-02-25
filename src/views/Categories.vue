@@ -4,12 +4,10 @@
       <h4>Categories</h4>
     </div>
     <div class="columns">
-      <div class="column is-one-third">
+      <div class="column is-one-third is-aligned-left">
         <b-table
           :class="['scrollable', 'transactions']"
           :data="categories"
-          default-sort="name"
-          :default-sort-direction="'asc'"
           :order="'is-centered'"
           :selected.sync="selectedRow"
           :paginated="true"
@@ -47,7 +45,10 @@
             </button>
           </div>
         </div>
-        <CategoryDetail :rowData="selectedRow" @saveEdit="selectedRow = null" />
+        <CategoryDetail
+          :rowData="selectedRow"
+          @saveEdit="selectedRow = getCategory(selectedRow._id)"
+        />
       </div>
     </div>
     <b-modal :active.sync="addCategoryShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
@@ -65,7 +66,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getCategories"]),
+    ...mapGetters(["getCategories", "getCategory"]),
     categories() {
       console.log(this.getCategories);
       return this.getCategories;
@@ -97,5 +98,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.is-aligned-left {
+  table {
+    td {
+      text-align: left !important;
+    }
+  }
+}
 </style>

@@ -2,14 +2,18 @@
   <div>
     <div v-if="rowData !== null">
       <div class="msection">
-        <div class="header" :style="{backgroundColor:`hsl(${rowData.color},60%,60%)`}">
-          <h4>{{rowData.name}}</h4>
+        <div class v-if="!editMode">
+          <div class="header" :style="{backgroundColor:`hsl(${rowData.color},60%,60%)`}">
+            <h4>{{rowData.name}}</h4>
+          </div>
+          <button @click="editMode = !editMode" class="button is-pulled-right">
+            <span class="icon">
+              <i :class="{'mdi mdi-pencil':!editMode, 'mdi mdi-close':editMode }"></i>
+            </span>
+          </button>
         </div>
-        <div class="level">
-          <span
-            v-if="!editMode"
-            class="subtitle is-size-4 is-flex has-text-centered"
-          >{{rowData.name}}</span>
+        <div class="level" v-else>
+          <span v-if="!editMode" class="subtitle is-size-4 is-flex has-text-centered"></span>
           <b-input
             class="level-item"
             v-model="category.name"

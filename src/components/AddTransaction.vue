@@ -22,7 +22,7 @@
                 <option
                   v-for="category in categories"
                   :key="category._id"
-                  :value="category"
+                  :value="category._id"
                 >{{category.name}}</option>
               </b-select>
             </b-field>
@@ -94,16 +94,6 @@ export default {
       return moment(date);
     },
     add() {
-      /* if (this.transaction.type === false) {
-        this.transaction.value = -this.transaction.value;
-      }
-      this.transaction.date = moment(String(this.transaction.date)).format(
-        "Do MMM YYYY"
-      );
-      if (this.transaction.location === "") {
-        this.transaction.location === "N/A";
-      }
-      this.$ipc.send("addQuery", "transactions", this.transaction); */
       this.addTransaction(this.transaction);
       this.$emit("hide");
       this.$delete;

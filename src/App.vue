@@ -15,11 +15,12 @@ export default {
     Navigation
   },
   methods: {
-    ...mapActions(["getTransactions", "fetchCategories"])
+    ...mapActions(["getTransactions", "fetchCategories", "fetchAccounts"])
   },
   created() {
     this.getTransactions();
     this.fetchCategories();
+    this.fetchAccounts();
   }
 };
 </script>

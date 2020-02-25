@@ -90,11 +90,21 @@
           </tr>
           <tr>
             <td>Category:</td>
-            <td>
+            <td v-if="!editMode">
               <span
                 class="tag has-text-white"
-                :style="{backgroundColor:`hsl(${rowData.category.color},60%,60%)`}"
-              >{{rowData.category.name}}</span>
+                :style="{backgroundColor:`hsl(${getCategory(rowData.category).color},60%,60%)`}"
+              >{{getCategory(rowData.category).name}}</span>
+            </td>
+            <td v-else>
+              <b-select expanded required v-model="transaction.category">
+                <option
+                  v-for="category in categories"
+                  :selected="getCategory(transaction.category)._id === category._id"
+                  :key="category._id"
+                  :value="category._id"
+                >{{category.name}}</option>
+              </b-select>
             </td>
           </tr>
         </table>
@@ -138,7 +148,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: ["rowData", "formatDate", "find"],
   data() {
@@ -147,6 +157,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["getCategory", "getCategories"]),
+    categories() {
+      return this.getCategories;
+    },
     transaction: function() {
       return {
         _id: this.rowData._id,

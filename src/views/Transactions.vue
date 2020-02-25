@@ -80,8 +80,8 @@
               <b-table-column field="category" label="Category">
                 <span
                   class="tag has-text-white"
-                  :style="{backgroundColor:`hsl(${props.row.category.color},60%,60%)`}"
-                >{{props.row.category.name}}</span>
+                  :style="{backgroundColor:`hsl(${getCategory(props.row.category).color},60%,60%)`}"
+                >{{getCategory(props.row.category).name}}</span>
               </b-table-column>
             </template>
           </b-table>
@@ -130,6 +130,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["getCategory"]),
     rows() {
       const result = this.$store.getters.getAllTransactions;
       return this.filterDate ? this.filterMonth(result) : result;

@@ -1,4 +1,5 @@
-import { ipcRenderer as ipc } from 'electron'
+import { ipcRenderer as ipc } from 'electron-better-ipc'
+
 const transactions = {
     strict: true,
     state: {
@@ -14,13 +15,14 @@ const transactions = {
         removeTransaction: (state, id) => (state.transactions = state.transactions.filter(transaction => transaction._id !== id))
     },
     actions: {
-        getTransactions({ commit }) {
-            ipc.send('findQuery', 'transactions')
-            ipc.once('findQueryTs', (e, data) => {
-                commit('setTransactions', data)
-            })
-            ipc.once('error', err => { if (err !== null) console.log(err) })
-
+        async getTransactions({ commit }) {
+            await ipc.callMain('fetchTransactions')
+                .then(resolve => {
+                    commit('setTransactions', resolve)
+                })
+                .catch(reason => {
+                    throw reason;
+                })
         },
         addTransaction({ commit }, transaction) {
             if (transaction.type === false) {

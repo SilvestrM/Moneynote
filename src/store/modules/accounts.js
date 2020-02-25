@@ -1,4 +1,4 @@
-import { ipcRenderer as ipc } from 'electron'
+import { ipcRenderer as ipc } from 'electron-better-ipc'
 const accounts = {
     strict: true,
     state: {
@@ -14,12 +14,9 @@ const accounts = {
         removeAccount: (state, id) => (state.accounts = state.accounts.filter(account => account._id !== id))
     },
     actions: {
-        fetchAccounts({ commit }) {
-            ipc.send('findQuery', 'account')
-            ipc.once('findQueryAc', (e, data) => {
-                commit('setAccounts', data)
-            })
-
+        async fetchAccounts({ commit }) {
+            const data = await ipc.callMain('fetchAccounts')
+            commit('setAccounts', data)
         },
         addAccount({ commit }, account) {
             ipc.send("addQuery", "account", account);
@@ -36,7 +33,7 @@ const accounts = {
     },
     getters: {
         getAccounts(state) {
-            return state.account
+            return state.accounts
         }
     }
 }
