@@ -7,7 +7,6 @@
   </div>
 </template>
 <script>
-import screen from "electron";
 import Navigation from "./components/Navigation";
 import { mapActions, mapGetters } from "vuex";
 import { ipcRenderer as ipc } from "electron-better-ipc";

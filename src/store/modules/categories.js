@@ -38,7 +38,7 @@ const categories = {
             category.color = Math.round(category.color);
             await ipc.callMain('updateCategory', category)
                 .then(resolve => {
-                    commit('updateCategory', category)
+                    commit('updateCategory', resolve)
                 })
                 .catch(reason => {
                     throw reason;

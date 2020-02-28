@@ -6,7 +6,6 @@
     <div class="columns">
       <div class="column is-one-third">
         <b-table
-          :class="['scrollable', 'transactions']"
           :data="accounts"
           :selected.sync="selectedRow"
           :paginated="true"
@@ -35,7 +34,7 @@
             </button>
           </div>
           <div class="level-right">
-            <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button is-danger">
+            <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
               <span class="icon is-medium">
                 <i class="mdi mdi-delete"></i>
               </span>
@@ -43,6 +42,7 @@
             </button>
           </div>
         </div>
+        <AccountDetail :selectedRow="selectedRow" />
       </div>
     </div>
     <b-modal :active.sync="addShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
@@ -53,6 +53,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import AddAccount from "../components/AddAccount";
+import AccountDetail from "../components/AccountDetail";
 export default {
   data() {
     return {
@@ -74,7 +75,7 @@ export default {
     deleteDialog() {
       this.$buefy.dialog.confirm({
         title: "Deleting Account",
-        message: `Are you sure you want to <b>delete</b> account <b>${this.selectedRow.name}</b>? This action cannot be undone.`,
+        message: `Are you sure you want to <b>delete</b> account <b>${this.selectedRow.name}</b>? This, will also delete all transactions connected to this account action cannot be undone.`,
         confirmText: `Delete`,
         type: "is-danger",
         hasIcon: true,
@@ -86,7 +87,8 @@ export default {
     }
   },
   components: {
-    AddAccount
+    AddAccount,
+    AccountDetail
   }
 };
 </script>

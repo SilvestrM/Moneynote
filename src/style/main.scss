@@ -60,6 +60,11 @@ body {
     margin-top: $hr-margin !important;
 }
 
+    li, dt, dd {
+      margin-bottom: 0.5rem;
+    }
+
+
 .table {
     height: 100%;
     &.scrollable {

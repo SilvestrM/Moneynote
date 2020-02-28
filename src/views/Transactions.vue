@@ -39,11 +39,7 @@
               </b-select>
             </div>
             <div class="level-left">
-              <button
-                @click.prevent="deleteDialog"
-                :disabled="!selectedRow"
-                class="button is-danger"
-              >
+              <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
                 <span class="icon is-medium">
                   <i class="mdi mdi-delete"></i>
                 </span>
@@ -62,7 +58,7 @@
             :current-page.sync="currentPage"
             :order="'is-centered'"
             :pagination-simple="true"
-            :pagination-position="'bottom'"
+            :pagination-position="'top'"
             :selected.sync="selectedRow"
             narrowed
             hoverable
@@ -70,14 +66,14 @@
             :checkbox-position="'left'"
           >
             <template slot-scope="props">
-              <b-table-column field="date" label="Date" sortable>{{ formatDate(props.row.date)}}</b-table-column>
+              <b-table-column field="date" label="Date" sortable>{{ $formatDate(props.row.date)}}</b-table-column>
 
               <b-table-column field="text" label="Text" @click="!searchable">{{ props.row.text }}</b-table-column>
 
               <b-table-column field="value" label="Value" numeric>
                 <span :class="{'has-text-danger': !props.row.type}">{{props.row.value }}</span>
               </b-table-column>
-              <b-table-column field="category" label="Category">
+              <b-table-column field="category" label="Category" numeric>
                 <span
                   class="tag has-text-white"
                   :style="{backgroundColor:`hsl(${getCategory(props.row.category).color},60%,60%)`}"
@@ -88,7 +84,7 @@
         </div>
       </div>
       <div class="right">
-        <Detail :formatDate="formatDate" :selectedRow="selectedRow" @saveEdit="find();" />
+        <Detail :selectedRow="selectedRow" @saveEdit="find();" />
       </div>
     </div>
     <!-- <div class="modal" :class="{'is-active':addShow, 'is-clipping':addShow}">
@@ -107,10 +103,10 @@
   </div>
 </template>
 <script>
-import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  mixins: ["formatDateMixin"],
   data() {
     return {
       month: 1,
@@ -134,9 +130,6 @@ export default {
   },
   methods: {
     ...mapActions(["getTransactions", "fetchCategories", "removeTransaction"]),
-    formatDate(date) {
-      return moment(String(date)).format("Do MMM YYYY");
-    },
     find() {
       //this.getTransactions();
       //this.getCategories();

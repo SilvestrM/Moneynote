@@ -21,18 +21,17 @@ async function updateBalance(account, diff) {
 // find
 
 ipc.answerRenderer('fetchTransactions', async () => {
-    return await db.transactions.find({}, (err) => {
-    })
+    return await db.transactions.find({}).catch(err => {
+        return err
+    });
 })
 
 ipc.answerRenderer('fetchCategories', async () => {
-    return await db.categories.find({}, (err) => {
-    })
+    return await db.categories.find({})
 })
 
 ipc.answerRenderer('fetchAccounts', async () => {
-    return await db.accounts.find({}, (err) => {
-    })
+    return await db.accounts.find({})
 })
 
 // add

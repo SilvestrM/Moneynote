@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-const storage = window.localStorage;
 export default {};
 </script>
 <style lang="scss" scoped>

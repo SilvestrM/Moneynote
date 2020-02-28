@@ -70,8 +70,14 @@ const transactions = {
             return state.transactions
         },
         getTransaction: (state) => (id) => {
-            const data = state.transactions.find(transaction => transaction._id === id) !== undefined ? state.transactions.find(transaction => transaction._id === id) : { name: "Undefined!" }
-            return data
+            if (state.transactions.find(transaction => transaction._id === id) !== undefined) {
+                return state.transactions.find(transaction => transaction._id === id)
+            } else {
+                return { name: "Undefined!" }
+            }
+        },
+        getTransactionsByAccount: (state) => (id) => {
+            return state.transactions.filter(transaction => transaction.account === id) !== undefined ? state.transactions.filter(transaction => transaction.account === id) : { name: "Undefined!" }
         }
     }
 }

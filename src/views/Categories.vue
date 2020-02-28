@@ -36,7 +36,7 @@
             </button>
           </div>
           <div class="level-right">
-            <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button is-danger">
+            <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
               <span class="icon is-medium">
                 <i class="mdi mdi-delete"></i>
               </span>

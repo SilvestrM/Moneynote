@@ -1,14 +1,19 @@
 'use strict'
 
 import { app, protocol, BrowserWindow, screen, ipcMain } from 'electron'
+
+
 import {
   createProtocol,
+  // eslint-disable-next-line
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
 
 import './dataAccess'
 
+// eslint-disable-next-line
 import { brotliDecompress } from 'zlib';
+// eslint-disable-next-line
 import { CLIEngine } from 'eslint';
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -49,7 +54,8 @@ function createWindow() {
   })
 
   win.on('renderError', (e, error) => {
-    console.log('window error', error);
+    // eslint-disable-next-line
+    console.error('window error', error);
   })
 }
 

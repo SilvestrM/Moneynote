@@ -40,7 +40,7 @@
         <table class="table not-bordered is-fullwidth">
           <tr>
             <td>Transaction date:</td>
-            <td v-if="!editMode">{{formatDate(rowData.date)}}</td>
+            <td v-if="!editMode">{{$formatDate(rowData.date)}}</td>
             <td v-else>
               <b-input
                 size="is-small"
@@ -149,7 +149,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-  props: ["selectedRow", "formatDate"],
+  props: ["selectedRow"],
   data() {
     return {
       editMode: false
@@ -195,7 +195,6 @@ export default {
     ...mapActions(["updateTransaction"]),
     edit() {
       this.updateTransaction(this.transaction);
-      console.log(Number(this.transaction.value));
       this.$emit("saveEdit");
       this.editMode = false;
     }

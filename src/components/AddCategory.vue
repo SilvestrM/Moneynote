@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import moment from "moment";
 import ColorPick from "../components/ColorPick";
 import { mapActions } from "vuex";
 export default {
