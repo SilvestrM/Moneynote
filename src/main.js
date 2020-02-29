@@ -6,11 +6,12 @@ import router from './router'
 import store from './store/store'
 import './registerServiceWorker'
 
-
 import { ipcRenderer as ipc } from 'electron'
 
 Vue.use(Vuex)
-Vue.use(Buefy)
+Vue.use(Buefy, {
+  defaultIconPack: 'mdi'
+})
 
 Vue.config.productionTip = false
 //Vue.prototype.$ipc = ipcRenderer
@@ -22,7 +23,12 @@ window.onerror = (error, url, line) => {
   ipc.send('renderError', error, url, line)
 }
 // eslint-disable-next-line
-ipc.on('error', (e, err) => console.log('renderer error', err))
+ipc.on('error', (e, err) => console.error('renderer error', err))
+
+// eslint-disable-next-line
+process.on('unhandledRejection', error => {
+  console.error(error)
+})
 
 import moment from "moment";
 import formatDateMixin from './mixins/formatDate'

@@ -6,7 +6,13 @@
       </header>
       <section class="modal-card-body">
         <b-field class="l" label="Name">
-          <b-input type="text" maxlength="30" v-model="category.name" required></b-input>
+          <b-input
+            placeholder="Groceries"
+            type="text"
+            maxlength="30"
+            v-model="category.name"
+            required
+          ></b-input>
         </b-field>
         <b-field class label="Description">
           <b-input
@@ -16,12 +22,21 @@
             placeholder="Optional"
           ></b-input>
         </b-field>
-        <ColorPick @colorChange="changeColor" />
+        <!-- <ColorPick @colorChange="changeColor" /> -->
+        <button
+          type="button"
+          :style="{backgroundColor:`hsl(${category.color},60%,60%)`}"
+          @click="showColorModal = true"
+          class="button is-fullwidth level-item has-text-white"
+        >Select color</button>
       </section>
       <section class="modal-card-foot">
         <button class="button is-primary" type="submit">Add category</button>
       </section>
     </div>
+    <b-modal :active.sync="showColorModal" has-modal-card trap-focus aria-role="dialog" aria-modal>
+      <ColorPick @colorChange="changeColor" />
+    </b-modal>
   </form>
 </template>
 
@@ -31,6 +46,7 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      showColorModal: false,
       category: {
         name: "",
         description: "",

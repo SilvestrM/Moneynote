@@ -1,4 +1,6 @@
 import { ipcRenderer as ipc } from 'electron-better-ipc'
+import { ToastProgrammatic as Toast } from 'buefy'
+
 const accounts = {
     strict: true,
     state: {
@@ -25,8 +27,12 @@ const accounts = {
         },
         async addAccount({ commit }, account) {
             await ipc.callMain('addAccount', account)
-                .then(() => {
-                    commit('newAccount', account)
+                .then(resolve => {
+                    Toast.open({
+                        message: `Account ${resolve.name} added!`,
+                        position: 'is-bottom'
+                    })
+                    commit('newAccount', resolve)
                 })
                 .catch(reason => {
                     throw reason;
@@ -35,6 +41,10 @@ const accounts = {
         async updateAccount({ commit }, account) {
             await ipc.callMain('updateAccount', account)
                 .then(resolve => {
+                    Toast.open({
+                        message: `Account ${resolve.name} updated!`,
+                        position: 'is-bottom'
+                    })
                     commit('updateAccount', resolve)
                 })
                 .catch(reason => {
@@ -47,6 +57,11 @@ const accounts = {
         async removeAccount({ commit }, account) {
             await ipc.callMain('removeAccount', account)
                 .then(() => {
+                    Toast.open({
+                        message: `Account ${account.name} deleted!`,
+                        position: 'is-bottom',
+                        type: 'is-danger'
+                    })
                     commit('removeAccount', account._id)
                 })
                 .catch(reason => {

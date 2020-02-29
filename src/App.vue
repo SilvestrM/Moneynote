@@ -24,7 +24,8 @@ export default {
       "getTransactions",
       "fetchCategories",
       "fetchAccounts",
-      "updateBalance"
+      "updateBalance",
+      "removeTransactions"
     ])
   },
   created() {
@@ -35,6 +36,10 @@ export default {
 
     ipc.answerMain("updateBalance", async data => {
       await this.updateBalance(data);
+    });
+
+    ipc.answerMain("removeTransactions", async data => {
+      await this.removeTransactions(data);
     });
   }
 };
@@ -61,7 +66,7 @@ export default {
     align-items: center;
     margin: 0;
     > * {
-      padding: 1vh 1.5em;
+      padding: 1vh 1em;
     }
     a {
       font-family: "Barlow", sans-serif;

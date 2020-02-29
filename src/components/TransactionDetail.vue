@@ -53,7 +53,7 @@
           </tr>
           <tr>
             <td>Amount:</td>
-            <td v-if="!editMode">{{rowData.value}}</td>
+            <td v-if="!editMode">{{rowData.value + ' ' + getAccount(rowData.account).currency}}</td>
             <td v-else>
               <b-input
                 size="is-small"

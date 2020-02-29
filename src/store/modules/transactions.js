@@ -1,4 +1,11 @@
 import { ipcRenderer as ipc } from 'electron-better-ipc'
+import { ToastProgrammatic as Toast } from 'buefy'
+
+function sortBy(data, by) {
+    return data.sort((a, b) => {
+        return a.date < b.date;
+    });
+}
 
 const transactions = {
     strict: true,
@@ -6,13 +13,17 @@ const transactions = {
         transactions: []
     },
     mutations: {
-        newTransaction: (state, transaction) => state.transactions.push(transaction),
+        newTransaction: (state, transaction) => {
+            state.transactions.push(transaction)
+            sortBy(state.transactions, 'date')
+        },
         setTransactions: (state, data) => (state.transactions = data),
         updateTransaction: (state, data) => {
             const i = state.transactions.findIndex(transaction => transaction._id === data._id)
             if (i !== -1) state.transactions.splice(i, 1, data)
         },
-        removeTransaction: (state, id) => (state.transactions = state.transactions.filter(transaction => transaction._id !== id))
+        removeTransaction: (state, id) => (state.transactions = state.transactions.filter(transaction => transaction._id !== id)),
+        removeTransactions: (state, id) => (state.transactions = state.transactions.filter(transaction => transaction.account !== id))
     },
     actions: {
         async getTransactions({ commit }) {
@@ -35,8 +46,12 @@ const transactions = {
             }
 
             await ipc.callMain('addTransaction', transaction)
-                .then(() => {
-                    commit('newTransaction', transaction)
+                .then(resolve => {
+                    Toast.open({
+                        message: `Transaction ${resolve.text.substring(0, 30)} added!`,
+                        position: 'is-bottom'
+                    })
+                    commit('newTransaction', resolve)
                 })
                 .catch(reason => {
                     throw reason;
@@ -49,6 +64,10 @@ const transactions = {
             }
             await ipc.callMain('updateTransaction', transaction)
                 .then(resolve => {
+                    Toast.open({
+                        message: `Transaction ${resolve.text.substring(0, 30)} updated!`,
+                        position: 'is-bottom'
+                    })
                     commit('updateTransaction', resolve)
                 })
                 .catch(reason => {
@@ -58,11 +77,19 @@ const transactions = {
         async removeTransaction({ commit }, transaction) {
             await ipc.callMain('removeTransaction', transaction)
                 .then(() => {
+                    Toast.open({
+                        message: `Transaction ${transaction.text.substring(0, 30)} removed!`,
+                        type: 'is-danger',
+                        position: 'is-bottom'
+                    })
                     commit('removeTransaction', transaction._id)
                 })
                 .catch(reason => {
                     throw reason;
                 })
+        },
+        async removeTransactions({ commit }, accountId) {
+            commit('removeTransactions', accountId)
         }
     },
     getters: {

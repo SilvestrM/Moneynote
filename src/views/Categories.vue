@@ -48,7 +48,7 @@
       </div>
     </div>
     <b-modal :active.sync="addCategoryShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
-      <AddCategory @hide="addCategoryShow = false; $buefy.toast.open('Category added!');" />
+      <AddCategory @hide="addCategoryShow = false;" />
     </b-modal>
   </section>
 </template>
@@ -82,7 +82,6 @@ export default {
         hasIcon: true,
         onConfirm: () => {
           this.remove();
-          this.$buefy.toast.open("Category deleted!");
         }
       });
     }

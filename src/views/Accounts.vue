@@ -75,7 +75,7 @@ export default {
     deleteDialog() {
       this.$buefy.dialog.confirm({
         title: "Deleting Account",
-        message: `Are you sure you want to <b>delete</b> account <b>${this.selectedRow.name}</b>? This, will also delete all transactions connected to this account action cannot be undone.`,
+        message: `Are you sure you want to <b>delete</b> account <b>${this.selectedRow.name}</b>? This, will also delete <b>all transactions</b> connected to this account. This action cannot be undone.`,
         confirmText: `Delete`,
         type: "is-danger",
         hasIcon: true,

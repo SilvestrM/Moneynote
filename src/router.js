@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Overview from './views/Overview.vue'
+import Controls from './views/Controls.vue'
+import Transactions from './views/Transactions.vue'
 
 Vue.use(Router)
 
@@ -14,15 +16,15 @@ export default new Router({
     {
       path: '/transactions',
       name: 'transactions',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Transactions.vue')
+      component: Transactions
     },
     {
       path: '/controls',
       name: 'controls',
-      component: () => import('./views/Controls.vue'),
+      component: Controls,
+      redirect: to => {
+        return '/controls/accounts'
+      },
       children: [{
         path: 'accounts',
         name: 'accounts',

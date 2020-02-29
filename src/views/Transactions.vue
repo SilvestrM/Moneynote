@@ -17,7 +17,7 @@
                 <b-dropdown-item @click="addShow = true">Add Transaction</b-dropdown-item>
                 <b-dropdown-item @click="addCategoryShow = true">Add Category</b-dropdown-item>
               </b-dropdown>
-              <b-switch class="level-item" @input="find" v-model="filterDate">Filter by month</b-switch>
+              <b-switch class="level-item" v-model="filterDate">Filter by month</b-switch>
               <b-select
                 class="level-item"
                 placeholder="Select a month"
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="right">
-        <Detail :selectedRow="selectedRow" @saveEdit="find();" />
+        <Detail :selectedRow="selectedRow" />
       </div>
     </div>
     <!-- <div class="modal" :class="{'is-active':addShow, 'is-clipping':addShow}">
@@ -95,10 +95,10 @@
     <button class="modal-close is-large" @click="addShow=false" aria-label="close"></button>-->
     <!-- </div> -->
     <b-modal :active.sync="addShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
-      <Add @hide="addShow = false; find()" />
+      <Add @hide="addShow = false;" />
     </b-modal>
     <b-modal :active.sync="addCategoryShow" has-modal-card trap-focus aria-role="dialog" aria-modal>
-      <AddCategory @hide="addCategoryShow = false; $buefy.toast.open('Category added!');" />
+      <AddCategory @hide="addCategoryShow = false;" />
     </b-modal>
   </div>
 </template>
@@ -122,18 +122,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getCategory", "getTransaction"]),
+    ...mapGetters(["getCategory", "getTransaction", "getAllTransactions"]),
     rows() {
-      const result = this.$store.getters.getAllTransactions;
+      const result = this.getAllTransactions;
       return this.filterDate ? this.filterMonth(result) : result;
     }
   },
   methods: {
     ...mapActions(["getTransactions", "fetchCategories", "removeTransaction"]),
-    find() {
-      //this.getTransactions();
-      //this.getCategories();
-    },
+
     remove() {
       this.removeTransaction(this.selectedRow);
       this.selectedRow = null;
@@ -158,14 +155,12 @@ export default {
         hasIcon: true,
         onConfirm: () => {
           this.remove();
-          this.$buefy.toast.open("Transaction deleted!");
         }
       });
     }
   },
   created() {},
   mounted() {
-    this.find();
     this.pageRows = Math.round((this.$refs.content.clientHeight - 200) / 36);
   },
   components: {

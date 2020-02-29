@@ -37,8 +37,18 @@
           <b-field label="Balance" horizontal>
             <div>
               <span class="has-text-weight-normal is-italic">{{ rowData.balance}}</span>
-              <span class="has-text-weight-normal">&nbsp;CZK</span>
             </div>
+          </b-field>
+          <b-field label="Currency" horizontal>
+            <span v-if="!editMode" class="has-text-weight-normal is-italic">{{ rowData.currency}}</span>
+            <b-input
+              v-else
+              type="text"
+              maxlength="3"
+              v-model="account.currency"
+              :value="rowData.currency"
+              placeholder="CZK"
+            ></b-input>
           </b-field>
           <b-field label="Type" horizontal>
             <span class="has-text-weight-normal is-italic">{{ rowData.type}}</span>
@@ -122,6 +132,7 @@ export default {
         _id: this.rowData._id,
         name: this.rowData.name,
         type: this.rowData.type,
+        currency: this.rowData.currency,
         description: this.rowData.description,
         balance: this.rowData.balance
       };

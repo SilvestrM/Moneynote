@@ -7,7 +7,7 @@
       <section class="modal-card-body">
         <div class="columns is-multiline">
           <b-field grouped group-multiline>
-            <b-field class="column is-half" label="Date">
+            <b-field class="column is-half" label="Date *">
               <b-datepicker
                 placeholder="Click to select..."
                 icon="calendar-today"
@@ -17,7 +17,7 @@
                 expanded
               ></b-datepicker>
             </b-field>
-            <b-field class="column is-marginless is-one-third" label="Category" expanded>
+            <b-field class="column is-marginless is-one-third" label="Category *" expanded>
               <b-select
                 required
                 placeholder="Select a category"
@@ -31,16 +31,16 @@
                 >{{category.name}}</option>
               </b-select>
             </b-field>
-            <b-field class="column is-two-fifths" label="Value" expanded>
+            <b-field class="column is-two-fifths" label="Amount" expanded>
               <b-numberinput
-                :step="'.1'"
-                controls-position="compact"
+                placeholder="0.00"
+                :controls="false"
                 expanded
                 maxlength="10"
                 v-model="transaction.value"
               ></b-numberinput>
             </b-field>
-            <b-field class="column is-narrow" label="Account" expanded>
+            <b-field class="column is-narrow" label="Account *" expanded>
               <b-select
                 required
                 expanded
@@ -48,6 +48,7 @@
                 v-model="transaction.account"
               >
                 <option
+                  :selected="true"
                   v-for="account in accounts"
                   :key="account._id"
                   :value="account._id"
@@ -57,13 +58,25 @@
             <b-field class="column is-narrow is-marginless" label="Type">
               <b-checkbox v-model="transaction.type">Is Income</b-checkbox>
             </b-field>
-            <b-field class="column is-one-third" label="Location" expanded>
-              <b-input type="text" maxlength="30" v-model="transaction.location"></b-input>
-            </b-field>
           </b-field>
         </div>
-        <b-field label="Text">
-          <b-input type="text" maxlength="100" v-model="transaction.text"></b-input>
+        <b-field grouped>
+          <b-field label="Text" expanded>
+            <b-input
+              placeholder="Grocery shopping"
+              type="text"
+              maxlength="100"
+              v-model="transaction.text"
+            ></b-input>
+          </b-field>
+          <b-field class label="Location">
+            <b-input
+              placeholder="Optional"
+              type="text"
+              maxlength="30"
+              v-model="transaction.location"
+            ></b-input>
+          </b-field>
         </b-field>
         <b-field label="Items">
           <b-taginput
@@ -96,7 +109,7 @@ export default {
         location: "",
         value: 0,
         type: false,
-        account: "default"
+        account: ""
       }
       //categories: []
     };
@@ -116,8 +129,12 @@ export default {
       return moment(date);
     },
     add() {
+      console.log(this.transaction.category);
       this.addTransaction(this.transaction);
       this.$emit("hide");
+      this.$buefy.toast.open({
+        message: `adding transaction...`
+      });
       this.$delete;
     }
   },

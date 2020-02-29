@@ -9,6 +9,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: true,
+  state: {
+    year: Date
+  },
   modules: {
     transactions,
     categories,

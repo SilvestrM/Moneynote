@@ -1,4 +1,6 @@
 import { ipcRenderer as ipc } from 'electron-better-ipc'
+import { ToastProgrammatic as Toast } from 'buefy'
+
 const categories = {
     strict: true,
     state: {
@@ -27,8 +29,12 @@ const categories = {
             //rounding the color
             category.color = Math.round(category.color);
             await ipc.callMain('addCategory', category)
-                .then(() => {
-                    commit('newCategory', category)
+                .then(resolve => {
+                    Toast.open({
+                        message: `Category ${resolve.name} added!`,
+                        position: 'is-bottom'
+                    })
+                    commit('newCategory', resolve)
                 })
                 .catch(reason => {
                     throw reason;
@@ -38,6 +44,10 @@ const categories = {
             category.color = Math.round(category.color);
             await ipc.callMain('updateCategory', category)
                 .then(resolve => {
+                    Toast.open({
+                        message: `Category ${resolve.name} updated!`,
+                        position: 'is-bottom'
+                    })
                     commit('updateCategory', resolve)
                 })
                 .catch(reason => {
@@ -47,6 +57,11 @@ const categories = {
         async removeCategory({ commit }, category) {
             await ipc.callMain('removeCategory', category)
                 .then(() => {
+                    Toast.open({
+                        message: `Category ${category.name} removed!`,
+                        type: 'is-danger',
+                        position: 'is-bottom'
+                    })
                     commit('removeCategory', category._id)
                 })
                 .catch(reason => {

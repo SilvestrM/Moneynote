@@ -10,6 +10,7 @@ import {
 } from 'vue-cli-plugin-electron-builder/lib'
 
 import './dataAccess'
+import { initData } from './dataAccess'
 
 // eslint-disable-next-line
 import { brotliDecompress } from 'zlib';
@@ -36,7 +37,7 @@ function createWindow() {
     }
   })
 
-  //win.removeMenu()
+  //if (!isDevelopment) win.removeMenu()
   //Menu.setApplicationMenu(null)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -68,6 +69,10 @@ app.on('window-all-closed', () => {
   }
 })
 
+app.on('ready', () => {
+
+})
+
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -80,6 +85,7 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  initData()
   if (isDevelopment && !process.env.IS_TEST) {
 
     ipcMain.on("appLoaded", () => {
@@ -90,11 +96,11 @@ app.on('ready', async () => {
     // Electron will not launch with Devtools extensions installed on Windows 10 with dark mode
     // If you are not using Windows 10 dark mode, you may uncomment these lines
     // In addition, if the linked issue is closed, you can upgrade electron and uncomment these lines
-    // try {
-    //   await installVueDevtools()
-    // } catch (e) {
-    //   console.error('Vue Devtools failed to install:', e.toString())
-    // }
+    try {
+      await installVueDevtools()
+    } catch (e) {
+      console.error('Vue Devtools failed to install:', e.toString())
+    }
 
   }
   createWindow()

@@ -5,18 +5,24 @@
         <div class="title modal-card-title">Add Account</div>
       </header>
       <section class="modal-card-body">
-        <b-field class="l" label="Name">
-          <b-input type="text" maxlength="30" v-model="account.name" expanded required></b-input>
+        <b-field grouped>
+          <b-field class="l" label="Name" expanded>
+            <b-input
+              placeholder="Default"
+              type="text"
+              maxlength="30"
+              v-model="account.name"
+              expanded
+              required
+            ></b-input>
+          </b-field>
+          <b-field class="l" label="Currency">
+            <b-input placeholder="CZK" type="text" maxlength="3" v-model="account.currency" reqired></b-input>
+          </b-field>
         </b-field>
         <b-field grouped>
           <b-field label="Initial balance" expanded>
-            <b-numberinput
-              :step="'.1'"
-              controls-position="compact"
-              maxlength="30"
-              v-model="account.balance"
-              expanded
-            ></b-numberinput>
+            <b-numberinput :controls="false" maxlength="30" v-model="account.balance" expanded></b-numberinput>
           </b-field>
           <b-field label-for="type" position="is-centered" custom-class="control" expanded>
             <b-radio
@@ -55,6 +61,7 @@ export default {
       account: {
         name: "",
         type: "",
+        currency: "",
         description: "",
         balance: 0
       }
