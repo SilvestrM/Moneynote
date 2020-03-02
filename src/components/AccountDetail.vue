@@ -34,6 +34,52 @@
           </button>
         </div>
         <div>
+          <!-- <table class="table is-narrow not-bordered">
+            <tr>
+              <td>Balance:</td>
+              <td>{{rowData.balance}}</td>
+            </tr>
+            <tr>
+              <td>Currency:</td>
+              <td v-if="!editMode">
+                <span
+                  v-if="!editMode"
+                  class="has-text-weight-normal is-italic"
+                >{{ rowData.currency}}</span>
+              </td>
+              <td v-else>
+                <b-input
+                  type="text"
+                  maxlength="3"
+                  v-model="account.currency"
+                  :value="rowData.currency"
+                  placeholder="CZK"
+                ></b-input>
+              </td>
+            </tr>
+            <tr>
+              <td>Type:</td>
+              <td>
+                <span class="has-text-weight-normal is-italic">{{ rowData.type}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Description:</td>
+              <td v-if="!editMode">
+                <p>{{rowData.description.length > 0 ? rowData.description : "No description found" }}</p>
+              </td>
+              <td v-else>
+                <b-input
+                  type="textarea"
+                  maxlength="255"
+                  v-model="account.description"
+                  :value="rowData.description"
+                  placeholder="Optional"
+                ></b-input>
+              </td>
+            </tr>
+          </table>-->
+
           <b-field label="Balance" horizontal>
             <div>
               <span class="has-text-weight-normal is-italic">{{ rowData.balance}}</span>
@@ -75,13 +121,18 @@
         <b-table
           :data="transactions"
           :paginated="true"
-          :per-page="8"
+          :per-page="6"
           :pagination-size="'is-small'"
           :pagination-simple="true"
           :pagination-position="'top'"
           narrowed
-          hoverable
+          sticky-header
         >
+          <template slot="empty">
+            <p
+              class="notification has-text-grey has-text-centered is-centered"
+            >No transactions found.</p>
+          </template>
           <template slot-scope="props">
             <b-table-column field="date" label="Date" sortable>{{ $formatDate(props.row.date)}}</b-table-column>
             <b-table-column field="text" label="Text">{{ props.row.text}}</b-table-column>

@@ -1,27 +1,5 @@
-{"name":"default","type":"bank","description":"This is a default account","balance":-8850,"_id":"VPMClgOodgnPQD38"}
-{"balance":0,"description":"","name":"new","type":"cash","_id":"XUTvV4yatFtXjOTU"}
-{"balance":40000,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"_id":"VPMClgOodgnPQD38","balance":-8850,"currency":"CZK","description":"This is a default account","name":"default","type":"bank"}
-{"balance":37500,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":35000,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":34500,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":31500,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":26500,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":26300,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":21300,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":16300,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":16300,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":16300,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
 {"_id":"VPMClgOodgnPQD38","balance":-8950,"currency":"CZK","description":"This is a default account","name":"default","type":"bank"}
-{"balance":16300,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":11300,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":-5000,"description":"","name":"new","type":"cash","_id":"XUTvV4yatFtXjOTU"}
-{"_id":"VPMClgOodgnPQD38","balance":-8950,"currency":"CZK","description":"This is a default account","name":"default","type":"bank"}
-{"balance":8800,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"balance":8800,"currency":"CZK","description":"","name":"CSOB","type":"bank","_id":"qs85rGtfDVKmgbBn"}
-{"_id":"XUTvV4yatFtXjOTU","balance":-5000,"currency":"Eur","description":"","name":"new","type":"cash"}
-{"_id":"XUTvV4yatFtXjOTU","balance":-5000,"currency":"Eur","description":"","name":"new","type":"cash"}
-{"_id":"qs85rGtfDVKmgbBn","balance":8800,"currency":"CZK","description":"ok","name":"CSOB","type":"bank"}
-{"_id":"XUTvV4yatFtXjOTU","balance":-5000,"currency":"ok","description":"","name":"new","type":"cash"}
-{"_id":"XUTvV4yatFtXjOTU","balance":-5000,"currency":"ok","description":"","name":"Old","type":"cash"}
 {"_id":"XUTvV4yatFtXjOTU","balance":-5000,"currency":"EUR","description":"","name":"Old","type":"cash"}
+{"_id":"qs85rGtfDVKmgbBn","balance":8800,"currency":"CZK","description":"ok","name":"CSOB","type":"bank"}
+{"_id":"qs85rGtfDVKmgbBn","balance":8800,"currency":"CZK","description":"ok","name":"CSOB","type":"bank"}
+{"_id":"qs85rGtfDVKmgbBn","balance":8800,"currency":"CZK","description":"ok","name":"CSOB","type":"bank"}

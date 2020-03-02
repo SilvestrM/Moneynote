@@ -16,6 +16,9 @@
           narrowed
           hoverable
         >
+          <template slot="empty">
+            <p class="notification has-text-grey has-text-centered is-centered">No accounts found..</p>
+          </template>
           <template slot-scope="props">
             <b-table-column field="name" label="Name" sortable>
               <b>{{ props.row.name}}</b>

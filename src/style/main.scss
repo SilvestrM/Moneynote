@@ -60,12 +60,12 @@ body {
     margin-top: $hr-margin !important;
 }
 
-    li, dt, dd {
+    /*li, dt, dd {
       margin-bottom: 0.5rem;
-    }
+    }*/
 
 
-.table {
+/*.table {
     height: 100%;
     &.scrollable {
         border-collapse: collapse;
@@ -110,7 +110,7 @@ body {
     &::-webkit-scrollbar {
         display: initial;
     }
-}
+}*/
 
 .control-panel {
     margin: .5rem 0;   

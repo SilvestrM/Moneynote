@@ -17,6 +17,39 @@
                 <b-dropdown-item @click="addShow = true">Add Transaction</b-dropdown-item>
                 <b-dropdown-item @click="addCategoryShow = true">Add Category</b-dropdown-item>
               </b-dropdown>
+            </div>
+            <div class="level-left">
+              <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
+                <span class="icon is-medium">
+                  <i class="mdi mdi-delete"></i>
+                </span>
+                <span>Remove</span>
+              </button>
+            </div>
+          </div>
+          <b-table
+            :data="rows"
+            default-sort="date"
+            :default-sort-direction="'asc'"
+            :order="'is-centered'"
+            :current-page.sync="currentPage"
+            :paginated="true"
+            :pagination-size="'is-small'"
+            :pagination-simple="true"
+            :pagination-position="'top'"
+            :per-page="pageRows"
+            :selected.sync="selectedRow"
+            narrowed
+            hoverable
+            :checked-rows.sync="checkedRows"
+            :checkbox-position="'left'"
+          >
+            <template slot="empty">
+              <p
+                class="notification has-text-grey has-text-centered is-centered"
+              >No transactions found.</p>
+            </template>
+            <template slot="top-left">
               <b-switch class="level-item" v-model="filterDate">Filter by month</b-switch>
               <b-select
                 class="level-item"
@@ -37,34 +70,7 @@
                 <option :value="10">November</option>
                 <option :value="11">December</option>
               </b-select>
-            </div>
-            <div class="level-left">
-              <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
-                <span class="icon is-medium">
-                  <i class="mdi mdi-delete"></i>
-                </span>
-                <span>Remove</span>
-              </button>
-            </div>
-          </div>
-          <b-table
-            :class="['scrollable', 'transactions']"
-            :data="rows"
-            default-sort="date"
-            :default-sort-direction="'asc'"
-            :paginated="true"
-            :per-page="pageRows"
-            :pagination-size="'is-small'"
-            :current-page.sync="currentPage"
-            :order="'is-centered'"
-            :pagination-simple="true"
-            :pagination-position="'top'"
-            :selected.sync="selectedRow"
-            narrowed
-            hoverable
-            :checked-rows.sync="checkedRows"
-            :checkbox-position="'left'"
-          >
+            </template>
             <template slot-scope="props">
               <b-table-column field="date" label="Date" sortable>{{ $formatDate(props.row.date)}}</b-table-column>
 
