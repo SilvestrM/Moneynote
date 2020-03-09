@@ -37,7 +37,7 @@ const transactions = {
         },
         async addTransaction({ commit }, transaction) {
             // make transaction negative 
-            if (transaction.type === false && transaction.value >= 0) {
+            if (transaction.type === false && transaction.value >= 0 || transaction.type !== false && transaction.value < 0) {
                 transaction.value = -transaction.value;
             }
             // location check
@@ -59,7 +59,7 @@ const transactions = {
         },
         async updateTransaction({ commit }, transaction) {
             // make a expense a negative value
-            if (transaction.type === false && transaction.value >= 0) {
+            if (transaction.type === false && transaction.value >= 0 || transaction.type !== false && transaction.value < 0) {
                 transaction.value = -transaction.value;
             }
             await ipc.callMain('updateTransaction', transaction)
