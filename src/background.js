@@ -28,11 +28,22 @@ protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: tru
 function createWindow() {
   // Create the browser window.
   const primaryScreen = screen.getPrimaryDisplay();
-  const width = primaryScreen.size.width - (primaryScreen.size.width * 0.25);
-  const height = primaryScreen.size.height - (primaryScreen.size.height * 0.25);
+  let width = primaryScreen.size.width - (primaryScreen.size.width * 0.25);
+  let height = primaryScreen.size.height - (primaryScreen.size.height * 0.25);
+  let fullscreen = false;
+
+  if (width < 800 || height < 760) {
+    fullscreen = true;
+  }
 
   win = new BrowserWindow({
-    width: width, height: height, useContentSize: true, webPreferences: {
+    width: width,
+    height: height,
+    fullscreen: fullscreen,
+    center: true,
+    minWidth: 800,
+    minHeight: 760,
+    useContentSize: true, webPreferences: {
       nodeIntegration: true
     }
   })

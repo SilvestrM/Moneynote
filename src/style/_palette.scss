@@ -21,13 +21,17 @@ $family-primary: 'Barlow Condensed', sans-serif;
 $radius-small: 0;
 
 //numeric
-$nav-height: auto;
 $nav-max: 5vh;
+$nav-height: 3em;
+$body-height: calc(100vh - #{$nav-height});
+
 
 //animation
 $trans-fast: .3s;
 
 $gradient-main: linear-gradient(135deg, $primary 0%, $primary 50%, #30c7bf 100%);
+
+
 
 @mixin scrollbar {
     &::-webkit-scrollbar {

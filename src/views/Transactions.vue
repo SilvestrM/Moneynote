@@ -27,66 +27,68 @@
               </button>
             </div>
           </div>
-          <b-table
-            :data="rows"
-            default-sort="date"
-            :default-sort-direction="'asc'"
-            :order="'is-centered'"
-            :current-page.sync="currentPage"
-            :paginated="true"
-            :pagination-size="'is-small'"
-            :pagination-simple="true"
-            :pagination-position="'top'"
-            :per-page="pageRows"
-            :selected.sync="selectedRow"
-            narrowed
-            hoverable
-            :checked-rows.sync="checkedRows"
-            :checkbox-position="'left'"
-          >
-            <template slot="empty">
-              <p
-                class="notification has-text-grey has-text-centered is-centered"
-              >No transactions found.</p>
-            </template>
-            <template slot="top-left">
-              <b-switch class="level-item" v-model="filterDate">Filter by month</b-switch>
-              <b-select
-                class="level-item"
-                placeholder="Select a month"
-                :disabled="!filterDate"
-                v-model="month"
-              >
-                <option :value="0">January</option>
-                <option :value="1">February</option>
-                <option :value="2">March</option>
-                <option :value="3">April</option>
-                <option :value="4">May</option>
-                <option :value="5">June</option>
-                <option :value="6">July</option>
-                <option :value="7">August</option>
-                <option :value="8">September</option>
-                <option :value="9">October</option>
-                <option :value="10">November</option>
-                <option :value="11">December</option>
-              </b-select>
-            </template>
-            <template slot-scope="props">
-              <b-table-column field="date" label="Date" sortable>{{ $formatDate(props.row.date)}}</b-table-column>
+          <div class="scrollable">
+            <b-table
+              :data="rows"
+              default-sort="date"
+              :default-sort-direction="'asc'"
+              :order="'is-centered'"
+              :current-page.sync="currentPage"
+              :paginated="true"
+              :pagination-size="'is-small'"
+              :pagination-simple="true"
+              :pagination-position="'top'"
+              :per-page="pageRows"
+              :selected.sync="selectedRow"
+              narrowed
+              hoverable
+              :checked-rows.sync="checkedRows"
+              :checkbox-position="'left'"
+            >
+              <template slot="empty">
+                <p
+                  class="notification has-text-grey has-text-centered is-centered"
+                >No transactions found.</p>
+              </template>
+              <template slot="top-left">
+                <b-switch class="level-item" v-model="filterDate">Filter by month</b-switch>
+                <b-select
+                  class="level-item"
+                  placeholder="Select a month"
+                  :disabled="!filterDate"
+                  v-model="month"
+                >
+                  <option :value="0">January</option>
+                  <option :value="1">February</option>
+                  <option :value="2">March</option>
+                  <option :value="3">April</option>
+                  <option :value="4">May</option>
+                  <option :value="5">June</option>
+                  <option :value="6">July</option>
+                  <option :value="7">August</option>
+                  <option :value="8">September</option>
+                  <option :value="9">October</option>
+                  <option :value="10">November</option>
+                  <option :value="11">December</option>
+                </b-select>
+              </template>
+              <template slot-scope="props">
+                <b-table-column field="date" label="Date" sortable>{{ $formatDate(props.row.date)}}</b-table-column>
 
-              <b-table-column field="text" label="Text" @click="!searchable">{{ props.row.text }}</b-table-column>
+                <b-table-column field="text" label="Text" @click="!searchable">{{ props.row.text }}</b-table-column>
 
-              <b-table-column field="value" label="Value" numeric>
-                <span :class="{'has-text-danger': !props.row.type}">{{props.row.value }}</span>
-              </b-table-column>
-              <b-table-column field="category" label="Category" numeric>
-                <span
-                  class="tag has-text-white"
-                  :style="{backgroundColor:`hsl(${getCategory(props.row.category).color},60%,60%)`}"
-                >{{getCategory(props.row.category).name}}</span>
-              </b-table-column>
-            </template>
-          </b-table>
+                <b-table-column field="value" label="Value" numeric>
+                  <span :class="{'has-text-danger': !props.row.type}">{{props.row.value }}</span>
+                </b-table-column>
+                <b-table-column field="category" label="Category" numeric>
+                  <span
+                    class="tag has-text-white"
+                    :style="{backgroundColor:`hsl(${getCategory(props.row.category).color},60%,60%)`}"
+                  >{{getCategory(props.row.category).name}}</span>
+                </b-table-column>
+              </template>
+            </b-table>
+          </div>
         </div>
       </div>
       <div class="right">

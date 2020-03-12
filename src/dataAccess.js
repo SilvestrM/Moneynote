@@ -10,6 +10,7 @@ const dataPath = path.join(
 )
 const db = {};
 
+
 db.settings = new Datastore({ filename: `${dataPath}settings.db`, autoload: true })
 db.transactions = new Datastore({ filename: `${dataPath}transactions.db`, autoload: true })
 db.categories = new Datastore({ filename: `${dataPath}categories.db`, autoload: true })

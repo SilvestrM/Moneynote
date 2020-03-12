@@ -54,7 +54,7 @@ export default {
   width: 100%;
   padding: 0;
   height: $nav-height;
-  max-height: $nav-max;
+  //max-height: $nav-max;
   background: $gradient-main;
   margin: 0;
   .level-left {

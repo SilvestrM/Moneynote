@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="rowData !== null">
-      <div class="msection">
+      <div class="msection scrollable">
         <div class v-if="!editMode">
           <div class="header">
             <h4>{{rowData.name}}</h4>
