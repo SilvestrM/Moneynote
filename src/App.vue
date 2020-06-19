@@ -77,10 +77,11 @@ export default {
       height: 100%;
       display: flex;
       align-items: center;
-      transition: $trans-fast;
+      transition: all $trans-fast;
       &:hover {
-        background: #528196;
-        transition: $trans-fast;
+        background: darken($primary, 15);
+        text-decoration: underline;
+        transition: all $trans-fast;
       }
     }
   }

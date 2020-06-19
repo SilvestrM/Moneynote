@@ -27,7 +27,7 @@
               </button>
             </div>
           </div>
-          <div class="scrollable">
+          <div>
             <b-table
               :data="rows"
               default-sort="date"
@@ -78,12 +78,15 @@
                 <b-table-column field="text" label="Text" @click="!searchable">{{ props.row.text }}</b-table-column>
 
                 <b-table-column field="value" label="Value" numeric>
-                  <span :class="{'has-text-danger': !props.row.type}">{{props.row.value }}</span>
+                  <span
+                    :style="{'text-shadow: 0 0 5 #fff': !props.row.type}"
+                    :class="{'has-text-danger': !props.row.type}"
+                  >{{props.row.value }}</span>
                 </b-table-column>
                 <b-table-column field="category" label="Category" numeric>
                   <span
                     class="tag has-text-white"
-                    :style="{backgroundColor:`hsl(${getCategory(props.row.category).color},60%,60%)`}"
+                    :style="{backgroundColor:`hsl(${getCategory(props.row.category).color},${$tagColor.s},${$tagColor.l})`}"
                   >{{getCategory(props.row.category).name}}</span>
                 </b-table-column>
               </template>
@@ -172,9 +175,9 @@ export default {
     this.pageRows = Math.round((this.$refs.content.clientHeight - 200) / 36);
   },
   components: {
-    Detail: () => import("../components/TransactionDetail.vue"),
-    Add: () => import("../components/AddTransaction.vue"),
-    AddCategory: () => import("../components/AddCategory.vue")
+    Detail: () => import("./TransactionDetail"),
+    Add: () => import("@/components/AddTransaction.vue"),
+    AddCategory: () => import("@/components/AddCategory.vue")
   }
 };
 </script>

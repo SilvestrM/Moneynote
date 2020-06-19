@@ -16,9 +16,9 @@
               required
             ></b-input>
           </b-field>
-          <b-field class="l" label="Currency">
+          <!-- <b-field class="l" label="Currency">
             <b-input placeholder="CZK" type="text" maxlength="3" v-model="account.currency" reqired></b-input>
-          </b-field>
+          </b-field>-->
         </b-field>
         <b-field grouped>
           <b-field label="Initial balance" expanded>

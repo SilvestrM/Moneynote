@@ -22,7 +22,7 @@
             v-else
           ></b-input>
           <button
-            :style="{backgroundColor:`hsl(${category.color},60%,60%)`}"
+            :style="{backgroundColor:`hsl(${category.color},${$tagColor.s},${$tagColor.l})`}"
             v-show="editMode"
             @click="showColorModal = true"
             class="button level-item has-text-white"
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import ColorPick from "../components/ColorPick";
+import ColorPick from "@/components/ColorPick";
 import { mapActions, mapGetters } from "vuex";
 export default {
   props: ["selectedRow"],

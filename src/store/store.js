@@ -8,9 +8,18 @@ import accounts from './modules/accounts'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  strict: true,
+  strict: process.env.NODE_ENV !== 'production',
   state: {
-    year: Date
+    year: new Date().getFullYear(),
+    currency: 'CZK'
+  },
+  mutations: {
+    SET_YEAR: (state, year) => {
+      state.year = year
+    },
+    SET_CURRENCY: (state, currency) => {
+      state.currency = currency
+    }
   },
   modules: {
     transactions,

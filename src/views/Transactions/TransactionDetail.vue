@@ -37,7 +37,7 @@
             </button>
           </div>
         </div>
-        <table class="table not-bordered is-fullwidth">
+        <table class="table bolded not-bordered is-fullwidth">
           <tr>
             <td>Transaction date:</td>
             <td v-if="!editMode">{{$formatDate(rowData.date)}}</td>
@@ -92,7 +92,7 @@
             <td v-if="!editMode">
               <span
                 class="tag has-text-white"
-                :style="{backgroundColor:`hsl(${getCategory(rowData.category).color},60%,60%)`}"
+                :style="{backgroundColor:`hsl(${getCategory(rowData.category).color},${$tagColor.s},${$tagColor.l})`}"
               >{{getCategory(rowData.category).name}}</span>
             </td>
             <td v-else>
@@ -116,8 +116,8 @@
           <div v-if="rowData.items.length > 0 || editMode" class="tags">
             <b-taglist v-if="!editMode">
               <b-tag
-                type="is-primary"
-                class="is-medium is-light"
+                type="is-info"
+                class="is-small is-light"
                 v-for="item in rowData.items"
                 :key="item"
               >{{item}}</b-tag>

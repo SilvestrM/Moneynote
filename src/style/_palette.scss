@@ -1,22 +1,49 @@
-
-$primary: #67A2BC;
-$primary-invert: #FFFfFf;
-$link: $primary;
+$primary: #67a2bc;
+$primary-invert: findColorInvert($primary);
+$link: #6b96bf;
+$info: #60b7b7;
 
 $colors: (
-    "white": ($white, $black),
-    "black": ($black, $white),
-    "light": ($light, $light-invert),
-    "dark": ($dark, $dark-invert),
-    "primary": ($primary, $primary-invert),
-    "info": ($info, $info-invert),
-    "success": ($success, $success-invert),
-    "warning": ($warning, $warning-invert),
-    "danger": ($danger, $danger-invert),
+    "white": (
+        $white,
+        $black,
+    ),
+    "black": (
+        $black,
+        $white,
+    ),
+    "light": (
+        $light,
+        $light-invert,
+    ),
+    "dark": (
+        $dark,
+        $dark-invert,
+    ),
+    "primary": (
+        $primary,
+        $primary-invert,
+    ),
+    "info": (
+        $info,
+        $info-invert,
+    ),
+    "success": (
+        $success,
+        $success-invert,
+    ),
+    "warning": (
+        $warning,
+        $warning-invert,
+    ),
+    "danger": (
+        $danger,
+        $danger-invert,
+    ),
     //"twitter": ($twitter, $twitter-invert)
 );
 
-$family-primary: 'Barlow Condensed', sans-serif;
+$family-primary: "Barlow Condensed", sans-serif;
 
 $radius-small: 0;
 
@@ -25,13 +52,15 @@ $nav-max: 5vh;
 $nav-height: 3em;
 $body-height: calc(100vh - #{$nav-height});
 
-
 //animation
-$trans-fast: .3s;
+$trans-fast: 0.3s;
 
-$gradient-main: linear-gradient(135deg, $primary 0%, $primary 50%, #30c7bf 100%);
+$gradient-main: linear-gradient(135deg, $primary 0%, $primary 50%, $info 100%);
 
-
+$radius: 0;
+$table-cell-padding: 0.25em 0.75em;
+$table-row-active-background-color: lighten($primary, 10);
+$tabs-boxed-link-radius: 0;
 
 @mixin scrollbar {
     &::-webkit-scrollbar {
@@ -39,41 +68,41 @@ $gradient-main: linear-gradient(135deg, $primary 0%, $primary 50%, #30c7bf 100%)
         width: 0.5rem;
         height: 8px;
         background-color: $border;
-        } 
+    }
     &::-webkit-scrollbar-thumb {
-        background: $dark; 
+        background: $dark;
     }
 }
 
-@mixin table-dimensions($one,$two,$three,$four,$five,$six,$seven,$eight,$nine,$ten) {
+@mixin table-dimensions($one, $two, $three, $four, $five, $six, $seven, $eight, $nine, $ten) {
     &:nth-child(1) {
-        width:$one;
+        width: $one;
     }
     &:nth-child(2) {
-        width:$two;
+        width: $two;
     }
     &:nth-child(3) {
-        width:$three;
+        width: $three;
     }
     &:nth-child(4) {
-        width:$four;
+        width: $four;
     }
     &:nth-child(5) {
-        width:$five;
+        width: $five;
     }
     &:nth-child(6) {
-        width:$six;
+        width: $six;
     }
     &:nth-child(7) {
-        width:$seven;
+        width: $seven;
     }
     &:nth-child(8) {
-        width:$eight;
+        width: $eight;
     }
     &:nth-child(9) {
-        width:$nine;
+        width: $nine;
     }
     &:nth-child(10) {
-        width:$ten;
+        width: $ten;
     }
 }

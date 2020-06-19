@@ -1,10 +1,14 @@
 body {
-    font-family: 'Barlow Condensed', sans-serif !important;
+    font-family: "Barlow Condensed", sans-serif !important;
     max-height: 100vh;
-    overflow: hidden;
+    // overflow: hidden;
 }
 ::-webkit-scrollbar {
-    display: none;
+    // display: none;
+}
+
+::selection {
+    background-color: $link;
 }
 .is-gradient {
     background: $gradient-main;
@@ -29,10 +33,10 @@ body {
     @media (min-width: 800px) {
         owerflow-y: auto;
     }
-    
+
     .left {
         display: flex;
-        flex-direction: column;              //border: 1px solid $border;
+        flex-direction: column; //border: 1px solid $border;
     }
     .scrollable {
         height: 100%;
@@ -50,28 +54,36 @@ body {
     .header {
         background: $primary;
         padding: 0.5rem;
-        margin-bottom: $block-spacing / 2;
+        margin-bottom: $block-spacing / 4;
         display: flex;
         justify-content: center;
         align-items: center;
-        h4 {      
+        h4 {
+            @extend .has-text-weight-semibold;
             color: $primary-invert;
             //font-weight: bold;
             margin: 0;
         }
     }
-    
+    .b-table {
+        overflow-x: hidden;
+        tr {
+            vertical-align: center;
+            align-items: center;
+        }
+    }
+    .column {
+        overflow-y: auto;
+    }
 }
-
 
 .mrt {
     margin-top: $hr-margin !important;
 }
 
-    /*li, dt, dd {
+/*li, dt, dd {
       margin-bottom: 0.5rem;
     }*/
-
 
 /*.table {
     height: 100%;
@@ -120,18 +132,31 @@ body {
     }
 }*/
 
+.table {
+    &.bolded {
+        td:first-child {
+            font-weight: 600;
+            width: 50%;
+        }
+    }
+}
+
 .control-panel {
-    margin: .5rem 0;   
+    margin: 0;
 }
 .button {
-     border-radius: 0;
+    border-radius: 0;
 
-     & + .button:not(:last-child) {
+    & + .button:not(:last-child) {
         border-right: none;
-     }
     }
+}
 .items-container {
-    padding: 1rem;
+    padding: 0.5rem;
+}
+
+.tag {
+    @extend .has-text-weight-medium;
 }
 
 .dropdown-content {

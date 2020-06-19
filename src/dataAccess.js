@@ -36,9 +36,9 @@ export async function initData() {
             description: "",
             color: 0
         }
-        db.settings.insert(initSettings)
-        db.accounts.insert(defaultAccount)
-        db.categories.insert(defaultCategory)
+        await db.settings.insert(initSettings)
+        await db.accounts.insert(defaultAccount)
+        await db.categories.insert(defaultCategory)
     }
 }
 //}

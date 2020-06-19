@@ -14,8 +14,8 @@ Vue.use(Buefy, {
 })
 
 Vue.config.productionTip = false
-//Vue.prototype.$ipc = ipcRenderer
 
+Vue.prototype.$tagColor = { s: '40%', l: '50%' }
 
 
 //errors

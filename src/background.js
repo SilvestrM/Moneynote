@@ -98,7 +98,7 @@ function createWindow() {
   })
   win.webContents.on('did-finish-load', () => {
     win.show();
-    setTimeout(() => splash.close(), 500)
+    if (splash) setTimeout(() => splash.close(), 500)
   })
 }
 

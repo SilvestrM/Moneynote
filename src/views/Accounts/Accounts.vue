@@ -5,6 +5,22 @@
     </div>
     <div class="columns">
       <div class="column is-one-third">
+        <div class="level control-panel">
+          <div class="level-left">
+            <button @click="addShow = true" class="button is-primary">
+              <span>Add</span>
+              <b-icon icon="plus"></b-icon>
+            </button>
+          </div>
+          <div class="level-right">
+            <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
+              <span class="icon is-medium">
+                <i class="mdi mdi-delete"></i>
+              </span>
+              <span>Remove</span>
+            </button>
+          </div>
+        </div>
         <b-table
           :data="accounts"
           :selected.sync="selectedRow"
@@ -21,7 +37,7 @@
           </template>
           <template slot-scope="props">
             <b-table-column field="name" label="Name" sortable>
-              <b>{{ props.row.name}}</b>
+              <span class="has-text-weight-semibold">{{ props.row.name}}</span>
             </b-table-column>
             <b-table-column field="type" label="Type" sortable>{{ props.row.type}}</b-table-column>
             <b-table-column field="balance" label="Balance" sortable numeric>{{ props.row.balance}}</b-table-column>
@@ -29,22 +45,6 @@
         </b-table>
       </div>
       <div class="column is-two-thirds">
-        <div class="level control-panel">
-          <div class="level-left">
-            <button @click="addShow = true" class="button">
-              <span>Add</span>
-              <b-icon icon="plus"></b-icon>
-            </button>
-          </div>
-          <div class="level-right">
-            <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
-              <span class="icon is-medium">
-                <i class="mdi mdi-delete"></i>
-              </span>
-              <span>Remove</span>
-            </button>
-          </div>
-        </div>
         <AccountDetail :selectedRow="selectedRow" />
       </div>
     </div>
@@ -55,8 +55,8 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import AddAccount from "../components/AddAccount";
-import AccountDetail from "../components/AccountDetail";
+import AddAccount from "@/components/AddAccount";
+import AccountDetail from "./AccountDetail";
 export default {
   data() {
     return {

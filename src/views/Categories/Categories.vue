@@ -5,6 +5,22 @@
     </div>
     <div class="columns">
       <div class="column is-one-third is-aligned-left">
+        <div class="level control-panel">
+          <div class="level-left">
+            <button @click="addCategoryShow = true" class="button is-primary">
+              <span>Add</span>
+              <b-icon icon="plus"></b-icon>
+            </button>
+          </div>
+          <div class="level-right">
+            <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
+              <span class="icon is-medium">
+                <i class="mdi mdi-delete"></i>
+              </span>
+              <span>Remove</span>
+            </button>
+          </div>
+        </div>
         <b-table
           :data="categories"
           :order="'is-centered'"
@@ -25,22 +41,22 @@
           <template slot-scope="props">
             <b-table-column field="name" label="Name" sortable searchable>
               <span
-                class="tag has-text-white"
-                :style="{backgroundColor:`hsl(${props.row.color},60%,60%)`}"
+                class="is-flex has-text-centered has-text-white has-text-weight-medium"
+                style="padding:.2rem"
+                :style="{backgroundColor:`hsl(${props.row.color},${$tagColor.s},${$tagColor.l})`}"
               >{{ props.row.name}}</span>
             </b-table-column>
           </template>
         </b-table>
       </div>
       <div class="column is-two-thirds">
-        <div class="level control-panel">
-          <div class="level-left">
-            <button @click="addCategoryShow = true" class="button">
+        <!-- <div class="level control-panel">
+          <div class="level-left"></div>
+          <div class="level-right">
+            <button @click="addCategoryShow = true" class="button is-info">
               <span>Add</span>
               <b-icon icon="plus"></b-icon>
             </button>
-          </div>
-          <div class="level-right">
             <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
               <span class="icon is-medium">
                 <i class="mdi mdi-delete"></i>
@@ -48,7 +64,7 @@
               <span>Remove</span>
             </button>
           </div>
-        </div>
+        </div>-->
         <CategoryDetail :selectedRow="selectedRow" />
       </div>
     </div>
@@ -92,18 +108,11 @@ export default {
     }
   },
   components: {
-    AddCategory: () => import("../components/AddCategory.vue"),
-    CategoryDetail: () => import("../components/CategoryDetail.vue")
+    AddCategory: () => import("@/components/AddCategory.vue"),
+    CategoryDetail: () => import("./CategoryDetail")
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.is-aligned-left {
-  table {
-    td {
-      text-align: left !important;
-    }
-  }
-}
 </style>

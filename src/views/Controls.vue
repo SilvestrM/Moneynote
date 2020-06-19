@@ -1,6 +1,6 @@
 <template>
   <div class="app-content">
-    <section class="left">
+    <!-- <section class="left">
       <b-menu>
         <b-menu-list label="Options">
           <b-menu-item
@@ -22,11 +22,27 @@
     </section>
     <section class="right">
       <router-view />
-    </section>
+    </section>-->
+    <b-tabs type="is-boxed">
+      <b-tab-item label="Accounts">
+        <Accounts />
+      </b-tab-item>
+      <b-tab-item label="Categories">
+        <Categories />
+      </b-tab-item>
+      <b-tab-item label="Preferences">
+        <Settings />
+      </b-tab-item>
+    </b-tabs>
   </div>
 </template>
 <script>
 export default {
+  components: {
+    Accounts: () => import("./Accounts/Accounts"),
+    Categories: () => import("./Categories/Categories"),
+    Settings: () => import("./Settings/Preferences")
+  },
   data() {
     return {
       isActive: true
@@ -39,6 +55,6 @@ ul {
   list-style-type: none;
 }
 .app-content {
-  grid-template-columns: 20% auto;
+  grid-template-columns: auto;
 }
 </style>

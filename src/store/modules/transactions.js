@@ -93,8 +93,8 @@ const transactions = {
         }
     },
     getters: {
-        getAllTransactions(state) {
-            return state.transactions
+        getAllTransactions(state, getters, rootState) {
+            return state.transactions.filter(transaction => new Date(transaction.date).getFullYear() === rootState.year)
         },
         getTransaction: (state) => (id) => {
             if (state.transactions.find(transaction => transaction._id === id) !== undefined) {
