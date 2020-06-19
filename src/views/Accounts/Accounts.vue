@@ -40,7 +40,12 @@
               <span class="has-text-weight-semibold">{{ props.row.name}}</span>
             </b-table-column>
             <b-table-column field="type" label="Type" sortable>{{ props.row.type}}</b-table-column>
-            <b-table-column field="balance" label="Balance" sortable numeric>{{ props.row.balance}}</b-table-column>
+            <b-table-column
+              field="balance"
+              label="Balance"
+              sortable
+              numeric
+            >{{ $formatNumberDecimal(props.row.balance)}}</b-table-column>
           </template>
         </b-table>
       </div>

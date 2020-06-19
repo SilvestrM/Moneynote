@@ -35,6 +35,7 @@
               <b-numberinput
                 placeholder="0.00"
                 :controls="false"
+                step="0.01"
                 expanded
                 maxlength="10"
                 v-model="transaction.value"
@@ -102,7 +103,7 @@ export default {
   data() {
     return {
       transaction: {
-        date: [],
+        date: new Date(),
         text: "",
         category: "",
         items: [],
@@ -129,7 +130,6 @@ export default {
       return moment(date);
     },
     add() {
-      console.log(this.transaction.category);
       this.addTransaction(this.transaction);
       this.$emit("hide");
       this.$buefy.toast.open({

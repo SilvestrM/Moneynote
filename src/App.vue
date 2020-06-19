@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <Navigation :totalWorth="totalWorth" />
-    <keep-alive>
-      <router-view />
-    </keep-alive>
+    <transition name="fade" mode="out-in">
+      <keep-alive>
+        <router-view />
+      </keep-alive>
+    </transition>
   </div>
 </template>
 <script>
@@ -20,19 +22,15 @@ export default {
     })
   },
   methods: {
-    ...mapActions([
-      "getTransactions",
-      "fetchCategories",
-      "fetchAccounts",
-      "updateBalance",
-      "removeTransactions"
-    ])
+    ...mapActions(["updateBalance", "removeTransactions"])
   },
-  created() {
+  async created() {
     //database operations
-    this.getTransactions();
-    this.fetchCategories();
-    this.fetchAccounts();
+    // this.getTransactions();
+    // this.fetchCategories();
+    // this.fetchAccounts();
+
+    await this.$store.dispatch("initApp");
 
     ipc.answerMain("updateBalance", async data => {
       await this.updateBalance(data);

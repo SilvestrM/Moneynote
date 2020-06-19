@@ -81,7 +81,7 @@
                   <span
                     :style="{'text-shadow: 0 0 5 #fff': !props.row.type}"
                     :class="{'has-text-danger': !props.row.type}"
-                  >{{props.row.value }}</span>
+                  >{{$formatNumberDecimal(props.row.value) }}</span>
                 </b-table-column>
                 <b-table-column field="category" label="Category" numeric>
                   <span
@@ -95,7 +95,9 @@
         </div>
       </div>
       <div class="right">
-        <Detail :selectedRow="selectedRow" />
+        <transition name="fade" mode="out-in">
+          <Detail :selectedRow="selectedRow" />
+        </transition>
       </div>
     </div>
     <!-- <div class="modal" :class="{'is-active':addShow, 'is-clipping':addShow}">

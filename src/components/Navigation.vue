@@ -29,7 +29,9 @@
       <div class="level-item nav-link">
         <div class="level-item">
           <span class="has-text-white-ter is-size-5 has-text-weight-light is-uppercase">Total:&ensp;</span>
-          <span class="has-text-white is-size-4 has-text-weight-semibold">{{ totalWorth}}</span>
+          <span
+            class="has-text-white is-size-4 has-text-weight-semibold"
+          >{{ $formatNumberDecimal(totalWorth)}}</span>
           <span
             class="has-text-white-ter is-size-5 has-text-weight-light"
           >&nbsp;{{$store.state.currency}}</span>
@@ -70,7 +72,7 @@ export default {
     transition: opacity $speed * 1.5, width $speed;
   }
   input {
-    font-weight: bold;
+    font-weight: 600;
     padding: 0;
     height: auto;
     width: auto;

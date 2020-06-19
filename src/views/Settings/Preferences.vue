@@ -7,7 +7,7 @@
       <div class="column is-one-third">
         <form>
           <b-field message="Should be 3 letter currency abbreviation." horizontal label="Currency">
-            <b-input type="text" minlength="3" maxlength="3" v-model="currency" required></b-input>
+            <b-input type="text" minlength="3" maxlength="3" v-model.lazy="currency" required></b-input>
           </b-field>
         </form>
       </div>
@@ -23,7 +23,7 @@ export default {
         return this.$store.state.currency;
       },
       set(currency) {
-        this.$store.commit("SET_CURRENCY", currency.toUpperCase());
+        this.$store.dispatch("setCurrency", currency.toUpperCase());
       }
     }
   }

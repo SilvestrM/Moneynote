@@ -40,7 +40,7 @@
                 <table class="table bolded is-narrow is-fullwidth not-bordered">
                   <tr>
                     <td>Balance:</td>
-                    <td>{{rowData.balance}}</td>
+                    <td>{{$formatNumberDecimal(rowData.balance)}}</td>
                   </tr>
                   <!-- <tr>
                     <td>Currency:</td>
@@ -152,7 +152,9 @@
                   >{{getCategory(props.row.category).name}}</span>
                 </b-table-column>
                 <b-table-column field="value" label="Amount" sortable numeric>
-                  <span :class="{'has-text-danger': !props.row.type}">{{props.row.value }}</span>
+                  <span
+                    :class="{'has-text-danger': !props.row.type}"
+                  >{{$formatNumberDecimal(props.row.value)}}</span>
                 </b-table-column>
               </template>
             </b-table>

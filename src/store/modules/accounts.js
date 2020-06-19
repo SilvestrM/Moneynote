@@ -51,7 +51,7 @@ const accounts = {
                     throw reason;
                 })
         },
-        updateBalance({ commit }, account) {
+        async updateBalance({ commit }, account) {
             if (account !== undefined) commit('updateAccount', account)
         },
         async removeAccount({ commit }, account) {

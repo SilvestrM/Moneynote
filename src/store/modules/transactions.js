@@ -26,7 +26,7 @@ const transactions = {
         removeTransactions: (state, id) => (state.transactions = state.transactions.filter(transaction => transaction.account !== id))
     },
     actions: {
-        async getTransactions({ commit }) {
+        async fetchTransactions({ commit }) {
             await ipc.callMain('fetchTransactions')
                 .then(resolve => {
                     commit('setTransactions', resolve)
@@ -44,7 +44,6 @@ const transactions = {
             if (transaction.location === "") {
                 transaction.location === "N/A";
             }
-
             await ipc.callMain('addTransaction', transaction)
                 .then(resolve => {
                     Toast.open({
@@ -85,7 +84,11 @@ const transactions = {
                     commit('removeTransaction', transaction._id)
                 })
                 .catch(reason => {
-                    throw reason;
+                    Toast.open({
+                        message: `Error ${reason}`,
+                        type: 'is-danger',
+                        position: 'is-bottom'
+                    })
                 })
         },
         async removeTransactions({ commit }, accountId) {
@@ -94,7 +97,7 @@ const transactions = {
     },
     getters: {
         getAllTransactions(state, getters, rootState) {
-            return state.transactions.filter(transaction => new Date(transaction.date).getFullYear() === rootState.year)
+            return state.transactions.filter(transaction => new Date(transaction.date).getFullYear() === rootState.year || transaction.date.length === 0)
         },
         getTransaction: (state) => (id) => {
             if (state.transactions.find(transaction => transaction._id === id) !== undefined) {

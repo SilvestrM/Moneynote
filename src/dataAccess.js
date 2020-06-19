@@ -1,4 +1,4 @@
-import { ipcMain as ipc } from 'electron-better-ipc'
+import { ipcMain as ipc, ipcRenderer as ipcR } from 'electron-better-ipc'
 import Datastore from 'nedb-promises'
 import path from 'path'
 
@@ -22,7 +22,8 @@ export async function initData() {
     //console.log(await db.settings.findOne({ init: false }).then(res => { return res }));
     if (await db.settings.findOne({ init: false }).then(res => { return res }) === null) {
         const initSettings = {
-            init: false
+            init: false,
+            currency: 'EUR'
         }
         const defaultAccount = {
             name: "default",
@@ -47,13 +48,20 @@ export async function initData() {
 // Database queries
 
 //methods
-export async function updateBalance(account, diff) {
-    return await db.accounts.findOne({ _id: account })
-        .then(async (resolve) => {
-            const newBalance = parseFloat(resolve.balance) + diff
-            return await db.accounts.update({ _id: account }, { $set: { balance: newBalance } }, { returnUpdatedDocs: true });
-        })
+export async function updateBalance(data) {
+    const account = await db.accounts.findOne({ _id: data._id })
+    const value = Number(account.balance) + Number(data.value)
+    return await db.accounts.update({ _id: data._id }, { $set: { balance: value } }, { returnUpdatedDocs: true });
 }
+
+/**
+ * Settings
+ */
+ipc.answerRenderer('updateCurrency', async (data) => {
+    const id = await db.settings.findOne({})
+    await db.settings.update({ _id: id._id }, { $set: { currency: data } }, { upsert: true }).catch(err => { throw new Error(err) })
+})
+
 
 // find
 
@@ -69,13 +77,18 @@ ipc.answerRenderer('fetchAccounts', async () => {
     return await db.accounts.find({}).catch(err => err);
 })
 
+ipc.answerRenderer('fetchSettings', async () => {
+    return await db.settings.findOne({}).then(data => data).catch(err => err);
+})
+
 // add
 
 ipc.answerRenderer('addTransaction', async (data, win) => {
     return await db.transactions.insert(data)
-        .then(async (response) => {
-            ipc.callRenderer(win, 'updateBalance', await updateBalance(data.account, data.value))
-            return response
+        .then(async resolve => {
+            const account = await updateBalance({ _id: resolve.account, value: resolve.value })
+            await ipc.callRenderer(win, 'updateBalance', account)
+            return resolve
         })
 })
 ipc.answerRenderer('addCategory', async (data) => {
@@ -94,11 +107,12 @@ ipc.answerRenderer('updateTransaction', async (data, win) => {
 
     return await db.transactions.update({ _id: data._id }, data, { returnUpdatedDocs: true })
         .then(async (resolve) => {
-            ipc.callRenderer(win, 'updateBalance', await updateBalance(resolve.account, difference))
+            const account = await updateBalance({ _id: resolve.account, value: difference })
+            await ipc.callRenderer(win, 'updateBalance', account)
             return resolve
         })
         .catch(err => {
-            throw err
+            throw new Error(err)
         })
 })
 
@@ -110,10 +124,24 @@ ipc.answerRenderer('updateAccount', async (data) => {
     return await db.accounts.update({ _id: data._id }, data, { returnUpdatedDocs: true });
 })
 
+ipc.answerRenderer('updateBalance', async (data) => {
+    const account = await db.accounts.findOne({ _id: data._id })
+    const value = account.balance + data.value
+    return await db.accounts.update({ _id: data._id }, { $set: { balance: value } }, { returnUpdatedDocs: true });
+})
+
 // remove
 
-ipc.answerRenderer('removeTransaction', async (data) => {
-    await db.transactions.remove({ _id: data._id });
+ipc.answerRenderer('removeTransaction', async (data, win) => {
+    const removed = await db.transactions.findOne({ _id: data._id })
+    await db.transactions.remove({ _id: data._id })
+        .then(async () => {
+            const account = await updateBalance({ _id: removed.account, value: -removed.value })
+            await ipc.callRenderer(win, 'updateBalance', account)
+        })
+        .catch(err => {
+            throw new Error(err)
+        })
 })
 
 ipc.answerRenderer('removeCategory', async (data) => {

@@ -32,8 +32,10 @@ process.on('unhandledRejection', error => {
 
 import moment from "moment";
 import formatDateMixin from './mixins/formatDate'
+import formatNumberMixin from './mixins/formatNumber'
 
 Vue.mixin(formatDateMixin);
+Vue.mixin(formatNumberMixin);
 
 Vue.filter("formatDate", function (value) {
   if (value) {
