@@ -4,10 +4,8 @@ import path from 'path'
 
 const isBuild = process.env.NODE_ENV === 'production'
 
-const dataPath = path.join(
-    isBuild ? __dirname : __static,
-    '../data/',
-)
+const dataPath = isBuild ? path.join(__dirname, './data/') : path.join(__static, '../data/')
+
 const db = {};
 
 
@@ -24,7 +22,8 @@ export async function initData() {
         const initSettings = {
             init: false,
             currency: 'EUR',
-            fullscreen: false
+            fullscreen: false,
+            trayMinimize: true
         }
         const defaultAccount = {
             name: "default",
@@ -74,6 +73,9 @@ ipc.answerRenderer('updateSettings', async (data, win) => {
     if (data.hasOwnProperty('fullscreen')) {
         oldSettings.fullscreen = data.fullscreen
         data.fullscreen ? win.maximize() : win.restore()
+    }
+    if (data.hasOwnProperty('trayMinimize')) {
+        oldSettings.trayMinimize = data.trayMinimize
     }
     return await db.settings.update({ _id: oldSettings._id }, { $set: oldSettings }, { upsert: true, returnUpdatedDocs: true }).catch(err => { throw new Error(err) })
 

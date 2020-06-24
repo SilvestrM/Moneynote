@@ -16,7 +16,8 @@ export default new Vuex.Store({
     year: new Date().getFullYear(),
     settings: {
       currency: 'CZK',
-      fullscreen: false
+      fullscreen: false,
+      trayMinimze: true
     }
 
   },

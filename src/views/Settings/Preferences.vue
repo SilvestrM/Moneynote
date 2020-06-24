@@ -5,12 +5,19 @@
     </div>
     <div class="columns">
       <div class="column is-one-third">
-        <form>
+        <form action>
           <b-field message="Should be 3 letter currency abbreviation." horizontal label="Currency">
             <b-input type="text" minlength="3" maxlength="3" v-model.lazy="currency" required></b-input>
           </b-field>
           <b-field message="Start the application maximized." horizontal label="Fullscreen">
             <b-switch v-model="fullscreen"></b-switch>
+          </b-field>
+          <b-field
+            message="Application will minimize to tray when closed."
+            horizontal
+            label="Minimize to tray"
+          >
+            <b-switch v-model="trayMinimize"></b-switch>
           </b-field>
         </form>
       </div>
@@ -25,8 +32,8 @@ export default {
       get() {
         return this.$store.state.settings.currency;
       },
-      set(currency) {
-        this.$store.dispatch("updateSettings", {
+      async set(currency) {
+        await this.$store.dispatch("updateSettings", {
           currency: currency.toUpperCase()
         });
       }
@@ -35,8 +42,16 @@ export default {
       get() {
         return this.$store.state.settings.fullscreen;
       },
-      set(bool) {
-        this.$store.dispatch("updateSettings", { fullscreen: bool });
+      async set(bool) {
+        await this.$store.dispatch("updateSettings", { fullscreen: bool });
+      }
+    },
+    trayMinimize: {
+      get() {
+        return this.$store.state.settings.trayMinimize;
+      },
+      async set(bool) {
+        await this.$store.dispatch("updateSettings", { trayMinimize: bool });
       }
     }
   }

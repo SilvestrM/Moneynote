@@ -71,6 +71,7 @@ function createWindow() {
     width: width,
     height: height,
     maximize: fullscreen,
+    icon: path.join(__static, 'favicon.ico'),
     center: true,
     show: false,
     minWidth: 800,
@@ -111,11 +112,13 @@ function createWindow() {
 }
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
+  settings = await fetchSettings()
+
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    // app.quit()
+  if (process.platform !== 'darwin' && settings.trayMinimize === false) {
+    app.quit()
   }
 })
 
@@ -131,9 +134,17 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+
+  // creates splash
   createSplash()
+
+  // initialises database
   await initData()
+
+  // fteches current settings
   settings = await fetchSettings()
+
+  // Vue Dewvtools for developement
   if (isDevelopment && !process.env.IS_TEST) {
     try {
       await installVueDevtools()
@@ -141,24 +152,26 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
+
+  // Creates the Main window
   createWindow()
+
+  // Creates Tray icon and menu
   tray = new Tray(path.join(
-    !isDevelopment ? __dirname : __static,
-    'favicon.ico'))
+    __static, 'favicon.ico'))
+
   const menu = Menu.buildFromTemplate([
     { label: 'Open', type: 'normal', click: () => createWindow() },
     { label: 'Close', type: 'normal', role: "quit", click: () => app.quit() },
   ])
-  tray.setContextMenu(menu)
 
+  tray.setContextMenu(menu)
 
   tray.on('click', () => {
     if (win === null) {
       createWindow()
     }
-  }
-  )
-
+  })
 
 })
 
