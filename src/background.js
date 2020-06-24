@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, screen, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow, screen, ipcMain, Tray, Menu } from 'electron'
 import path from 'path'
 
 
@@ -17,12 +17,14 @@ import { initData, fetchSettings } from './dataAccess'
 import { brotliDecompress } from 'zlib';
 // eslint-disable-next-line
 import { CLIEngine } from 'eslint';
+import { isConcatSpreadable } from 'core-js/fn/symbol'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 let splash
+let tray
 let settings = {}
 
 // Scheme must be registered before the app is ready
@@ -53,6 +55,8 @@ function createSplash() {
 }
 
 function createWindow() {
+  if (win) return
+
   // Create the browser window.
   const primaryScreen = screen.getPrimaryDisplay();
   let width = primaryScreen.size.width - (primaryScreen.size.width * 0.25);
@@ -111,12 +115,8 @@ app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
-    app.quit()
+    // app.quit()
   }
-})
-
-app.on('ready', () => {
-
 })
 
 app.on('activate', () => {
@@ -142,6 +142,24 @@ app.on('ready', async () => {
     }
   }
   createWindow()
+  tray = new Tray(path.join(
+    !isDevelopment ? __dirname : __static,
+    'favicon.ico'))
+  const menu = Menu.buildFromTemplate([
+    { label: 'Open', type: 'normal', click: () => createWindow() },
+    { label: 'Close', type: 'normal', role: "quit", click: () => app.quit() },
+  ])
+  tray.setContextMenu(menu)
+
+
+  tray.on('click', () => {
+    if (win === null) {
+      createWindow()
+    }
+  }
+  )
+
+
 })
 
 // Exit cleanly on request from parent process in development mode.
