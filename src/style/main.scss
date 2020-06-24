@@ -18,6 +18,7 @@ body {
 
 ::selection {
     background-color: $link;
+    color: $link-invert;
 }
 .is-gradient {
     background: $gradient-main;

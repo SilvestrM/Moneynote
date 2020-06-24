@@ -9,6 +9,9 @@
           <b-field message="Should be 3 letter currency abbreviation." horizontal label="Currency">
             <b-input type="text" minlength="3" maxlength="3" v-model.lazy="currency" required></b-input>
           </b-field>
+          <b-field message="Start the application maximized." horizontal label="Fullscreen">
+            <b-switch v-model="fullscreen"></b-switch>
+          </b-field>
         </form>
       </div>
     </div>
@@ -20,10 +23,20 @@ export default {
   computed: {
     currency: {
       get() {
-        return this.$store.state.currency;
+        return this.$store.state.settings.currency;
       },
       set(currency) {
-        this.$store.dispatch("setCurrency", currency.toUpperCase());
+        this.$store.dispatch("updateSettings", {
+          currency: currency.toUpperCase()
+        });
+      }
+    },
+    fullscreen: {
+      get() {
+        return this.$store.state.settings.fullscreen;
+      },
+      set(bool) {
+        this.$store.dispatch("updateSettings", { fullscreen: bool });
       }
     }
   }

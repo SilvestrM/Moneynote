@@ -11,7 +11,7 @@ import {
 } from 'vue-cli-plugin-electron-builder/lib'
 
 import './dataAccess'
-import { initData } from './dataAccess'
+import { initData, fetchSettings } from './dataAccess'
 
 // eslint-disable-next-line
 import { brotliDecompress } from 'zlib';
@@ -23,6 +23,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 let splash
+let settings = {}
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
@@ -65,7 +66,7 @@ function createWindow() {
   win = new BrowserWindow({
     width: width,
     height: height,
-    fullscreen: fullscreen,
+    maximize: fullscreen,
     center: true,
     show: false,
     minWidth: 800,
@@ -75,7 +76,8 @@ function createWindow() {
     }
   })
 
-  //if (!isDevelopment) win.removeMenu()
+  // Gets rid of menu in production
+  if (!isDevelopment) win.removeMenu()
   //Menu.setApplicationMenu(null)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -97,6 +99,8 @@ function createWindow() {
     console.error('window error', error);
   })
   win.webContents.on('did-finish-load', () => {
+
+    if (settings.fullscreen) win.maximize()
     win.show();
     if (splash) setTimeout(() => splash.close(), 500)
   })
@@ -128,7 +132,8 @@ app.on('activate', () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   createSplash()
-  initData()
+  await initData()
+  settings = await fetchSettings()
   if (isDevelopment && !process.env.IS_TEST) {
     try {
       await installVueDevtools()

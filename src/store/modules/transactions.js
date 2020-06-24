@@ -3,7 +3,7 @@ import { ToastProgrammatic as Toast } from 'buefy'
 
 function sortBy(data, by) {
     return data.sort((a, b) => {
-        return a.date < b.date;
+        return a[by] < b[by];
     });
 }
 
@@ -106,8 +106,8 @@ const transactions = {
                 return { name: "Undefined!" }
             }
         },
-        getTransactionsByAccount: (state) => (id) => {
-            return state.transactions.filter(transaction => transaction.account === id) !== undefined ? state.transactions.filter(transaction => transaction.account === id) : { name: "Undefined!" }
+        getTransactionsByAccount: (state, getters, rootState) => (id) => {
+            return state.transactions.filter(transaction => transaction.account === id) !== undefined ? state.transactions.filter(transaction => transaction.account === id).filter(transaction => new Date(transaction.date).getFullYear() === rootState.year || transaction.date.length === 0) : { name: "Undefined!" }
         },
         getTotalValue: (state, getters, rootState) => {
             let total = 0.00

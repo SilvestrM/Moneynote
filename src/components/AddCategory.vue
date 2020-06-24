@@ -30,7 +30,7 @@
           class="button is-fullwidth level-item has-text-white"
         >Select color</button>
       </section>
-      <section class="modal-card-foot">
+      <section style="justify-content:flex-end" class="is-flex modal-card-foot">
         <button class="button is-primary" type="submit">Add category</button>
       </section>
     </div>

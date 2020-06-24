@@ -130,10 +130,11 @@
             <b-table
               :data="transactions"
               :paginated="true"
-              :per-page="6"
+              :per-page="12"
               :pagination-size="'is-small'"
               :pagination-simple="true"
               :pagination-position="'top'"
+              height="350px"
               narrowed
               sticky-header
             >

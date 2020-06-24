@@ -46,7 +46,7 @@
           ></b-input>
         </b-field>
       </section>
-      <section class="modal-card-foot">
+      <section style="justify-content:flex-end" class="is-flex modal-card-foot">
         <button class="button is-primary" type="submit">Add account</button>
       </section>
     </div>

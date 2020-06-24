@@ -29,13 +29,15 @@
       </div>
       <div class="level-item nav-link">
         <div class="level-item">
-          <span class="has-text-white-ter is-size-5 has-text-weight-light is-uppercase">Total:&ensp;</span>
+          <span
+            class="has-text-white-ter is-size-5 has-text-weight-light is-uppercase"
+          >Total worth:&ensp;</span>
           <span
             class="has-text-white is-size-4 has-text-weight-semibold"
           >{{ $formatNumberDecimal(totalWorth)}}</span>
           <span
             class="has-text-white-ter is-size-5 has-text-weight-light"
-          >&nbsp;{{$store.state.currency}}</span>
+          >&nbsp;{{$store.state.settings.currency}}</span>
         </div>
       </div>
     </div>

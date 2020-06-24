@@ -14,14 +14,18 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
     year: new Date().getFullYear(),
-    currency: 'CZK'
+    settings: {
+      currency: 'CZK',
+      fullscreen: false
+    }
+
   },
   mutations: {
     SET_YEAR: (state, year) => {
       state.year = year
     },
-    SET_CURRENCY: (state, currency) => {
-      state.currency = currency
+    SET_SETTINGS: (state, settings) => {
+      state.settings = settings
     }
   },
   actions: {
@@ -34,7 +38,7 @@ export default new Vuex.Store({
     async fetchSettings({ commit }) {
       await ipc.callMain('fetchSettings')
         .then(res => {
-          commit('SET_CURRENCY', res.currency)
+          commit('SET_SETTINGS', res)
         })
         .catch(err => {
           Toast.open({
@@ -44,10 +48,10 @@ export default new Vuex.Store({
           })
         })
     },
-    async setCurrency({ commit }, currency) {
-      await ipc.callMain('updateCurrency', currency)
-        .then(() => {
-          commit('SET_CURRENCY', currency)
+    async updateSettings({ commit }, settings) {
+      await ipc.callMain('updateSettings', settings)
+        .then(res => {
+          commit('SET_SETTINGS', res)
         })
         .catch(err => {
           Toast.open({

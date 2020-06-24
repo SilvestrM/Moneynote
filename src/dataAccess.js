@@ -23,7 +23,8 @@ export async function initData() {
     if (await db.settings.findOne({ init: false }).then(res => { return res }) === null) {
         const initSettings = {
             init: false,
-            currency: 'EUR'
+            currency: 'EUR',
+            fullscreen: false
         }
         const defaultAccount = {
             name: "default",
@@ -42,7 +43,10 @@ export async function initData() {
         await db.categories.insert(defaultCategory)
     }
 }
-//}
+
+export async function fetchSettings() {
+    return await db.settings.findOne({}).then(data => data).catch(err => err);
+}
 
 
 // Database queries
@@ -60,6 +64,19 @@ export async function updateBalance(data) {
 ipc.answerRenderer('updateCurrency', async (data) => {
     const id = await db.settings.findOne({})
     await db.settings.update({ _id: id._id }, { $set: { currency: data } }, { upsert: true }).catch(err => { throw new Error(err) })
+})
+
+ipc.answerRenderer('updateSettings', async (data, win) => {
+    const oldSettings = await db.settings.findOne({})
+    if (data.hasOwnProperty('currency')) {
+        oldSettings.currency = data.currency
+    }
+    if (data.hasOwnProperty('fullscreen')) {
+        oldSettings.fullscreen = data.fullscreen
+        data.fullscreen ? win.maximize() : win.restore()
+    }
+    return await db.settings.update({ _id: oldSettings._id }, { $set: oldSettings }, { upsert: true, returnUpdatedDocs: true }).catch(err => { throw new Error(err) })
+
 })
 
 
@@ -129,6 +146,7 @@ ipc.answerRenderer('updateBalance', async (data) => {
     const value = account.balance + data.value
     return await db.accounts.update({ _id: data._id }, { $set: { balance: value } }, { returnUpdatedDocs: true });
 })
+
 
 // remove
 
