@@ -71,7 +71,7 @@ function createWindow() {
     width: width,
     height: height,
     maximize: fullscreen,
-    icon: path.join(__static, 'favicon.ico'),
+    icon: path.join(__static, 'icon.ico'),
     center: true,
     show: false,
     minWidth: 800,
@@ -158,13 +158,14 @@ app.on('ready', async () => {
 
   // Creates Tray icon and menu
   tray = new Tray(path.join(
-    __static, 'favicon.ico'))
+    __static, 'icon.ico'))
 
   const menu = Menu.buildFromTemplate([
     { label: 'Open', type: 'normal', click: () => createWindow() },
     { label: 'Close', type: 'normal', role: "quit", click: () => app.quit() },
   ])
-
+  tray.setToolTip('Moneynote')
+  tray.setTitle('Moneynote')
   tray.setContextMenu(menu)
 
   tray.on('click', () => {

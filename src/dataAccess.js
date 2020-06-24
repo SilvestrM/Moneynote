@@ -4,7 +4,7 @@ import path from 'path'
 
 const isBuild = process.env.NODE_ENV === 'production'
 
-const dataPath = isBuild ? path.join(__dirname, './data/') : path.join(__static, '../data/')
+const dataPath = isBuild ? path.join(__dirname, '../data/') : path.join(__static, '../data/')
 
 const db = {};
 
@@ -23,7 +23,7 @@ export async function initData() {
             init: false,
             currency: 'EUR',
             fullscreen: false,
-            trayMinimize: true
+            trayMinimize: false
         }
         const defaultAccount = {
             name: "default",
