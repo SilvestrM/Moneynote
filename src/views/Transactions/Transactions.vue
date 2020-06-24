@@ -8,7 +8,29 @@
           </div>
           <div class="control-panel level">
             <div class="level-left">
-              <b-dropdown aria-role="list" class="level-item">
+              <b-switch class="level-item" v-model="filterDate">Filter by month</b-switch>
+              <b-select
+                class="level-item"
+                placeholder="Select a month"
+                :disabled="!filterDate"
+                v-model="month"
+              >
+                <option :value="0">January</option>
+                <option :value="1">February</option>
+                <option :value="2">March</option>
+                <option :value="3">April</option>
+                <option :value="4">May</option>
+                <option :value="5">June</option>
+                <option :value="6">July</option>
+                <option :value="7">August</option>
+                <option :value="8">September</option>
+                <option :value="9">October</option>
+                <option :value="10">November</option>
+                <option :value="11">December</option>
+              </b-select>
+            </div>
+            <div class="level-right">
+              <b-dropdown aria-role="list" class>
                 <button class="button is-primary" slot="trigger">
                   <span>Add</span>
                   <b-icon icon="chevron-down"></b-icon>
@@ -17,9 +39,7 @@
                 <b-dropdown-item @click="addShow = true">Add Transaction</b-dropdown-item>
                 <b-dropdown-item @click="addCategoryShow = true">Add Category</b-dropdown-item>
               </b-dropdown>
-            </div>
-            <div class="level-left">
-              <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
+              <button @click.prevent="deleteDialog" class="button" :disabled="!selectedRow">
                 <span class="icon is-medium">
                   <i class="mdi mdi-delete"></i>
                 </span>
@@ -27,6 +47,7 @@
               </button>
             </div>
           </div>
+          <hr class="is-marginless" />
           <div>
             <b-table
               :data="rows"
@@ -36,8 +57,8 @@
               :current-page.sync="currentPage"
               :paginated="true"
               :pagination-size="'is-small'"
-              :pagination-simple="true"
-              :pagination-position="'top'"
+              :pagination-simple="false"
+              :pagination-position="'bottom'"
               :per-page="pageRows"
               :selected.sync="selectedRow"
               narrowed
@@ -50,28 +71,7 @@
                   class="notification has-text-grey has-text-centered is-centered"
                 >No transactions found.</p>
               </template>
-              <template slot="top-left">
-                <b-switch class="level-item" v-model="filterDate">Filter by month</b-switch>
-                <b-select
-                  class="level-item"
-                  placeholder="Select a month"
-                  :disabled="!filterDate"
-                  v-model="month"
-                >
-                  <option :value="0">January</option>
-                  <option :value="1">February</option>
-                  <option :value="2">March</option>
-                  <option :value="3">April</option>
-                  <option :value="4">May</option>
-                  <option :value="5">June</option>
-                  <option :value="6">July</option>
-                  <option :value="7">August</option>
-                  <option :value="8">September</option>
-                  <option :value="9">October</option>
-                  <option :value="10">November</option>
-                  <option :value="11">December</option>
-                </b-select>
-              </template>
+              <template slot="top-left"></template>
               <template slot-scope="props">
                 <b-table-column field="date" label="Date" sortable>{{ $formatDate(props.row.date)}}</b-table-column>
 
@@ -79,8 +79,7 @@
 
                 <b-table-column field="value" label="Value" numeric>
                   <span
-                    :style="{'text-shadow: 0 0 5 #fff': !props.row.type}"
-                    :class="{'has-text-danger': !props.row.type}"
+                    :class="{'has-text-danger':!props.row.type, 'has-text-danger-light':selectedRow === props.index}"
                   >{{$formatNumberDecimal(props.row.value) }}</span>
                 </b-table-column>
                 <b-table-column field="category" label="Category" numeric>
@@ -122,7 +121,7 @@ export default {
   mixins: ["formatDateMixin"],
   data() {
     return {
-      month: 1,
+      month: new Date().getMonth(),
       filterDate: false,
       addShow: false,
       addCategoryShow: false,
@@ -130,7 +129,7 @@ export default {
       checkedRows: [],
       selectedRow: null,
       rightSection: "",
-      pageRows: 12
+      pageRows: 20
       //rows: []
     };
   },
@@ -174,7 +173,7 @@ export default {
   },
   created() {},
   mounted() {
-    this.pageRows = Math.round((this.$refs.content.clientHeight - 200) / 36);
+    // this.pageRows = Math.round((this.$refs.content.clientHeight - 200) / 36);
   },
   components: {
     Detail: () => import("./TransactionDetail"),

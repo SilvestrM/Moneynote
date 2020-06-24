@@ -108,6 +108,15 @@ const transactions = {
         },
         getTransactionsByAccount: (state) => (id) => {
             return state.transactions.filter(transaction => transaction.account === id) !== undefined ? state.transactions.filter(transaction => transaction.account === id) : { name: "Undefined!" }
+        },
+        getTotalValue: (state, getters, rootState) => {
+            let total = 0.00
+            state.transactions.forEach(trans => {
+                if (new Date(trans.date).getFullYear() <= rootState.year) {
+                    total += Number(trans.value)
+                }
+            });
+            return total
         }
     }
 }

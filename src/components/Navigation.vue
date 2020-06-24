@@ -18,6 +18,7 @@
           <b-numberinput
             controls-position="compact"
             v-model="year"
+            controls-rounded
             :editable="false"
             :max="new Date().getFullYear()+1"
             :min="new Date().getFullYear()-20"

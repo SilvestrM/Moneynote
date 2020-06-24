@@ -5,62 +5,50 @@
         <div class="title modal-card-title">Add Transaction</div>
       </header>
       <section class="modal-card-body">
-        <div class="columns is-multiline">
-          <b-field grouped group-multiline>
-            <b-field class="column is-half" label="Date *">
-              <b-datepicker
-                placeholder="Click to select..."
-                icon="calendar-today"
-                v-model="transaction.date"
-                required
-                validation-message="You need to select a valid date"
-                expanded
-              ></b-datepicker>
-            </b-field>
-            <b-field class="column is-marginless is-one-third" label="Category *" expanded>
-              <b-select
-                required
-                placeholder="Select a category"
-                expanded
-                v-model="transaction.category"
-              >
-                <option
-                  v-for="category in categories"
-                  :key="category._id"
-                  :value="category._id"
-                >{{category.name}}</option>
-              </b-select>
-            </b-field>
-            <b-field class="column is-two-fifths" label="Amount" expanded>
-              <b-numberinput
-                placeholder="0.00"
-                :controls="false"
-                step="0.01"
-                expanded
-                maxlength="10"
-                v-model="transaction.value"
-              ></b-numberinput>
-            </b-field>
-            <b-field class="column is-narrow" label="Account *" expanded>
-              <b-select
-                required
-                expanded
-                placeholder="Select an account"
-                v-model="transaction.account"
-              >
-                <option
-                  :selected="true"
-                  v-for="account in accounts"
-                  :key="account._id"
-                  :value="account._id"
-                >{{account.name}}</option>
-              </b-select>
-            </b-field>
-            <b-field class="column is-narrow is-marginless" label="Type">
-              <b-checkbox v-model="transaction.type">Is Income</b-checkbox>
-            </b-field>
+        <b-field>
+          <b-field class label="Date *">
+            <b-datepicker
+              placeholder="Click to select..."
+              icon="calendar-today"
+              v-model="transaction.date"
+              required
+              validation-message="You need to select a valid date"
+              expanded
+            ></b-datepicker>
           </b-field>
-        </div>
+        </b-field>
+        <hr />
+        <b-field expanded grouped>
+          <b-field style="flex-grow:2" class label="Amount" expanded>
+            <b-numberinput
+              placeholder="0.00"
+              :controls="false"
+              step="0.01"
+              expanded
+              maxlength="10"
+              v-model="transaction.value"
+            ></b-numberinput>
+          </b-field>
+          <b-field class label="Account *" expanded>
+            <b-select
+              required
+              expanded
+              placeholder="Select an account"
+              v-model="transaction.account"
+            >
+              <option
+                :selected="true"
+                v-for="account in accounts"
+                :key="account._id"
+                :value="account._id"
+              >{{account.name}}</option>
+            </b-select>
+          </b-field>
+          <b-field class label="Type">
+            <b-checkbox v-model="transaction.type">Is Income</b-checkbox>
+          </b-field>
+        </b-field>
+        <hr />
         <b-field grouped>
           <b-field label="Text" expanded>
             <b-input
@@ -70,7 +58,22 @@
               v-model="transaction.text"
             ></b-input>
           </b-field>
-          <b-field class label="Location">
+
+          <b-field label="Category *" expanded>
+            <b-select
+              required
+              placeholder="Select a category"
+              expanded
+              v-model="transaction.category"
+            >
+              <option
+                v-for="category in categories"
+                :key="category._id"
+                :value="category._id"
+              >{{category.name}}</option>
+            </b-select>
+          </b-field>
+          <b-field label="Location">
             <b-input
               placeholder="Optional"
               type="text"
@@ -79,6 +82,7 @@
             ></b-input>
           </b-field>
         </b-field>
+        <hr />
         <b-field label="Items">
           <b-taginput
             attached
@@ -89,8 +93,11 @@
           ></b-taginput>
         </b-field>
       </section>
-      <section class="modal-card-foot">
-        <button class="button is-primary is-pulled-right" type="submit">Add transaction</button>
+      <section style="justify-content:flex-end" class="is-flex modal-card-foot">
+        <b-button
+          class="button is-primary has-text-weight-semibold"
+          native-type="submit"
+        >Add transaction</b-button>
       </section>
     </div>
   </form>

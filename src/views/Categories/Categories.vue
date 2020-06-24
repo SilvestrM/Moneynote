@@ -1,18 +1,19 @@
 <template>
   <section class="msection">
     <div class="header">
-      <h4>Categories</h4>
+      <h4>Category Management</h4>
     </div>
     <div class="columns">
       <div class="column is-one-third is-aligned-left">
         <div class="level control-panel">
           <div class="level-left">
+            <span class="subtitle">Categories</span>
+          </div>
+          <div class="level-right">
             <button @click="addCategoryShow = true" class="button is-primary">
               <span>Add</span>
               <b-icon icon="plus"></b-icon>
             </button>
-          </div>
-          <div class="level-right">
             <button @click.prevent="deleteDialog" :disabled="!selectedRow" class="button">
               <span class="icon is-medium">
                 <i class="mdi mdi-delete"></i>

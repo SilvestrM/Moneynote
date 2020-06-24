@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      totalWorth: "getTotal"
+      totalWorth: "getTotalValue"
     })
   },
   methods: {
@@ -44,8 +44,6 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-}
 #nav {
   display: flex;
   align-items: center;

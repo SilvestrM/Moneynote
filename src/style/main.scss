@@ -1,10 +1,19 @@
+html {
+    overflow: hidden;
+}
 body {
     font-family: "Barlow Condensed", sans-serif !important;
     max-height: 100vh;
-    // overflow: hidden;
 }
 ::-webkit-scrollbar {
-    // display: none;
+    width: 0.6rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: lighten($primary, 35);
+}
+::-webkit-scrollbar-track-piece {
+    background-color: lighten($primary, 40);
 }
 
 ::selection {
@@ -30,20 +39,21 @@ body {
     padding: 1rem;
     height: $body-height;
     max-height: 100%;
-    @media (min-width: 800px) {
-        owerflow-y: auto;
-    }
+    overflow: auto;
+    // @media (min-width: 800px) {
+    //     owerflow-y: initial;
+    // }
 
     .left {
         display: flex;
         flex-direction: column; //border: 1px solid $border;
     }
-    .scrollable {
-        height: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-        @include scrollbar;
-    }
+    // .scrollable {
+    //     height: 100%;
+    //     overflow-y: auto;
+    //     overflow-x: hidden;
+    //     @include scrollbar;
+    // }
     .msection {
         margin-bottom: 2rem;
         & > span {
@@ -54,7 +64,7 @@ body {
     .header {
         background: $primary;
         padding: 0.5rem;
-        margin-bottom: $block-spacing / 4;
+        margin-bottom: $block-spacing * 1.5;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -81,57 +91,6 @@ body {
     margin-top: $hr-margin !important;
 }
 
-/*li, dt, dd {
-      margin-bottom: 0.5rem;
-    }*/
-
-/*.table {
-    height: 100%;
-    &.scrollable {
-        border-collapse: collapse;
-        thead, tfoot {
-            //display: block;
-            //width: 100%;        
-            width: 100%;
-            display: table;
-            table-layout: fixed;
-            //scrollbar
-            
-        }
-        tbody {
-            display: block;
-            flex-direction: column;
-            overflow:auto;
-            max-height: 75vh;
-            width:100%;
-            
-            tr {
-                width: 100%;
-                display: table; 
-                table-layout: fixed ;           
-            }
-            @include scrollbar 
-        }
-        //complements the width difference with the scrollbar
-        //last th should be used empty
-        th:last-child {
-           padding: 0; 
-        }
-        }
-    &.not-bordered {
-        border-bottom: none;
-        tr {
-            border: none;
-        }
-    }
-    th:last-child, td:last-child {
-        text-align: right;
-    }
-    &::-webkit-scrollbar {
-        display: initial;
-    }
-}*/
-
 .table {
     &.bolded {
         td:first-child {
@@ -142,7 +101,7 @@ body {
 }
 
 .control-panel {
-    margin: 0;
+    margin: 0 0 0.5rem !important;
 }
 .button {
     border-radius: 0;
@@ -154,6 +113,9 @@ body {
 .items-container {
     padding: 0.5rem;
 }
+.has-text-danger-light {
+    color: lighten($danger, 15);
+}
 
 .tag {
     @extend .has-text-weight-medium;
@@ -161,4 +123,10 @@ body {
 
 .dropdown-content {
     border-radius: 0;
+}
+
+.is-paddingless {
+    .tab-content {
+        padding-top: 0;
+    }
 }

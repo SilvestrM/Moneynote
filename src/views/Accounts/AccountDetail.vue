@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="rowData !== null">
-      <b-tabs type="is-boxed" vertical :animated="false">
+      <b-tabs class="is-paddingless" type="is-boxed" vertical :animated="false">
         <b-tab-item label="Overview">
           <div class="msection">
             <div class v-if="!editMode">

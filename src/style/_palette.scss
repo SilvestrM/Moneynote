@@ -1,7 +1,8 @@
 $primary: #67a2bc;
+$secondary: #60b7b7;
 $primary-invert: findColorInvert($primary);
 $link: #6b96bf;
-$info: #60b7b7;
+$info: $secondary;
 
 $colors: (
     "white": (

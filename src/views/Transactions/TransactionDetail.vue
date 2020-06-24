@@ -111,7 +111,7 @@
         </table>
       </div>
       <div class="msection">
-        <div class="header">
+        <div class="header is-marginless">
           <h4>Items</h4>
         </div>
         <section class="items-container">

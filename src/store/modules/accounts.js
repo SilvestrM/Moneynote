@@ -76,11 +76,6 @@ const accounts = {
         getAccount: (state) => (id) => {
             const data = state.accounts.find(account => account._id === id) !== undefined ? state.accounts.find(account => account._id === id) : { name: "Undefined!" }
             return data
-        },
-        getTotal: (state) => {
-            let total = 0.00
-            state.accounts.forEach(account => { total += account.balance });
-            return total
         }
     }
 }
