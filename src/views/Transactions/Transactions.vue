@@ -129,7 +129,7 @@ export default {
       checkedRows: [],
       selectedRow: null,
       rightSection: "",
-      pageRows: 20
+      pageRows: 15
       //rows: []
     };
   },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="rowData !== null">
-      <b-tabs class="is-paddingless" type="is-boxed" vertical :animated="false">
+      <b-tabs class="is-tab-paddingless" type="is-boxed" vertical :animated="false">
         <b-tab-item label="Overview">
           <div class="msection">
             <div class v-if="!editMode">
@@ -132,9 +132,8 @@
               :paginated="true"
               :per-page="12"
               :pagination-size="'is-small'"
-              :pagination-simple="true"
-              :pagination-position="'top'"
-              height="350px"
+              :pagination-position="'bottom'"
+              height="400px"
               narrowed
               sticky-header
             >

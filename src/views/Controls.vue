@@ -23,7 +23,7 @@
     <section class="right">
       <router-view />
     </section>-->
-    <b-tabs type="is-boxed">
+    <b-tabs class="is-tab-paddingless" type="is-boxed">
       <b-tab-item label="Accounts">
         <Accounts />
       </b-tab-item>
