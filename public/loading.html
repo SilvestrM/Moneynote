@@ -43,19 +43,19 @@
         }
 
         .wrepper {
-            width: 200px;
-            height: 200px;
+            width: 480px;
+            height: 270px;
             overflow: hidden;
-            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            /*background: radial-gradien(#67A2BC, #00000000);*/
+            background: url('./img/splash.jpg') center / contain no-repeat;
         }
 
         .lds-default {
             display: inline-block;
-            position: relative;
+            position: absolute;
+            right: 70px;
             width: 80px;
             height: 80px;
         }
@@ -64,7 +64,7 @@
             position: absolute;
             width: 6px;
             height: 6px;
-            background: linear-gradient(90deg, rgba(103, 162, 188, 1) 0%, rgba(48, 199, 191, 1) 100%);
+            background: #fff;
             border-radius: 50%;
             animation: lds-default 1.2s linear infinite;
         }
