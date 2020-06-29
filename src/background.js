@@ -36,7 +36,8 @@ function createSplash() {
     height: 320,
     center: true,
     frame: false,
-    transparent: true
+    transparent: true,
+    alwaysOnTop: true
   });
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -107,7 +108,7 @@ function createWindow() {
 
     if (settings.fullscreen) win.maximize()
     win.show();
-    if (splash) setTimeout(() => splash.close(), 500)
+    if (splash) setTimeout(() => splash.close(), 1000)
   })
 }
 
