@@ -1,6 +1,6 @@
 {
-  "name": "moneynote2",
-  "version": "0.6.4",
+  "name": "moneynote",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

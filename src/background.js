@@ -108,7 +108,7 @@ function createWindow() {
 
     if (settings.fullscreen) win.maximize()
     win.show();
-    if (splash) setTimeout(() => splash.close(), 1000)
+    if (splash) setTimeout(() => splash.close(), 500)
   })
 }
 
